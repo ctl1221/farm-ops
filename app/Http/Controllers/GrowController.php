@@ -1,0 +1,182 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Building;
+use App\Farm;
+use App\Grow;
+use App\Day;
+use App\Mortality;
+use App\FeedsConsumption;
+use App\Employee;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+
+class GrowController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $grows = Grow::all();
+
+        return view('grows.index', compact('grows'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function start()
+    {
+        return view('grows.start');
+    }
+
+    public function scaffoldCreate(Request $request)
+    {
+        $new_grow = Grow::create([
+            'cycle' => $request->cycle,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end
+        ]);
+
+        for($i=0; $i < config('default.n_farms'); $i++)
+        {
+            $new_farm = Farm::create([
+                'name' => config('default.farm_names')[$i],
+                'grow_id' => $new_grow->id
+            ]);
+
+            for($j=0; $j < count(config('default.building_assignments')[$i]); $j++)
+            {
+                $new_farm->buildings()->attach(config('default.building_assignments')[$i][$j]);
+
+                for($k=0; $k < config('default.n_days'); $k++)
+                {
+
+                    $new_day = Day::create([
+                        'farm_id' => $new_farm->id,
+                        'building_id' => config('default.building_assignments')[$i][$j],
+                        'day' => $k + 1,
+                    ]);
+
+                    $current_building = Building::find(config('default.building_assignments')[$i][$j]);
+
+                    foreach ($current_building->pens as $pen) {
+                        Mortality::create([
+                            'day_id' => $new_day->id,
+                            'pen_id' => $pen->id,
+                            'midday' => 'am',
+                        ]);
+                    }
+
+                    foreach ($current_building->pens as $pen) {
+                        Mortality::create([
+                            'day_id' => $new_day->id,
+                            'pen_id' => $pen->id,
+                            'midday' => 'pm',
+                        ]);
+                    }
+
+                    FeedsConsumption::create(['day_id' => $new_day->id]);
+                }
+            }
+        }
+
+        return redirect('/grows');
+    }
+
+    public function create()
+    {
+        return view('grows.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        
+        Grow::create([
+            'cycle' => $request->cycle,
+        ]);
+
+        return redirect ('/grows');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Grow  $grow
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Grow $grow)
+    {
+        $taken_buildings = [];
+        foreach($grow->farms as $x)
+        {
+            foreach($x->buildings as $y)
+            {
+                array_push($taken_buildings, $y->id);
+            }
+        }
+
+        $farms = Farm::where('grow_id',$grow->id)->get();
+        $buildings = Building::all();
+
+        $period_start = $grow->loadings->count() ? $grow->loadings->first()->date : '';
+        $period_end = $grow->harvests->count() ? $grow->harvests->first()->date : '';
+
+        $employee_list = Employee::all()->pluck('display_name')->toArray();
+        
+        return view('grows.show', compact('farms','grow','buildings','taken_buildings','period_start','period_end','employee_list'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Grow  $grow
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Grow $grow)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Grow  $grow
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Grow $grow)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Grow  $grow
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Grow $grow)
+    {
+        //
+    }
+
+    public function createFarm()
+    {
+        Farm::create(request()->all()); 
+        
+        return back();
+    }
+}
