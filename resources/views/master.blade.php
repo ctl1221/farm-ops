@@ -16,35 +16,26 @@
 
 <body> 
 	<div id="root">
-
 		@include('nav')
-
 		<section class="section">
-			<div class="columns">
-{{-- 	  			<div class="column is-4-tablet is-3-desktop is-2-widescreen has-background-light">
-	  				@include('ops_menu')
-				</div> --}}
-
-	  			<div class="column">
-
-	  				@yield('page_title')
-
-	  				@yield('breadcrumb')
-
-					@yield('toolbar')
-
-	  				@yield('content')
-				</div>
-			</div>
-		</section>
-
-
-{{-- 		<div class="container">
+			@yield('page_title')
 			@yield('breadcrumb')
-		</div> --}}
+			@yield('toolbar')
+			@yield('content')
+		</section>
+	</div>
 </body>
 
 <script type="text/javascript">
+
+	var navbar = new Vue({
+	  el: '#navbar',
+	  data: {
+	  	ops_dropdown: false,
+	  	adm_dropdown: false,
+	  	showMenu: false,
+	  }
+	});
 	
 	var menu = new Vue({
 	  el: '#menu',

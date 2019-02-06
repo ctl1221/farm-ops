@@ -1,7 +1,6 @@
 @extends('master')
 
 @section('page_title')
-	
 	<div class="level">
 		<div class="level-left">
 			<div class="level-item">
@@ -35,7 +34,6 @@
                 </div>
             </div>
 		</div>
-
 	</div>
 
 @endsection

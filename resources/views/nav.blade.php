@@ -1,63 +1,60 @@
-{{-- <a href="/grows">All grows</a>
-<a href="/grows/create">Create grows</a>
-<a href="/utilityBills">All utility bills</a>
-<a href="/utilityBills">Create utility bills</a>
-<a href="/payrolls">Payrolls</a>
+<div id="navbar">
+  <nav class="navbar has-background-primary" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="">
+        <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+      </a>
 
-<br/> --}}
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" @click="showMenu = !showMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
 
-<nav class="navbar has-background-primary" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
-
-    <a role="button" class="navbar-burger burger has-dropdown is-hoverable" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item">
-            About
-          </a>
-          <a class="navbar-item">
-            Jobs
-          </a>
-          <a class="navbar-item">
-            Contact
-          </a>
-
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a>
-        </div>
-
-        
-      </div>
     </div>
 
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
+    <div class="navbar-menu" :class="{ 'is-active' : showMenu}">
+      <div class="navbar-start">
+
+        <div class="navbar-item has-dropdown" :class="{ 'is-active' : ops_dropdown}" >
+
+          <a class="navbar-link is-arrowless" @click="ops_dropdown = !ops_dropdown">
+            Operations
           </a>
-          <a class="button is-light">
-            Log in
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="/grows" >Grows</a>
+            <a class="navbar-item" href="/payrolls" >Payrolls</a>
+            <a class="navbar-item" href="/utilityBills" >Utility Bills</a>
+          </div>
+
+        </div>
+
+        <a class="navbar-item">Analysis</a>
+
+        <div class="navbar-item has-dropdown" :class="{ 'is-active' : adm_dropdown}">
+          <a class="navbar-link is-arrowless" @click="adm_dropdown = !adm_dropdown">
+            Administration
           </a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item">Buildings</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">
+              Log in
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>
