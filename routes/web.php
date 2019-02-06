@@ -83,7 +83,11 @@ Route::get('/', function()
 	return $pdf->stream('test.pdf');
 });
 
-Route::resource('utilityBills', 'UtilityBillController');
+Route::resource('/utilityBills', 'UtilityBillController');
 
-Route::resource('payrolls', 'PayrollController');
-Route::resource('payslips', 'PaySlipController');
+Route::resource('/payrolls', 'PayrollController');
+Route::resource('/payslips', 'PaySlipController');
+
+Route::get('/feeds_input','CalculatorController@input_feeds');
+Route::post('/feeds_calculate','CalculatorController@calculate_feeds');
+

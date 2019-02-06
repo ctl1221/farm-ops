@@ -16,13 +16,23 @@
 
 <body> 
 	<div id="root">
-		@include('nav')
-		<section class="section">
-			@yield('page_title')
-			@yield('breadcrumb')
-			@yield('toolbar')
-			@yield('content')
-		</section>
+
+		<div id="navbar">
+			@include('nav')
+		</div>
+
+		<h1 class="title is-2 has-text-centered has-background-light has-text-danger" style="padding:0.25rem">
+			{{ env('APP_NAME') }}
+		</h1>
+
+		<div id="app_body">
+			<section class="section" style="padding-top:0rem">
+				@yield('page_title')
+				@yield('breadcrumb')
+				@yield('toolbar')
+				@yield('content')
+			</section>
+		</div>
 	</div>
 </body>
 
@@ -37,13 +47,6 @@
 	  }
 	});
 	
-	var menu = new Vue({
-	  el: '#menu',
-	  data: {
-	  	showMenu: true,
-	  }
-	})
-
 </script>
 
 @yield('scripts')

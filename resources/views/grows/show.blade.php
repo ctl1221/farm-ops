@@ -1,19 +1,19 @@
 @extends('master')
 
+@section('page_title')
+
+	<h3 class="title is-3" style="margin-bottom: 0rem">{{ $grow->cycle }}</h3>
+
+@endsection
+
 @section('breadcrumb')
 
-	<nav class="breadcrumb" aria-label="breadcrumbs">
+	<nav class="breadcrumb" aria-label="breadcrumbs" style="margin-top: 0.5rem">
 	  <ul>
 	    <li><a href="/grows">Grows</a></li>
 	    <li class="is-active"><a href="#" aria-current="page">{{ $grow->cycle}}</a></li>
 	  </ul>
 	</nav>
-
-@endsection
-
-@section('page_title')
-
-	<h3 class="title">{{ $grow->cycle }}</h2>
 
 @endsection
 

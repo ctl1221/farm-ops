@@ -8,18 +8,16 @@
 			</div>
 
 			<div class="level-item">
-				<div id="create_grow">
-				 	<div v-if="showModal" class="modal is-active">
-					  <div class="modal-background"></div>
-					  	<div class="modal-content">
-					  		<div class="box">
-								@include('grows.create')
-							</div>
-					  	</div>
-					</div>
+			 	<div v-if="showModal" class="modal is-active">
+				  <div class="modal-background"></div>
+				  	<div class="modal-content">
+				  		<div class="box">
+							@include('grows.create')
+						</div>
+				  	</div>
+				</div>
 
-					<button class="button is-small is-primary" @click="showModal = true">Create</button>
-				</div>				
+				<button class="button is-small is-primary" @click="showModal = true">Create</button>			
 			</div>
 		</div>
 
@@ -78,8 +76,8 @@
 
 	<script type="text/javascript">
 		
-		var create_grow = new Vue({
-		  el: '#create_grow',
+		var app_body = new Vue({
+		  el: '#app_body',
 		  data: {
 		  	showModal: false,
 		  }
