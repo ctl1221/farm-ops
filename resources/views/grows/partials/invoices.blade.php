@@ -1,27 +1,35 @@
-<h3>Invoices</h3>
+<div class="card">
+	<header class="card-header">
+    	<p class="card-header-title">Invoices</p>
+  	</header>
 
-<table border="1">
-	<thead>
-		<th>Date</th>
-		<th>Farm</th>
-		<th>Reference</th>
-		<th>Amount</th>
-		<th>Details</th>
-	</thead>
+  	<div class="card-content">
+  		<div class="content">
+  			<table class="table is-narrow is-fullwidth is-bordered">
+				<thead>
+					<th>Date</th>
+					<th>Farm</th>
+					<th>Reference</th>
+					<th>Amount</th>
+					<th>Details</th>
+				</thead>
 
-	<tbody>
-		@foreach ($grow->invoices as $invoice)
-		<tr>
-			<td>{{ $invoice->date }}</td>
-			<td>{{ $invoice->farm->name }}</td>
-			<td>{{ $invoice->supplier_invoice_no }}</td>
-			<td>{{ $invoice->total_invoice_amount() }}</td>
-			<td><a href="/invoiceLines/invoices/{{ $invoice->id }}">View</td>
-		</tr>
-		@endforeach
-	</tbody>
-		
-</table>
+				<tbody>
+					@foreach ($grow->invoices as $invoice)
+					<tr>
+						<td>{{ $invoice->date }}</td>
+						<td>{{ $invoice->farm->name }}</td>
+						<td>{{ $invoice->supplier_invoice_no }}</td>
+						<td>{{ $invoice->total_invoice_amount() }}</td>
+						<td><a href="/invoiceLines/invoices/{{ $invoice->id }}">View</td>
+					</tr>
+					@endforeach
+				</tbody>
+					
+			</table>
+    	</div>
+  	</div>
+</div>
 
 <form method="POST" action="/invoices">
 		@csrf

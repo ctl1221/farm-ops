@@ -14,11 +14,6 @@ use Illuminate\Http\Request;
 
 class GrowController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $grows = Grow::all();
@@ -26,11 +21,6 @@ class GrowController extends Controller
         return view('grows.index', compact('grows'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function start()
     {
         return view('grows.start');
@@ -95,28 +85,16 @@ class GrowController extends Controller
         return view('grows.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         
-        Grow::create([
+        $grow = Grow::create([
             'cycle' => $request->cycle,
         ]);
 
-        return redirect ('/grows');
+        return redirect ('/grows/' . $grow->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Grow  $grow
-     * @return \Illuminate\Http\Response
-     */
     public function show(Grow $grow)
     {
         $taken_buildings = [];
@@ -139,35 +117,16 @@ class GrowController extends Controller
         return view('grows.show', compact('farms','grow','buildings','taken_buildings','period_start','period_end','employee_list'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Grow  $grow
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Grow $grow)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Grow  $grow
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Grow $grow)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Grow  $grow
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Grow $grow)
     {
         //
