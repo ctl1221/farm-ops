@@ -1,4 +1,4 @@
-<nav class="navbar has-background-primary" role="navigation" aria-label="main navigation">
+<nav class="navbar has-background-warning" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="">
       <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">

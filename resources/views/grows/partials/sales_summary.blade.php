@@ -4,8 +4,9 @@
   	</header>
 
   	<div class="card-content has-background-light">
-  		<div class="content">
+  		<div class="content" style="padding-bottom: 1.25rem">
   			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+
     	</div>
   	</div>
 </div>

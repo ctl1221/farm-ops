@@ -24,7 +24,7 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('invoices.create');
     }
 
     /**
@@ -35,6 +35,7 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        dd(json_decode($request->entries['name']));
         Invoice::create($request->all());
 
         return back();

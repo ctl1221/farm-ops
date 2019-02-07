@@ -97,6 +97,7 @@ class GrowController extends Controller
 
     public function show(Grow $grow)
     {
+        $farm_names = config('default.farm_names');
         $taken_buildings = [];
         foreach($grow->farms as $x)
         {
@@ -114,7 +115,7 @@ class GrowController extends Controller
 
         $employee_list = Employee::all()->pluck('display_name')->toArray();
         
-        return view('grows.show', compact('farms','grow','buildings','taken_buildings','period_start','period_end','employee_list'));
+        return view('grows.show', compact('farms','grow','buildings','taken_buildings','period_start','period_end','employee_list','farm_names'));
     }
 
     public function edit(Grow $grow)

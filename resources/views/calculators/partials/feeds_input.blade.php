@@ -1,6 +1,6 @@
 <section class="section" style="padding-top:1rem; padding-bottom:0rem;">
 	<h4 class="subtitle is-4 has-text-centered has-background-info" style="padding: 0.5rem; margin-bottom: 0rem">Inputted Data</h4>
-	<table class="table is-bordered is-fullwidth is-narrow" style="padding: 0rem; margin: 0rem">
+	<table class="table is-bordered is-fullwidth is-narrow" style="padding: 0rem; margin: 0rem;">
 		<thead>
 			<tr>
 				<td></td>

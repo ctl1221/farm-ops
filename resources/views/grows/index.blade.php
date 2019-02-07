@@ -11,9 +11,7 @@
 			 	<div v-if="showModal" class="modal is-active">
 				  <div class="modal-background"></div>
 				  	<div class="modal-content">
-				  		<div class="box">
-							@include('grows.create')
-						</div>
+						@include('grows.partials.create')
 				  	</div>
 				</div>
 
@@ -42,17 +40,16 @@
 		@foreach($grows as $x)
 		<div class="column is-6-tablet is-4-desktop is-3-widescreen">
            	<article class="box">
-                <div class="media">
+	            <p class="title is-5 is-marginless" style="padding-bottom: 0.5rem">
+	                <a href="/grows/{{ $x->id }}">{{ $x->cycle }} : {{ $x->date_start }}</a>
+	            </p>
+
+                <div class="media" style="justify-content: center; align-items: center">
             	    <div class="media-left">
-            	   		<span class="icon is-large has-text-warning">
-	                    	<i class="fas fa-star fa-3x"></i>
-	                  	</span>
+	                    <h1 class="subtitle is-1 has-background-primary" style="padding-left: 0.5rem; padding-right: 0.5rem; border-radius: 10px">75</h1>	
 				    </div>
 	                <div class="media-content">
-	                    <p class="title is-5 is-marginless">
-	                    	<a href="/grows/{{ $x->id }}">{{ $x->cycle }} </a>
-	                    </p>
-	                    <p class="subtitle is-6 is-marginless">{{ $x->date_start }} -> {{ $x->date_end }} </p>
+	                    <p class="subtitle is-6 is-marginless"> </p>
 	                    <div class="content is-small">
 	                      Sales: 
 	                      <br>
@@ -80,6 +77,9 @@
 		  el: '#app_body',
 		  data: {
 		  	showModal: false,
+		  },
+		  created() {
+		  	this.showModal = false;
 		  }
 		})
 

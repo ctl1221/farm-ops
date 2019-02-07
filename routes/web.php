@@ -62,6 +62,7 @@ Route::get('/weighings/farms/{farm}/buildings/{building}', 'WeighingController@p
 
 Route::patch('/penWeighings/{penWeighing}', 'PenWeighingController@update');
 
+Route::get('/invoices/create', 'InvoiceController@create');
 Route::post('/invoices', 'InvoiceController@store');
 Route::get('/invoiceLines/invoices/{invoice}', 'InvoiceLineController@create');
 Route::post('/invoiceLines', 'InvoiceLineController@store');
@@ -90,4 +91,7 @@ Route::resource('/payslips', 'PaySlipController');
 
 Route::get('/feeds_input','CalculatorController@input_feeds');
 Route::post('/feeds_calculate','CalculatorController@calculate_feeds');
+
+Route::get('/api/getAllMaterials','APIController@materials');
+Route::post('/api/invoices','APIController@store_invoice');
 

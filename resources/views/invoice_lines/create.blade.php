@@ -3,7 +3,7 @@
 @section('content')
 	
 	<form method="POST" action="/invoiceLines">
-		<table border="1">
+		<table class="table is-bordered is-narrow is-fullwidth">
 			<thead>
 				<th>Date</th>
 				<th>Supplier Invoice No.</th>

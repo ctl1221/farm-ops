@@ -1,6 +1,13 @@
 <div class="card">
 	<header class="card-header">
-    	<p class="card-header-title">Invoices</p>
+		<nav class="level">
+			<div class="level-left">
+				<div class="level-item">
+		      		<p class="card-header-title">Invoices</p>
+		      		<a class="button is-small" href="/invoices/create">Create</a>
+		    	</div>
+		  	</div>
+		</nav>
   	</header>
 
   	<div class="card-content">

@@ -1,6 +1,20 @@
 <div class="card">
 	<header class="card-header has-background-link">
-    	<p class="card-header-title">Building Assignments</p>
+    	<p class="card-header-title">
+    		Building Assignments
+    			<form method="POST" action='/grows/createFarm'>
+					@csrf
+
+					<select name="name">
+						@foreach($farm_names as $name)
+							<option>{{ $name }}</option>
+						@endforeach
+					</select>
+					{{-- <input type="text" name="name" placeholder="Farm Designation"> --}}
+					<input type="hidden" name="grow_id" value="{{ $grow->id }}">
+					<input type="submit" value="submit">
+				</form>
+    	</p>
   	</header>
 
   	<div class="card-content has-background-light">
