@@ -24,9 +24,6 @@
 	  	</div>
 	</nav>
 
-
-</h3>
-
 @endsection
 
 

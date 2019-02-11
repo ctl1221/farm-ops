@@ -93,5 +93,6 @@ Route::get('/feeds_input','CalculatorController@input_feeds');
 Route::post('/feeds_calculate','CalculatorController@calculate_feeds');
 
 Route::get('/api/getAllMaterials','APIController@materials');
+Route::get('/api/getAllLoadings','APIController@loadings');
 Route::post('/api/invoices','APIController@store_invoice');
 

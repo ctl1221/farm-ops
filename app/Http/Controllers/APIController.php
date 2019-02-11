@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Material;
 use App\InvoiceLine;
+use App\Loading;
 
 class APIController extends Controller
 {
@@ -13,6 +14,14 @@ class APIController extends Controller
     	$materials = Material::getAllMaterials();
 
     	return compact('materials');
+    }
+
+    public function loadings()
+    {
+        $loadings = Loading::all();
+
+        return $loadings;
+        return compact('loadings');
     }
 
     public function store_invoice(Request $request)
