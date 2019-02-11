@@ -11,6 +11,15 @@
 |
 */
 
+Route::get('/chat', function(){
+
+	//working 
+
+	//http -f POST http://10.238.10.20:5000/webapi/entry.cgi\?api\=SYNO.Chat.External\&method\=incoming\&version\=2\&token\=%22HuBcPtmcPoYdscXJLyUanfiTGUdcyrgWj8YR4vMZ1G3A3tykHWhkcuD6hz7M1uJf%22 payload='{"text":"yahoo"}'
+
+	return view('test.chat');
+});
+
 Route::post('/testAPI', function(){
 	return response()->json(["text" => "Hello Life"]);
 });
