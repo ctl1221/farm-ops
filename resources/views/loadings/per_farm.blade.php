@@ -36,43 +36,32 @@
 	</thead>
 
 	<tbody>
-{{-- 		@foreach ($loadings as $x)
-			<tr>
-				<td>{{ $x->date }}</td>
-				<td>{{ $x->truck_plate_no }}</td>	
-				<td>{{ $x->net_received }}</td>	
-			</tr>
-		@endforeach --}}
-
 		<tr v-for="x in loadings">
 			<td>@{{ x.date}}</td>
 			<td>@{{ x.truck_plate_no}}</td>
 			<td>@{{ x.net_received}}</td>
 		</tr>
-
 	</tbody>
 </table>
-
-<button @click="getEntries">Get From Database</button>
 
 <form method="POST" action='/loadings'>
 	@csrf
 
-	<input type="hidden" name="farm_id" value="{{ $farm->id }}">
+	<input type="hidden" v-model="farm_id" value="{{ $farm->id }}">
 
 	<div class="level">
 		<div class="level-left">
 			<div class="level-item">
-				<input class="input" type="date" name="date">
+				<input class="input" type="date" v-model="date">
 			</div>
 			<div class="level-item">
-				<input class="input" type="text" name="truck_plate_no" placeholder="truck plate no">
+				<input class="input" type="text" placeholder="truck plate no" v-model="truck_plate_no">
 			</div>
 			<div class="level-item">
-				<input class="input" type="text" name="net_received" placeholder="net chicks received">
+				<input class="input" type="text" v-model="net_received" placeholder="net chicks received">
 			</div>
 			<div class="level-item">
-				<input type="submit" class="button is-info is-outlined">
+				<input @click.prevent="submitForm" type="submit" class="button is-info is-outlined">
 			</div>
 		</div>
 	</div>
@@ -85,35 +74,43 @@
 	<script type="text/javascript">
 
 		var app = new Vue({
-		  el: '#app_body',
+			el: '#app_body',
 
-		  data: {
-		  	test: 'charles',
-		    loadings: [],
-		  },
+			data: {
+				farm_id: {{$farm->id}},
+				date:'',
+				truck_plate_no:'',
+				net_received:'',
+			    loadings: [],
+			},
 
-		  methods: {
-		  	alertMe: function() {
-		  		alert("I've been clicked");
+			methods: {
+				getEntries: function() {
+					axios.get('/api/getLoadingsOfFarm/' + {{ $farm->id }}).then(response => this.loadings = response.data.loadings);
+				},
+
+				clearInputs: function() {
+	  				this.date = '';
+					this.truck_plate_no = '';
+	  				this.net_received = '';
+	  			},
+
+			  	submitForm: function() {
+				  		axios.post('/loadings',{
+				  			'farm_id':this.farm_id,
+				  			'date': this.date,
+				  			'truck_plate_no':this.truck_plate_no,
+				  			'net_received':this.net_received,
+				  		}).then(response => {
+				  			this.getEntries();
+				  			this.clearInputs();
+				  		});
+			  	},
 		  	},
 
-		  	getEntries: function() {
-		  		// this.loadings.push({'date':'2019-07-08','truck_plate_no':'ghjkjk','net_received':500})
-		  		// alert('Get From Database');
-		  		axios.get('/api/getAllLoadings')
-				  .then(function (response) {
-				  		this.loadings = response.data;
-				  })
-		  	},
-		  },
-
-		  mounted () {
-		  	// axios.get('/api/getAllLoadings')
-				 //  .then(function (response) {
-				 //  		this.loadings = response.data;
-				 //  		//console.log(response.data)
-				 //  })
-		  }
+		  	mounted () {
+			  	this.getEntries();
+		  	}
 		});
 
 	</script>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Material;
 use App\InvoiceLine;
 use App\Loading;
+use App\Harvest;
+use App\Farm;
 
 class APIController extends Controller
 {
@@ -16,12 +18,18 @@ class APIController extends Controller
     	return compact('materials');
     }
 
-    public function loadings()
+    public function getLoadingsOfFarm(Farm $farm)
     {
-        $loadings = Loading::all();
+        $loadings = Loading::where('farm_id','=', $farm->id)->orderBy('date','desc')->get();
 
-        return $loadings;
         return compact('loadings');
+    }
+
+    public function getHarvestsOfFarm(Farm $farm)
+    {
+        $harvests = Harvest::where('farm_id','=', $farm->id)->orderBy('date','desc')->get();
+
+        return compact('harvests');
     }
 
     public function store_invoice(Request $request)

@@ -15,11 +15,6 @@
 				</nav>
 			</div>
 	  	</div>
-
-	  <!-- Right side -->
-		<div class="level-right">
-	    	
-	  	</div>
 	</nav>
 
 @endsection
@@ -36,37 +31,92 @@
 	</thead>
 
 	<tbody>
-		@foreach ($harvests as $x)
-			<tr>
-				<td>{{ $x->date }}</td>
-				<td>{{ $x->truck_plate_no }}</td>	
-				<td>{{ $x->total_birds_harvested }}</td>	
-			</tr>
-		@endforeach
+		<tr v-for="x in harvests">
+			<td>@{{ x.date }}</td>
+			<td>@{{ x.truck_plate_no }}</td>	
+			<td>@{{ x.total_birds_harvested }}</td>	
+		</tr>
 	</tbody>
 </table>
 
 <form method="POST" action='/harvests'>
-	@csrf
 
-	<input type="hidden" name="farm_id" value="{{ $farm->id }}">
+	<input type="hidden" v-model="farm_id" value="{{ $farm->id }}">
 
 	<div class="level">
 		<div class="level-left">
 			<div class="level-item">
-				<input class="input" type="date" name="date">
+				<input class="input" type="date" v-model="date">
 			</div>
 			<div class="level-item">
-				<input class="input" type="text" name="truck_plate_no" placeholder="truck plate no">
+				<input class="input" type="text" v-model="truck_plate_no" placeholder="truck plate no">
 			</div>
 			<div class="level-item">
-				<input class="input" type="text" name="total_birds_harvested" placeholder="total birds harvested">
+				<input class="input" type="text" v-model="total_birds_harvested" placeholder="total birds harvested">
 			</div>
 			<div class="level-item">
-				<input type="submit" class="button is-info is-outlined">
+				<input @click.prevent="submitForm" type="submit" class="button is-info is-outlined">
 			</div>
 		</div>
 	</div>
 </form>
+
+@endsection
+
+@section ('scripts')
+
+	<script type="text/javascript">
+
+		var app = new Vue({
+  		el: '#app_body',
+  		data: {
+  			farm_id: {{$farm->id}},
+  			date: '',
+  			truck_plate_no: '',
+  			total_birds_harvested: '',
+    		harvests: [],
+  		},
+
+  // 		computed: {
+		//     computedSum: function () {
+		//       return this.harvests.reduce(function (total, num) {return total + parseInt(num['total_birds_harvested'])});
+		//     }
+		// },
+
+  		methods: {
+  			// sumOfBirds(total, item) {
+  			// 	return total + parseInt(item.total_birds_harvested);
+  			// },
+
+  			getEntries: function() {
+  				axios.get('/api/getHarvestsOfFarm/' + {{$farm->id}}).then(response => {this.harvests=response.data.harvests});
+  			},
+
+  			clearInputs: function() {
+  				this.date = '';
+				this.truck_plate_no = '';
+  				this.total_birds_harvested = '';
+  			},
+
+  			submitForm: function() {
+  				axios.post('/harvests',{
+  					'farm_id': this.farm_id,
+  					'date': this.date,
+  					'truck_plate_no': this.truck_plate_no,
+  					'total_birds_harvested': this.total_birds_harvested,
+  				}).then(response => {
+  					this.getEntries();
+  					this.clearInputs();
+  				});
+  			}
+  		},
+
+  		mounted () {
+  			this.getEntries (); 
+  		}
+
+		})
+
+	</script>
 
 @endsection
