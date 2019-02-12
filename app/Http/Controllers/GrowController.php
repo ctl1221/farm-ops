@@ -113,9 +113,9 @@ class GrowController extends Controller
         $period_start = $grow->loadings->count() ? $grow->loadings->first()->date : '';
         $period_end = $grow->harvests->count() ? $grow->harvests->first()->date : '';
 
-        $employee_list = Employee::all()->pluck('display_name')->toArray();
+        $supervisor_list = Employee::supervisor()->get();
         
-        return view('grows.show', compact('farms','grow','buildings','taken_buildings','period_start','period_end','employee_list','farm_names'));
+        return view('grows.show', compact('farms','grow','buildings','taken_buildings','period_start','period_end','employee_list','farm_names','supervisor_list'));
     }
 
     public function edit(Grow $grow)

@@ -35,10 +35,10 @@ class Grow extends Model
     	return $this->hasManyThrough(Invoice::class, Farm::class);
     }
 
-    public function buildings()
-    {
-        return $this->hasManyThrough(Building::class, Farm::class);
-    }
+    // public function buildings()
+    // {
+    //     return $this->hasManyThrough(Building::class, Farm::class);
+    // }
 
     public function sum_of_medicine_expenses()
     {

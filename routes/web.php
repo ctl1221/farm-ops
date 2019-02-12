@@ -104,5 +104,9 @@ Route::post('/feeds_calculate','CalculatorController@calculate_feeds');
 Route::get('/api/getAllMaterials','APIController@materials');
 Route::get('/api/getLoadingsOfFarm/{farm}','APIController@getLoadingsOfFarm');
 Route::get('/api/getHarvestsOfFarm/{farm}','APIController@getHarvestsOfFarm');
+Route::get('/api/getEmployeeAssignmentsOfGrow/{grow}','APIController@getEmployeeAssignmentsOfGrow');
+
 Route::post('/api/invoices','APIController@store_invoice');
+
+
 

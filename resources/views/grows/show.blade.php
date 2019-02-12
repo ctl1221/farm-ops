@@ -53,3 +53,52 @@
 	@include('grows.partials.building_assignments')
 
 @endsection
+
+@section('scripts')
+
+	<script type="text/javascript">
+
+		var app = new Vue({
+			el: '#app_body',
+
+			data: {
+				selectedSupervisor: [],
+				supervisor_list: {!! $supervisor_list !!},
+				employee_assignments: [],
+			},
+
+			methods: {
+				getEmployeeAssignments: function() {
+					axios.get('/api/getEmployeeAssignmentsOfGrow/' + {{ $grow->id }}).then(response => {
+						this.employee_assignments = response.data;
+
+						for (var i = 0; i < response.data.length; i++) { 
+						  this.selectedSupervisor[i] = this.supervisor_list[0].id;
+						}
+					});
+				},
+
+				assignSupervisor(index, building_id, farm_id) {
+					axios.post('/assign_building_supervisor',{
+						farm_id: farm_id,
+						building_id: building_id,
+						supervisor_id: this.selectedSupervisor[index]
+					}).then(response => this.getEmployeeAssignments());
+				},
+
+				unassignSupervisor(building_id, farm_id) {
+					axios.post('/unassign_building_supervisor',{
+						farm_id: farm_id,
+						building_id: building_id,
+					}).then(response => this.getEmployeeAssignments());
+				},
+		  	},
+
+		  	mounted () {
+			  	this.getEmployeeAssignments();
+		  	}
+		});
+		
+	</script>
+
+@endsection

@@ -15,24 +15,49 @@
 
 
 				<tbody>
-					@foreach ($farms as $farm)
-						@foreach ($farm->buildings as $x)
-						<tr>
-							<td>{{ $farm->name }}</td>
-							<td>{{ $x->name }}</td>
-							<td>
-								@if($x->pivot->supervisor_id)
-								{{ $employee_list[$x->pivot->supervisor_id -1] }}
-								@endif
-							</td>
-							<td>
-								@if($x->pivot->caretaker_id)
-								{{ $employee_list[$x->pivot->caretaker_id -1] }}
-								@endif
-							</td>
-						</tr>
-						@endforeach
-					@endforeach
+					<tr v-for="(x, index) in employee_assignments">
+						<td>@{{ x.farm_name }}</td>
+						<td>@{{ x.building_name }}</td>
+						<td>
+							<div class="level">
+								<div class="level-left">
+									<div class="level-item" v-if="!x.supervisor_name">
+										<div class="select is-small">
+											<select v-model="selectedSupervisor[index]">
+												<option v-for="y in supervisor_list" :value="y.id">
+													@{{ y.display_name }}
+												</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="level-item">
+										@{{ x.supervisor_name }}
+									</div>
+								</div>
+
+								<div class="level-right">
+									<div class="level-item">
+										<button v-if="!x.supervisor_name" class="button is-outlined is-success is-small" 
+										@click="assignSupervisor(index, x.building_id, x.farm_id)">
+											Assign
+										</button>
+									</div>
+
+									<div class="level-item">
+										<button v-if="x.supervisor_name" class="button is-outlined is-danger is-small" 
+										@click="unassignSupervisor(x.building_id, x.farm_id)">
+											Unassign
+										</button>
+									</div>
+								</div>
+							</div>
+							
+						</td>
+						<td>
+							@{{ x.caretaker_name }}
+						</td>
+					</tr>
 				</tbody>
 			</table>
     	</div>

@@ -32,7 +32,7 @@
 							<td>{{ $farm->name }}</td>	
 							<td>
 								@foreach($farm->buildings as $building)
-									{{ $building->name }}
+									<span class="tag is-warning">{{ $building->name }}</span>
 								@endforeach
 							</td>
 							<td>

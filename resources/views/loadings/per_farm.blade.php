@@ -37,9 +37,9 @@
 
 	<tbody>
 		<tr v-for="x in loadings">
-			<td>@{{ x.date}}</td>
-			<td>@{{ x.truck_plate_no}}</td>
-			<td>@{{ x.net_received}}</td>
+			<td>@{{ x.date }}</td>
+			<td>@{{ x.truck_plate_no }}</td>
+			<td>@{{ x.net_received }}</td>
 		</tr>
 	</tbody>
 </table>

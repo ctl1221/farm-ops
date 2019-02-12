@@ -7,62 +7,6 @@
 
 	@foreach($farm->buildings as $building)
 		<h1>{{ $building->name }}</h1>
-		
-		<h3>Farm Supervisor:
-			@if(!$building->pivot->supervisor_id)
-				<form method="POST" action="/assign_building_supervisor">
-					@csrf
-					<input type="hidden" name="farm_id" value="{{ $farm->id }}">
-					<input type="hidden" name="building_id" value="{{ $building->id }}">
-					<select name="supervisor_id">
-						@foreach($list_supervisors as $supervisor)
-							<option value="{{ $supervisor->id  }}">{{ $supervisor->display_name }}</option>
-						@endforeach
-					</select>
-					<input type="submit" value="assign">
-				</form>	
-			@else
-				@foreach($list_supervisors as $supervisor)
-					@if($supervisor->id == $building->pivot->supervisor_id)
-						{{ $supervisor->display_name }}						
-						<form method="POST" action="/unassign_building_supervisor">
-							@csrf
-							<input type="hidden" name="farm_id" value="{{ $farm->id }}">
-							<input type="hidden" name="building_id" value="{{ $building->id }}">
-							<input type="submit" value="unassign">
-						</form>
-					@endif
-				@endforeach
-			@endif	
-		</h3>
-		
-		<h3>Assigned Boy:
-			@if(!$building->pivot->caretaker_id)
-				<form method="POST" action="/assign_building_caretaker">
-					@csrf
-					<input type="hidden" name="farm_id" value="{{ $farm->id }}">
-					<input type="hidden" name="building_id" value="{{ $building->id }}">
-					<select name="caretaker_id">
-						@foreach($list_caretakers as $caretaker)
-							<option value="{{ $caretaker->id  }}">{{ $caretaker->display_name }}</option>
-						@endforeach
-					</select>
-					<input type="submit" value="assign">
-				</form>	
-			@else
-				@foreach($list_caretakers as $caretaker)
-					@if($caretaker->id == $building->pivot->caretaker_id)
-						{{ $caretaker->display_name }}						
-						<form method="POST" action="/unassign_building_caretaker">
-							@csrf
-							<input type="hidden" name="farm_id" value="{{ $farm->id }}">
-							<input type="hidden" name="building_id" value="{{ $building->id }}">
-							<input type="submit" value="unassign">
-						</form>
-					@endif
-				@endforeach
-			@endif	
-		</h3>
 
 		<h3>Quantity Started: 
 			<form method="POST" action="/update_bird_started">
