@@ -17,6 +17,7 @@ class DisinfectantsSeeder extends Seeder
         	'description' => 'PEST CONTROL A',
             'uom' => 'BTL',
             'kg_weight' => '1.000',
+            'price' => 1000.00,
             'vatable' => 'VATABLE',
         ]);
 

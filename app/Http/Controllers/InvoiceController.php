@@ -3,84 +3,58 @@
 namespace App\Http\Controllers;
 
 use App\Invoice;
+use App\InvoiceLine;
+use App\Grow;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function create(Grow $grow)
     {
-        //
+        return view('invoices.create', compact('grow'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('invoices.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        dd(json_decode($request->entries['name']));
-        Invoice::create($request->all());
+        $invoice = Invoice::create([
+            'farm_id' => $request->farm_id,
+            'date' => $request->date,
+            'supplier_invoice_no' => $request->supplier_invoice_no,
+        ]);
 
-        return back();
+        for($i = 0; $i < $request->n_lines; $i++)
+        {
+            InvoiceLine::create([
+                'material_id' => $request->lines[$i]['id'],
+                'material_type' => 'App\\' . $request->lines[$i]['material_type'],
+                'price' => $request->lines[$i]['price'],
+                'quantity' => $request->lines[$i]['quantity'],
+                'invoice_id' => $invoice->id,
+            ]);
+        }
+
+        $url = 'https://farm-ops.dev/grows/' . $request->grow_id;
+
+        return $url;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
     public function show(Invoice $invoice)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Invoice $invoice)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Invoice $invoice)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Invoice $invoice)
     {
         //

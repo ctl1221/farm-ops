@@ -4,7 +4,7 @@
 			<div class="level-left">
 				<div class="level-item">
 		      		<p class="card-header-title">Invoices</p>
-		      		<a class="button is-small is-outlined" href="/invoices/create">Create</a>
+		      		<a class="button is-small is-outlined" href="/invoices/grows/{{ $grow->id }}/create">Create</a>
 		    	</div>
 		  	</div>
 		</nav>

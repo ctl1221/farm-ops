@@ -19,6 +19,7 @@ class CreateDisinfectantsTable extends Migration
             $table->string('description');
             $table->string('uom');
             $table->float('kg_weight');
+            $table->double('price');
             $table->string('vatable');
             $table->timestamps();
         });

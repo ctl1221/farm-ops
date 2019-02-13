@@ -71,9 +71,9 @@ Route::get('/weighings/farms/{farm}/buildings/{building}', 'WeighingController@p
 
 Route::patch('/penWeighings/{penWeighing}', 'PenWeighingController@update');
 
-Route::get('/invoices/create', 'InvoiceController@create');
+Route::get('/invoices/grows/{grow}/create', 'InvoiceController@create');
 Route::post('/invoices', 'InvoiceController@store');
-Route::get('/invoiceLines/invoices/{invoice}', 'InvoiceLineController@create');
+// Route::get('/invoiceLines/invoices/{invoice}', 'InvoiceLineController@create');
 Route::post('/invoiceLines', 'InvoiceLineController@store');
 
 Route::get('/medicines/farms/{farm}', 'MedicineController@per_farm');
