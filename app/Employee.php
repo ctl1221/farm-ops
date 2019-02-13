@@ -14,11 +14,18 @@ class Employee extends Model
     	return $this->belongsTo(Job::class);
     }
 
-    public function scopeSupervisor($query)
+    public function scopeSupervisors($query)
     {
     	$supervisor_id = Job::where('name','supervisor')->first()->id;
 
         return $query->where('job_id', '=', $supervisor_id);
+    }
+
+    public function scopeCaretakers($query)
+    {
+        $caretaker_id = Job::where('name','caretaker')->first()->id;
+
+        return $query->where('job_id', '=', $caretaker_id);
     }
 
 }
