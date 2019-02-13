@@ -67,7 +67,9 @@
 
 			data: {
 				selectedSupervisor: [],
+				selectedCaretaker: [],
 				supervisor_list: {!! $supervisor_list !!},
+				caretaker_list: {!! $caretaker_list !!},
 				employee_assignments: [],
 			},
 
@@ -78,6 +80,7 @@
 
 						for (var i = 0; i < response.data.length; i++) { 
 						  this.selectedSupervisor[i] = this.supervisor_list[0].id;
+						  this.selectedCaretaker[i] = this.caretaker_list[0].id;
 						}
 					});
 				},
@@ -96,6 +99,22 @@
 						building_id: building_id,
 					}).then(response => this.getEmployeeAssignments());
 				},
+
+				assignCaretaker(index, building_id, farm_id) {
+					axios.post('/assign_building_caretaker',{
+						farm_id: farm_id,
+						building_id: building_id,
+						caretaker_id: this.selectedCaretaker[index],
+					}).then(response => this.getEmployeeAssignments());
+				},
+
+				unassignCaretaker(building_id, farm_id) {
+					axios.post('/unassign_building_caretaker',{
+						farm_id: farm_id,
+						building_id: building_id,
+					}).then(response => this.getEmployeeAssignments());
+				},
+
 		  	},
 
 		  	mounted () {

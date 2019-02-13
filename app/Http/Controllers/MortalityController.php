@@ -33,7 +33,7 @@ class MortalityController extends Controller
             ['building_id', '=', $building->id],
         ])->get();
 
-        return view ('mortalities.per_building', compact ('current_days'));
+        return view ('mortalities.per_building', compact ('current_days', 'farm', 'building'));
     }
 
     public function create()

@@ -1,60 +1,83 @@
 @extends('master')
 
+@section('breadcrumb')
+
+	<nav class="level">
+		<div class="level-left">
+		    <div class="level-item">
+				<nav class="breadcrumb" aria-label="breadcrumbs" style="margin-top: 0.5rem">
+				  <ul>
+				    <li><a href="/grows"><h3 class="title is-3 has-text-link">Grows</h3></a></li>
+				    <li><a href="/grows/{{ $farm->grow->id }}"><h3 class="title is-3 has-text-link">{{ $farm->grow->cycle }}</h3></a></li>
+				    <li><a href="/days/farms/{{ $farm->id }}"><h3 class="title is-3 has-text-link">{{ $farm->name }}</h3></a></li>
+				    <li class="is-active"><a><h3 class="title is-3">{{ $building->name }}</h3></a></li>
+				    <li class="is-active"><a><h3 class="title is-3">Mortalities</h3></a></li>
+				  </ul>
+				</nav>
+			</div>
+	  	</div>
+
+	  <!-- Right side -->
+		<div class="level-right">
+	    	
+	  	</div>
+	</nav>
+
+@endsection
+
 @section('content')
 
-	Per pen mortality here
-
-	<table border="1" >
+	<table class="table is-narrow is-bordered is-striped is-fullwidth" >
 		<thead>
 			<tr>
 				<th></th>
-				<th colspan="7">A.M.</th>
-				<th colspan="7">P.M.</th>
+				<th class="has-text-centered" colspan="7">A.M.</th>
+				<th class="has-text-centered" colspan="7">P.M.</th>
 				<th></th>
 			</tr>
 			<tr>
-				<th>Day</th>
-				<th>Pen 1</th>
-				<th>Pen 2</th>
-				<th>Pen 3</th>
-				<th>Pen 4</th>
-				<th>Pen 5</th>
-				<th>Pen 6</th>
-				<th>Pen 7</th>
-				<th>Pen 1</th>
-				<th>Pen 2</th>
-				<th>Pen 3</th>
-				<th>Pen 4</th>
-				<th>Pen 5</th>
-				<th>Pen 6</th>
-				<th>Pen 7</th>
-				<th>Subtotal</th>
+				<th class="has-text-centered">Day</th>
+				<th class="has-text-centered">Pen 1</th>
+				<th class="has-text-centered">Pen 2</th>
+				<th class="has-text-centered">Pen 3</th>
+				<th class="has-text-centered">Pen 4</th>
+				<th class="has-text-centered">Pen 5</th>
+				<th class="has-text-centered">Pen 6</th>
+				<th class="has-text-centered">Pen 7</th>
+				<th class="has-text-centered">Pen 1</th>
+				<th class="has-text-centered">Pen 2</th>
+				<th class="has-text-centered">Pen 3</th>
+				<th class="has-text-centered">Pen 4</th>
+				<th class="has-text-centered">Pen 5</th>
+				<th class="has-text-centered">Pen 6</th>
+				<th class="has-text-centered">Pen 7</th>
+				<th class="has-text-centered">Subtotal</th>
 			</tr>
 		</thead>
 
 		<tbody>
 			@foreach ($current_days as $x)
 				<tr>
-					<td>{{ $x->day }}</td>
+					<td class="has-text-centered">{{ $x->day }}</td>
 					@php
 						$current_total = 0;
 						$current_pens_mortalities = $x->mortalities->pluck('quantity');
 					@endphp
 
 					@foreach($x->mortalities as $y)
-						<td>
+						<td class="has-text-centered">
 							<form method="POST" action="/mortalities/{{ $y->id }}">
 								@csrf
 								@method('patch')
-								<input type="test" name="quantity" value="{{ $y->quantity }}">
-								<input type="submit" value="U">
+								<input class="input is-small" style="width:40px" type="test" name="quantity" value="{{ $y->quantity }}">
+								<button class="button is-small"></button>
 							</form>
 						</td>
 						@php
 							$current_total += $y->quantity;
 						@endphp
 					@endforeach
-					<td>{{ $current_total }}</td>
+					<td class="has-text-centered">{{ $current_total }}</td>
 				</tr>
 			@endforeach
 		</tbody>

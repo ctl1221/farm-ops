@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Building;
 use App\Day;
 use App\Farm;
-use App\Building;
-use App\Mortality;
 use App\FeedsConsumption;
-use App\Weighing;
-use App\PenWeighing;
 use App\Job;
+use App\Mortality;
+use App\PenWeighing;
+use App\Weighing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DayController extends Controller
 {
@@ -24,7 +25,11 @@ class DayController extends Controller
         $list_supervisors = Job::where('name', 'supervisor')->first()->employees;
         $list_caretakers = Job::where('name', 'caretaker')->first()->employees;
 
-        return view ('days.per_farm', compact ('days','farm','weighing_days_ids', 'list_supervisors', 'list_caretakers'));
+        $birds_started = DB::table('building_farm')
+                    ->where('farm_id', '=', $farm->id)
+                    ->get();
+
+        return view ('days.per_farm', compact ('days','farm','weighing_days_ids', 'list_supervisors', 'list_caretakers','birds_started'));
     }
 
     public function store(Request $request)

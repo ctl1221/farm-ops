@@ -18,44 +18,47 @@
 					<tr v-for="(x, index) in employee_assignments">
 						<td>@{{ x.farm_name }}</td>
 						<td>@{{ x.building_name }}</td>
-						<td style="width:250px">
+						<td style="width:350px">
 							<div class="level">
 								<div class="level-left">
-									<div class="level-item" v-if="!x.supervisor_name">
-										<div class="select is-small">
-											<select v-model="selectedSupervisor[index]">
-												<option v-for="y in supervisor_list" :value="y.id">
-													@{{ y.display_name }}
-												</option>
-											</select>
-										</div>
+									<div class="select is-small" v-if="!x.supervisor_name">
+										<select v-model="selectedSupervisor[index]">
+											<option v-for="y in supervisor_list" :value="y.id">
+												@{{ y.display_name }}
+											</option>
+										</select>
 									</div>
-
-									<div class="level-item">
-										@{{ x.supervisor_name }}
-									</div>
+									@{{ x.supervisor_name }}
 								</div>
 
 								<div class="level-right">
-									<div class="level-item">
-										<button v-if="!x.supervisor_name" class="button is-outlined is-success is-small" 
+									<button v-if="!x.supervisor_name" class="button is-outlined is-success is-small" 
 										@click="assignSupervisor(index, x.building_id, x.farm_id)">
 											Assign
-										</button>
-									</div>
-
-									<div class="level-item">
-										<button v-if="x.supervisor_name" class="button is-outlined is-danger is-small" 
+									</button>
+									<button v-if="x.supervisor_name" class="button is-outlined is-danger is-small" 
 										@click="unassignSupervisor(x.building_id, x.farm_id)">
 											Unassign
-										</button>
-									</div>
+									</button>
 								</div>
 							</div>
 							
 						</td>
-						<td style="width:250px">
-							@{{ x.caretaker_name }}
+						<td style="width:350px">
+							<div class="level">
+								<div class="left">	
+									@{{ x.caretaker_name }}
+									<div class="select is-small" v-if="! x.caretaker_name" >
+										<select v-model="selectedCaretaker[index]">
+											<option v-for="c in caretaker_list" :value="c.id">@{{ c.display_name }}</option>
+										</select>
+									</div>
+								</div>
+								<div class="right">	
+		 							<button v-if="! x.caretaker_name" @click="assignCaretaker(index,x.building_id,x.farm_id)" class="button is-outlined is-small is-success">Assign</button> 
+		 							<button v-if="x.caretaker_name" @click="unassignCaretaker(x.building_id,x.farm_id)" class="button is-outlined is-small is-danger">Unassign</button>
+		 						</div>	
+ 							</div>
 						</td>
 					</tr>
 				</tbody>
