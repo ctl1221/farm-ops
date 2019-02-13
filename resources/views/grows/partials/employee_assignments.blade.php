@@ -1,5 +1,5 @@
 <div class="card">
-	<header class="card-header has-background-success">
+	<header class="card-header has-background-info">
     	<p class="card-header-title">Employee Assignments</p>
   	</header>
 
@@ -18,7 +18,7 @@
 					<tr v-for="(x, index) in employee_assignments">
 						<td>@{{ x.farm_name }}</td>
 						<td>@{{ x.building_name }}</td>
-						<td>
+						<td style="width:250px">
 							<div class="level">
 								<div class="level-left">
 									<div class="level-item" v-if="!x.supervisor_name">
@@ -54,7 +54,7 @@
 							</div>
 							
 						</td>
-						<td>
+						<td style="width:250px">
 							@{{ x.caretaker_name }}
 						</td>
 					</tr>

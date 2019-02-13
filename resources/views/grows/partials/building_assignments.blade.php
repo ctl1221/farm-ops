@@ -1,5 +1,5 @@
 <div class="card">
-	<header class="card-header has-background-link">
+	<header class="card-header has-background-info">
     	<p class="card-header-title">
     		Building Assignments
     			<form method="POST" action='/grows/createFarm'>

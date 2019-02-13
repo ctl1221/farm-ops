@@ -1,16 +1,16 @@
 <div class="card">
-	<header class="card-header">
+	<header class="card-header has-background-warning">
 		<nav class="level">
 			<div class="level-left">
 				<div class="level-item">
 		      		<p class="card-header-title">Invoices</p>
-		      		<a class="button is-small" href="/invoices/create">Create</a>
+		      		<a class="button is-small is-outlined" href="/invoices/create">Create</a>
 		    	</div>
 		  	</div>
 		</nav>
   	</header>
 
-  	<div class="card-content">
+  	<div class="card-content has-background-light">
   		<div class="content">
   			<table class="table is-narrow is-fullwidth is-bordered">
 				<thead>

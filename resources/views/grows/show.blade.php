@@ -29,6 +29,10 @@
 
 @section('content')
 
+	@include('grows.partials.info')
+
+	<br/>
+
 	<div class="columns">
 		<div class=column>
 			@include('grows.partials.sales_summary')
