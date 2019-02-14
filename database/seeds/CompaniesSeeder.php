@@ -23,5 +23,11 @@ class CompaniesSeeder extends Seeder
         	'is_supplier' => true,
         	'is_customer' => false,
         ]);
+
+        Company::create([
+            'name' => 'San Miguel Foods, Inc - Feeds Business',
+            'is_supplier' => true,
+            'is_customer' => false,
+        ]);
     }
 }

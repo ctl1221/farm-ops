@@ -76,7 +76,7 @@ Route::post('/invoices', 'InvoiceController@store');
 // Route::get('/invoiceLines/invoices/{invoice}', 'InvoiceLineController@create');
 Route::post('/invoiceLines', 'InvoiceLineController@store');
 
-Route::get('/medicines/farms/{farm}', 'MedicineController@per_farm');
+Route::get('/materials/farms/{farm}', 'MaterialController@per_farm');
 
 Route::get('/receivings/farms/{farm}', 'ReceivingController@per_farm');
 Route::post('/receivings', 'ReceivingController@store');

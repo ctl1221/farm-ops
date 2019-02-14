@@ -30,16 +30,36 @@
 	<thead>
 		<tr class="has-background-light">
 			<th>Date</th>
+			<th>Hatchery Source</th>
+			<th>Total Delivered</th>
+			<th>DOA</th>
+			<th>Net Received</th>
 			<th>Truck Plate No.</th>
-			<th>Total Birds Harvested</th>
+			<th>Trucker's Name</th>
+			<th>Time Departure Hatchery</th>
+			<th>Time Arrival Farm</th>
+			<th>Time Departure Farm</th>
+			<th>Source Identification</th>
+			<th>Seal No.</th>
+			<th>Notes</th>
 		</tr>
 	</thead>
 
 	<tbody>
 		<tr v-for="x in loadings">
 			<td>@{{ x.date }}</td>
-			<td>@{{ x.truck_plate_no }}</td>
+			<td>@{{ x.hatchery_source }}</td>
+			<td>@{{ x.total_delivered }}</td>
+			<td>@{{ x.doa }}</td>
 			<td>@{{ x.net_received }}</td>
+			<td>@{{ x.truck_plate_no }}</td>
+			<td>@{{ x.trucker_name }}</td>
+			<td>@{{ x.dep_hatchery }}</td>
+			<td>@{{ x.arr_farm }}</td>
+			<td>@{{ x.dep_farm }}</td>
+			<td>@{{ x.source_id }}</td>
+			<td>@{{ x.seal_no }}</td>
+			<td>@{{ x.notes }}</td>
 		</tr>
 	</tbody>
 </table>
@@ -49,22 +69,20 @@
 
 	<input type="hidden" v-model="farm_id" value="{{ $farm->id }}">
 
-	<div class="level">
-		<div class="level-left">
-			<div class="level-item">
-				<input class="input" type="date" v-model="date">
-			</div>
-			<div class="level-item">
-				<input class="input" type="text" placeholder="truck plate no" v-model="truck_plate_no">
-			</div>
-			<div class="level-item">
-				<input class="input" type="text" v-model="net_received" placeholder="net chicks received">
-			</div>
-			<div class="level-item">
-				<input @click.prevent="submitForm" type="submit" class="button is-info is-outlined">
-			</div>
-		</div>
-	</div>
+	<input class="input" type="date" v-model="date">
+	<input class="input" type="text" v-model="hatchery_source" placeholder="hatchery source">
+	<input class="input" type="text" v-model="total_delivered" placeholder="total delivered">
+	<input class="input" type="text" v-model="doa" placeholder="doa">
+	<input class="input" type="text" v-model="net_received" placeholder="net chicks received">
+	<input class="input" type="text" v-model="truck_plate_no" placeholder="truck plate no">
+	<input class="input" type="text" v-model="trucker_name" placeholder="trucker's name">
+	Time Departure Hatchery<input class="input" type="time" v-model="dep_hatchery">
+	Time Arrival Farm<input class="input" type="time" v-model="arr_farm">
+	Time Departure Farm<input class="input" type="time" v-model="dep_farm">
+	<input class="input" type="text" v-model="source_id" placeholder="source identification">
+	<input class="input" type="text" v-model="seal_no" placeholder="seal no">
+	<input class="input" type="text" v-model="notes" placeholder="notes">
+	<input @click.prevent="submitForm" type="submit" class="button is-info is-outlined">
 </form>
 
 @endsection
@@ -79,8 +97,18 @@
 			data: {
 				farm_id: {{$farm->id}},
 				date:'',
-				truck_plate_no:'',
+				hatchery_source:'',
+				total_delivered:'',
+				doa:'',
 				net_received:'',
+				truck_plate_no:'',
+				trucker_name:'',
+				dep_hatchery:'',
+				arr_farm:'',
+				dep_farm:'',
+				source_id:'',
+				seal_no:'',
+				notes:'',
 			    loadings: [],
 			},
 
@@ -91,16 +119,36 @@
 
 				clearInputs: function() {
 	  				this.date = '';
-					this.truck_plate_no = '';
-	  				this.net_received = '';
+					this.hatchery_source = '';
+				  	this.total_delivered = '';
+				  	this.doa = '';
+				  	this.net_received = '';
+				  	this.truck_plate_no = '';
+				  	this.trucker_name = '';
+				  	this.dep_hatchery = '';
+				  	this.arr_farm = '';
+				  	this.dep_farm = '';
+				  	this.source_id = '';
+				  	this.seal_no = '';
+				  	this.notes = '';
 	  			},
 
 			  	submitForm: function() {
 				  		axios.post('/loadings',{
 				  			'farm_id':this.farm_id,
 				  			'date': this.date,
-				  			'truck_plate_no':this.truck_plate_no,
+				  			'hatchery_source': this.hatchery_source,
+				  			'total_delivered': this.total_delivered,
+				  			'doa': this.doa,
 				  			'net_received':this.net_received,
+				  			'truck_plate_no':this.truck_plate_no,
+				  			'trucker_name':this.trucker_name,
+				  			'dep_hatchery':this.dep_hatchery,
+				  			'arr_farm':this.arr_farm,
+				  			'dep_farm':this.dep_farm,
+				  			'source_id':this.source_id,
+				  			'seal_no':this.seal_no,
+				  			'notes':this.notes,
 				  		}).then(response => {
 				  			this.getEntries();
 				  			this.clearInputs();

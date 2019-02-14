@@ -37,15 +37,29 @@
 
 	    <table class="table is-fullwidth is-bordered">
 	        <tr>
+	        	<th>Supplier</th>
+	        	<th>
+	        		<select v-model="company_id">
+	        			<option v-for="supplier in suppliers" :value="supplier.id">@{{ supplier.name }}</option>
+	        		</select>
+	        	</th>
+	        	<th style="width:150px">
+	            	Supplier Invoice No.
+	            </th>
+	            <th style="width:300px">
+	            	<input class="input is-small" style="width:300px" type="text" v-model="supplier_invoice_no">
+	            </th>
+	        </tr>
+	        <tr>
 	            <th style="width:50px">Date</th>
 	            <th style="width:300px">
 	            	<input class="input is-small" style="width:300px" type="date" v-model="date">
 	            </th>
 	            <th style="width:150px">
-	            	Supplier Invoice No.
+	            	SO Reference No.
 	            </th>
 	            <th style="width:300px">
-	            	<input class="input is-small" style="width:300px" type="text" v-model="supplier_invoice_no" required>
+	            	<input class="input is-small" style="width:300px" type="text" v-model="so_reference_no">
 	            </th>
 	        </tr>
         	<tr>
@@ -59,8 +73,10 @@
 	            		</select>
 	            	</div>
 	            </th>
-	            <th>SO Reference No.</th>
 	            <th>DR Reference No.</th>
+	          	<th style="width:300px">
+	            	<input class="input is-small" style="width:300px" type="text" v-model="dr_reference_no">
+	            </th>
 	        </tr>
 	    </table>
 
@@ -71,7 +87,7 @@
 	    <a class="button is-outlined is-info" @click="addLineItem">Add Item</a>
 	    <a href="/grows/{{$grow->id}}#invoices" class="button is-outlined is-danger">Cancel</a>
 
-		<input v-if="supplier_invoice_no && n_lines > 0" @click.prevent="submitForm" 
+		<input v-if="supplier_invoice_no && so_reference_no && dr_reference_no && n_lines > 0" @click.prevent="submitForm" 
 		class="button is-outlined is-success" type="submit">
 
 	</section>
@@ -125,9 +141,13 @@
 				'date': '{!! Carbon\Carbon::now()->format('Y-m-d') !!}',
 				'farm_id': '{!! $grow->farms->first()->id !!}',
 				'supplier_invoice_no':'',
+				'so_reference_no':'',
+				'dr_reference_no':'',
 				'lines': [],
 				'total': 0,
 				'vat_total': 0,
+				'suppliers': {!! $suppliers !!},
+				'company_id':{!! $suppliers[0]->id !!},
 			},
 
 			computed: {

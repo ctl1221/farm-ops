@@ -18,7 +18,8 @@
 
 	  <!-- Right side -->
 		<div class="level-right">
-	    	<h4 class="subtitle is-4">Unaccounted Chicks: {{  $farm->loadings->sum('net_received') - $farm->buildings->sum('pivot.birds_started') }}</h4>
+	    	<h4 class="subtitle is-4">Unaccounted Chicks: @{{ unaccountedChicks }}{{-- {{  $farm->loadings->sum('net_received') - $farm->buildings->sum('pivot.birds_started') }} --}}</h4>
+
 	  	</div>
 	</nav>
 
@@ -127,18 +128,51 @@
 		var app = new Vue({
 		  el: '#app_body',
 		  data: {
+		  	total_birds_in_building: 0,
+		  	total_birds_in_farm: {!! $farm->loadings->sum('net_received') !!},
 		  	birds: {!! $birds_started !!},
 		  },
 
+		  computed: {
+		  	unaccountedChicks: function () {
+		  		return this.total_birds_in_farm - this.total_birds_in_building;
+		  	}
+		  },
+
 		  methods: {
+		  	calcSumBirds()
+		  	{
+		  		var total_birds_in_building = 0;
+	  			for(var i = 0; i < this.birds.length; i++)
+		  			{
+		  				total_birds_in_building += parseInt(this.birds[i].birds_started);
+		  			}
+	  			this.total_birds_in_building = total_birds_in_building;
+		  	},
+
 		  	updateBirdStarted(newValue, farm_id, building_id)
 		  	{
 		  		axios.post('/update_bird_started',{
 		  			farm_id: farm_id,
 		  			building_id: building_id,
 		  			birds_started: newValue,
-		  		}).then(response => console.log('success'));
+		  		}).then(response => { 
+
+		  			for(var i = 0; i < this.birds.length; i++)
+		  			{
+		  				if(this.birds[i].farm_id == farm_id && this.birds[i].building_id == building_id)
+		  				{
+		  					this.birds[i].birds_started = newValue;
+		  				}
+		  			}; 
+
+		  			this.calcSumBirds();
+		  		});
 		  	}
+		  },
+
+		  mounted () {
+		  	this.calcSumBirds();
 		  }
 		});
 

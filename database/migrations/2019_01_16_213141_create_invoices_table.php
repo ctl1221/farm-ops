@@ -18,6 +18,9 @@ class CreateInvoicesTable extends Migration
             $table->unsignedInteger('farm_id');
             $table->date('date');
             $table->string('supplier_invoice_no');
+            $table->unsignedInteger('company_id');
+            $table->string('dr_reference_no');
+            $table->string('so_reference_no');
             $table->timestamps();
         });
     }

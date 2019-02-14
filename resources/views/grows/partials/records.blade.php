@@ -12,7 +12,7 @@
 					<th>Loadings</th>
 					<th>Daily Data</th>
 					<th>Harvest</th>
-					<th>Medicine Received</th>
+					<th>Materials Received</th>
 				</thead>
 
 				<tbody>
@@ -23,7 +23,7 @@
 							<td><a href="/loadings/farms/{{ $farm->id }}">View</a></td>
 							<td><a href="/days/farms/{{ $farm->id }}">View</a></td>
 							<td><a href="/harvests/farms/{{ $farm->id }}">View</a></td>
-							<td><a href="/medicines/farms/{{ $farm->id }}">View</a></td>
+							<td><a href="/materials/farms/{{ $farm->id }}">View</a></td>
 						</tr>
 					@endforeach
 				</tbody>

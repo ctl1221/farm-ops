@@ -37,4 +37,9 @@ class Farm extends Model
     {
         return $this->hasMany(Invoice::class)->orderBy('date', 'desc');
     }
+
+    public function invoice_lines ()
+    {
+        return $this->hasManyThrough(InvoiceLine::class, Invoice::class);
+    }
 }

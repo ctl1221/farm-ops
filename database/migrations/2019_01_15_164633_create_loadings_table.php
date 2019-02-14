@@ -17,8 +17,18 @@ class CreateLoadingsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('farm_id');
             $table->date('date');
-            $table->string('truck_plate_no');
+            $table->string('hatchery_source');
+            $table->unsignedInteger('total_delivered');
+            $table->unsignedInteger('doa');
             $table->unsignedInteger('net_received');
+            $table->string('truck_plate_no');
+            $table->string('trucker_name');
+            $table->time('dep_hatchery');
+            $table->time('arr_farm');
+            $table->time('dep_farm');
+            $table->string('source_id');
+            $table->string('seal_no');
+            $table->text('notes');
             $table->timestamps();
         });
     }

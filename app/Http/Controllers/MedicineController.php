@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Medicine;
-use App\Farm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MedicineController extends Controller
 {
@@ -16,13 +15,6 @@ class MedicineController extends Controller
     public function index()
     {
         //
-    }
-
-    public function per_farm(Farm $farm)
-    {
-        $medicines = Medicine::all();
-
-        return view('invoices.medicine_per_farm', compact('farm','medicines'));
     }
 
     /**
