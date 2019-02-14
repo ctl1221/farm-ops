@@ -1923,6 +1923,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       'materials': [],
       'total': 0,
+      'vat_total': 0,
       'lines': []
     };
   },
@@ -1930,12 +1931,19 @@ __webpack_require__.r(__webpack_exports__);
     calculateAggregates: function calculateAggregates() {
       var i = 0;
       var current_total = 0;
+      var current_vat_total = 0;
 
       for (i = 0; i < this.lines.length; i++) {
         current_total += this.lines[i].price * this.lines[i].quantity;
+
+        if (this.lines[i].vatable == 'VATABLE') {
+          current_vat_total += this.lines[i].price * this.lines[i].quantity * 0.12;
+        }
       }
 
       this.total = current_total;
+      this.vat_total = current_vat_total;
+      this.$emit('update_aggregates');
     },
     addItem: function addItem() {
       this.lines.push({
@@ -36962,19 +36970,19 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "has-text-centered" }, [
-      _vm._v(_vm._s(_vm.net_weight))
+      _vm._v(_vm._s(_vm._f("weightFormat")(_vm.net_weight)))
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "has-text-centered" }, [
-      _vm._v(_vm._s(_vm.selPrice))
+      _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.selPrice)))
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "has-text-centered" }, [
-      _vm._v(_vm._s(_vm.amount))
+      _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.amount)))
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "has-text-centered" }, [
-      _vm._v(_vm._s(_vm.vatable_amount))
+      _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.vatable_amount)))
     ]),
     _vm._v(" "),
     _c("td", { staticClass: "has-text-centered" }, [
@@ -49085,6 +49093,16 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
 Vue.component('invoice-line', __webpack_require__(/*! ./components/InvoiceLineComponent.vue */ "./resources/js/components/InvoiceLineComponent.vue").default);
 Vue.component('invoice-list', __webpack_require__(/*! ./components/InvoiceListComponent.vue */ "./resources/js/components/InvoiceListComponent.vue").default);
+Vue.filter('currencyFormat', function (value) {
+  return value.toLocaleString('en-PH', {
+    minimumFractionDigits: 2
+  });
+});
+Vue.filter('weightFormat', function (value) {
+  return value.toLocaleString('en-PH', {
+    minimumFractionDigits: 3
+  });
+});
 
 /***/ }),
 

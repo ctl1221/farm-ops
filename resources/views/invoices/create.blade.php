@@ -13,7 +13,7 @@
 						    <h3 class="title is-3 has-text-link">{{ $grow->cycle}}</h3>
 						   </a>
 					</li>
-				    <li class="is-active"><a><h3 class="title is-3">New Invoice</h3></a></li>
+				    <li class="is-active"><a><h3 class="title is-3">New Purchase Invoice</h3></a></li>
 				  </ul>
 				</nav>
 			</div>
@@ -32,6 +32,8 @@
 @endsection
 
 @section('content')
+
+	<section class="section is-paddingless">
 
 	    <table class="table is-fullwidth is-bordered">
 	        <tr>
@@ -62,32 +64,49 @@
 	        </tr>
 	    </table>
 
-	    <a class="button is-outlined" @click="addLineItem">Add Item</a>
-	    <a class="button is-outlined" @click="updateAggregates">Update Total</a>
+	</section>
 
-		<input v-if="supplier_invoice_no && n_lines > 0" @click.prevent="submitForm" class="button" type="submit">
+	<section class="section is-paddingless" style="margin-top:1rem; margin-bottom: 1rem">
 
-		<br/>
-		<br/>
+	    <a class="button is-outlined is-info" @click="addLineItem">Add Item</a>
+	    <a href="/grows/{{$grow->id}}#invoices" class="button is-outlined is-danger">Cancel</a>
+
+		<input v-if="supplier_invoice_no && n_lines > 0" @click.prevent="submitForm" 
+		class="button is-outlined is-success" type="submit">
+
+	</section>
 
 		<invoice-list ref="invoice_list" 
-			@subtract_n_lines="n_lines--">
+			@subtract_n_lines="n_lines--"
+			@update_aggregates="updateAggregates">
 		</invoice-list>
 
 		<div class="is-pulled-right">
 		<table class="table is-bordered">
 
             <tr>
-                <th>Total Sales</th>
-                <td>@{{ total }}</td>
+                <th>Total Non-Vat</th>
+                <td>₱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                	<span class="is-pulled-right">
+                		@{{ total | currencyFormat}}
+                	</span>
+                </td>
             </tr>
             <tr>
                 <th>Vat</th>
-                <td>---</td>
+                <td>₱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                	<span class="is-pulled-right">
+                		@{{ vat_total | currencyFormat}}
+                	</span>
+                </td>
             </tr>
             <tr>
                 <th>Total Amount Payable</th>
-                <td>---</td>
+                <td>₱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                	<span class="is-pulled-right">
+                		@{{ total_payable | currencyFormat }}
+                	</span>
+                </td>
             </tr>
     	</table>
     </div>
@@ -108,6 +127,13 @@
 				'supplier_invoice_no':'',
 				'lines': [],
 				'total': 0,
+				'vat_total': 0,
+			},
+
+			computed: {
+				'total_payable': function () {
+					return this.total + this.vat_total;
+				}
 			},
 
 			methods: {
@@ -132,6 +158,7 @@
 				{
 					var invoice_list = this.$refs.invoice_list;
 					this.total = invoice_list.$data.total;
+					this.vat_total = invoice_list.$data.vat_total;
 				},
 			},
 		})

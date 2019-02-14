@@ -23,4 +23,11 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('invoice-line', require('./components/InvoiceLineComponent.vue').default);
 Vue.component('invoice-list', require('./components/InvoiceListComponent.vue').default);
- 
+
+Vue.filter('currencyFormat', function (value) {
+	return value.toLocaleString('en-PH',{minimumFractionDigits: 2});
+});
+
+Vue.filter('weightFormat', function (value) {
+	return value.toLocaleString('en-PH',{minimumFractionDigits: 3});
+});

@@ -1,4 +1,4 @@
-<div class="card">
+<div id="invoices" class="card">
 	<header class="card-header has-background-warning">
 		<nav class="level">
 			<div class="level-left">
@@ -37,17 +37,3 @@
     	</div>
   	</div>
 </div>
-
-<form method="POST" action="/invoices">
-		@csrf
-	
-		<input type="date" name="date">
-		<select name="farm_id">
-			@foreach ($grow->farms as $farm)
-				<option value="{{ $farm->id }}">{{ $farm->name }}</option>
-			@endforeach
-		</select>
-		<input type="text" name="supplier_invoice_no" placeholder="supplier invoice no">
-		<input type="submit" value="create invoice">
-</form>
-

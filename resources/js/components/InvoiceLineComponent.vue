@@ -14,10 +14,10 @@
         <td style="width:80px">
             <input class="input is-small has-text-centered" type="number" v-model="quantity" style="width:80px" min=1>
         </td>
-        <td class="has-text-centered">{{ net_weight }}</td>
-        <td class="has-text-centered">{{ selPrice }}</td>
-        <td class="has-text-centered">{{ amount }}</td>
-        <td class="has-text-centered">{{ vatable_amount }}</td>
+        <td class="has-text-centered">{{ net_weight | weightFormat }}</td>
+        <td class="has-text-centered">{{ selPrice | currencyFormat }}</td>
+        <td class="has-text-centered">{{ amount | currencyFormat }}</td>
+        <td class="has-text-centered">{{ vatable_amount | currencyFormat }}</td>
         <td class="has-text-centered">{{ selVatable }}</td>
         <td @click="deleteMe">X</td>
     </tr>

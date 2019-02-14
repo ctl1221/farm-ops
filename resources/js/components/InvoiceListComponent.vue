@@ -42,6 +42,7 @@
             return {
                 'materials' : [],
                 'total':0,
+                'vat_total':0,
                 'lines' : []
             }
         },
@@ -51,13 +52,21 @@
             {
                 var i = 0;
                 var current_total = 0;
+                var current_vat_total = 0;
 
                 for(i = 0; i < this.lines.length; i++)
                 {
                     current_total += this.lines[i].price * this.lines[i].quantity;
+
+                    if(this.lines[i].vatable == 'VATABLE')
+                    {
+                        current_vat_total += this.lines[i].price * this.lines[i].quantity * 0.12;
+                    }
                 }
 
                 this.total = current_total;
+                this.vat_total = current_vat_total;
+                this.$emit('update_aggregates');
             },
 
             addItem: function(){
