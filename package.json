@@ -15,7 +15,7 @@
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.5",
+        "lodash": "^4.17.11",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
@@ -23,5 +23,9 @@
         "vue": "^2.5.17",
         "vue-loader": "^15.6.2",
         "vue-template-compiler": "^2.6.3"
+    },
+    "dependencies": {
+        "bulma": "^0.7.4",
+        "bulma-extensions": "^4.1.0"
     }
 }

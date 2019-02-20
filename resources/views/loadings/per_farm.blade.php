@@ -26,20 +26,13 @@
 
 @section('content')
 
-<table class="table is-bordered is-narrow is-hoverable is-fullwidth">
+<table class="table is-bordered is-narrow is-fullwidth">
 	<thead>
 		<tr class="has-background-light">
 			<th>Date</th>
 			<th>Hatchery Source</th>
-			<th>Total Delivered</th>
-			<th>DOA</th>
 			<th>Net Received</th>
 			<th>Truck Plate No.</th>
-			<th>Trucker's Name</th>
-			<th>Time Departure Hatchery</th>
-			<th>Time Arrival Farm</th>
-			<th>Time Departure Farm</th>
-			<th>Source Identification</th>
 			<th>Seal No.</th>
 			<th>Notes</th>
 		</tr>
@@ -47,17 +40,29 @@
 
 	<tbody>
 		<tr v-for="x in loadings">
-			<td>@{{ x.date }}</td>
-			<td>@{{ x.hatchery_source }}</td>
-			<td>@{{ x.total_delivered }}</td>
-			<td>@{{ x.doa }}</td>
-			<td>@{{ x.net_received }}</td>
-			<td>@{{ x.truck_plate_no }}</td>
-			<td>@{{ x.trucker_name }}</td>
-			<td>@{{ x.dep_hatchery }}</td>
-			<td>@{{ x.arr_farm }}</td>
-			<td>@{{ x.dep_farm }}</td>
-			<td>@{{ x.source_id }}</td>
+			<td>
+				@{{ x.date + ' - ' + x.arr_farm }} &nbsp;
+				<a class="tooltip is-tooltip is-small" style="border-color:white" :data-tooltip="'Time Dep Hatchery - ' + x.dep_hatchery + ' | Time Dep Farm - ' + x.dep_farm "><i class="fas fa-info-circle"></i></a>
+			</td>
+			<td>
+				@{{ x.hatchery_source }} &nbsp;
+
+				<a class="tooltip is-tooltip is-small" style="border-color:white" :data-tooltip="'Source Identification - ' + x.source_id"><i class="fas fa-info-circle"></i></a>
+
+			</td>
+
+			<td>
+				@{{ x.net_received }} &nbsp;
+
+				<a class="tooltip is-tooltip is-small" style="border-color:white" :data-tooltip="'Birds - ' + x.total_delivered + ' | DOA - ' + x.doa "><i class="fas fa-info-circle"></i></a>
+
+			</td>
+			<td> 
+				@{{ x.truck_plate_no }} &nbsp;
+
+				<a class="tooltip is-tooltip is-small" style="border-color:white" :data-tooltip="'Trucker Name - ' + x.trucker_name"><i class="fas fa-info-circle"></i></a>
+
+			</td>
 			<td>@{{ x.seal_no }}</td>
 			<td>@{{ x.notes }}</td>
 		</tr>

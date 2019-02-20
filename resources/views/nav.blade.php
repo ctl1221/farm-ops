@@ -17,11 +17,11 @@
 
       <div class="navbar-item has-dropdown" :class="{ 'is-active' : ops_dropdown}" >
 
-        <a class="navbar-link is-arrowless" @click="ops_dropdown = !ops_dropdown">
+        <a class="navbar-link is-arrowless" @mouseover="showOpsDropdown" @mouseout="hideOpsDropdown">
           Operations
         </a>
 
-        <div class="navbar-dropdown">
+        <div class="navbar-dropdown" @mouseover="showOpsDropdown" @mouseout="hideOpsDropdown">
           <a class="navbar-item" href="/grows" >Grows</a>
           <a class="navbar-item" href="/payrolls" >Payrolls</a>
           <a class="navbar-item" href="/utilityBills" >Utility Bills</a>
@@ -32,11 +32,11 @@
       <a class="navbar-item" href="/feeds_input">Calculator</a>
 
       <div class="navbar-item has-dropdown" :class="{ 'is-active' : adm_dropdown}">
-        <a class="navbar-link is-arrowless" @click="adm_dropdown = !adm_dropdown">
+        <a class="navbar-link is-arrowless" @mouseover="showAdmDropdown" @mouseout="hideAdmDropdown">
           Administration
         </a>
 
-        <div class="navbar-dropdown">
+        <div class="navbar-dropdown" @mouseover="showAdmDropdown" @mouseout="hideAdmDropdown">
           <a class="navbar-item">Buildings</a>
         </div>
       </div>

@@ -20,6 +20,13 @@ class APIController extends Controller
     	return compact('materials');
     }
 
+    public function getFarmsOfGrow(Grow $grow)
+    {
+        $farms = Farm::where('grow_id',$grow->id)->with('buildings')->get();
+
+        return $farms;
+    }
+
     public function getLoadingsOfFarm(Farm $farm)
     {
         $loadings = Loading::where('farm_id','=', $farm->id)->orderBy('date','desc')->get();

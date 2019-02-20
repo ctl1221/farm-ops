@@ -97,18 +97,21 @@ class GrowController extends Controller
 
     public function show(Grow $grow)
     {
-        $farm_names = config('default.farm_names');
-        $taken_buildings = [];
+
+        $farm_names = json_encode(config('default.farm_names'));
+        $taken_buildings_ids = [];
         foreach($grow->farms as $x)
         {
             foreach($x->buildings as $y)
             {
-                array_push($taken_buildings, $y->id);
+                array_push($taken_buildings_ids, $y->id);
             }
         }
+        $farms = app('App\Http\Controllers\APIController')->getFarmsOfGrow($grow);
 
-        $farms = Farm::where('grow_id',$grow->id)->get();
         $buildings = Building::all();
+
+        $taken_buildings_ids = json_encode($taken_buildings_ids);
 
         $period_start = $grow->loadings->count() ? $grow->loadings->first()->date : '';
         $period_end = $grow->harvests->count() ? $grow->harvests->first()->date : '';
@@ -116,7 +119,7 @@ class GrowController extends Controller
         $supervisor_list = Employee::supervisors()->get();
         $caretaker_list = Employee::caretakers()->get();
         
-        return view('grows.show', compact('farms','grow','buildings','taken_buildings','period_start','period_end','farm_names','supervisor_list', 'caretaker_list'));
+        return view('grows.show', compact('farms','grow','buildings','taken_buildings_ids','period_start','period_end','farm_names','supervisor_list', 'caretaker_list'));
     }
 
     public function edit(Grow $grow)
@@ -132,12 +135,5 @@ class GrowController extends Controller
     public function destroy(Grow $grow)
     {
         //
-    }
-
-    public function createFarm()
-    {
-        Farm::create(request()->all()); 
-        
-        return back();
     }
 }

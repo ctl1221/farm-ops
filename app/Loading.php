@@ -4,6 +4,7 @@ namespace App;
 
 use App\Events\LoadingCreated;
 use App\Grow;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Loading extends Model
@@ -29,4 +30,26 @@ class Loading extends Model
     {
     	return $this->belongsTo(Farm::class);
     }
+
+    public function getDateAttribute($date)
+    {
+        return Carbon::parse($date)->format('M d, Y');
+    }
+
+    public function getDepHatcheryAttribute($time)
+    {
+        return Carbon::parse($time)->format('h:i A');
+    }
+
+    public function getArrFarmAttribute($time)
+    {
+        return Carbon::parse($time)->format('h:i A');
+    }
+
+    public function getDepFarmAttribute($time)
+    {
+        return Carbon::parse($time)->format('h:i A');
+    }
+
+
 }

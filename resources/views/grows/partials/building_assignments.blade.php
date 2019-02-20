@@ -1,57 +1,57 @@
 <div class="card">
 	<header class="card-header has-background-info">
     	<p class="card-header-title">
-    		Building Assignments
-    			<form method="POST" action='/grows/createFarm'>
-					@csrf
-
-					<select name="name">
-						@foreach($farm_names as $name)
-							<option>{{ $name }}</option>
-						@endforeach
-					</select>
-					{{-- <input type="text" name="name" placeholder="Farm Designation"> --}}
-					<input type="hidden" name="grow_id" value="{{ $grow->id }}">
-					<input type="submit" value="submit">
-				</form>
+    		Farm / Building Assignments
     	</p>
   	</header>
 
   	<div class="card-content has-background-light">
   		<div class="content">
-  			<table class="table is-narrow is-fullwidth is-bordered">
+
+  			<div v-if="untaken_farms.length"class="container is-marginless" style="padding-bottom: 1rem">
+	  			<div class="select">
+					<select v-model="selectedFarm">
+						<option v-for="farms in untaken_farms">@{{ farms }}</option>
+					</select>
+				</div>
+				<button class="button is-outlined is-success" @click="createFarm({{ $grow->id }})">+</button>
+			</div>
+
+			<table class="table is-narrow is-fullwidth is-bordered">
 				<thead>
 					<th>Farm Designation</th>
 					<th>Buildings</th>
-					<th>Assign Building</th>
+					<th v-if="untaken_building_ids.length">Assign Building</th>
 				</thead>
 
 				<tbody>
-					@foreach ($farms as $farm)
-						<tr>
-							<td>{{ $farm->name }}</td>	
-							<td>
-								@foreach($farm->buildings as $building)
-									<span class="tag is-warning">{{ $building->name }}</span>
-								@endforeach
-							</td>
-							<td>
-								<form method="POST" action='/buildings/farm/{{ $farm->id }}/assign'>
-									@csrf
-									<select name="building_id">
-										@foreach($buildings as $building)
-											@if(!in_array($building->id, $taken_buildings))
-												<option value="{{ $building->id }}">{{ $building->name }}</option>
-											@endif
-										@endforeach
-									</select>
-									<input type="submit" value="+">
-								</form>
-							</td>
-						</tr>
-					@endforeach
+					<tr v-for="(farm, index) in farms">
+						<td>@{{ farm.name }}</td>	
+						<td>
+							<span v-for="building in farm.buildings" 
+							class="tag is-warning" 
+							style="margin-right: 0.25rem"> 
+								@{{ building.name }}
+							</span>
+						</td>
+						<td v-if="untaken_building_ids.length">
+							<div class="select is-small">
+								<select name="building_id" v-model="selectedBuilding[index]">
+									<option 
+										:value="building.id"
+										v-for="building in buildings" 
+										v-if="!taken_buildings_ids.includes(building.id)" 
+										v-text="building.name">
+									</option>
+								</select>
+							</div>
+							<button class="button is-small is-outlined is-success" @click="assignBuilding(farm.id, index)">+</button>
+						</td>
+					</tr>
 				</tbody>
 			</table>
+
+
     	</div>
   	</div>
 </div>

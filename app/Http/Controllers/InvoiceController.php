@@ -40,7 +40,7 @@ class InvoiceController extends Controller
             ]);
         }
 
-        $url = 'https://farm-ops.dev/grows/' . $request->grow_id;
+        $url = '/grows/' . $request->grow_id;
 
         return $url;
     }

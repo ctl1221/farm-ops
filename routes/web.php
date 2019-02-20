@@ -43,7 +43,8 @@ Route::post('/addBuilding', function(){
 Route::get('/grows/start','GrowController@start');
 Route::resource('/grows','GrowController');
 Route::post('/grows/start','GrowController@scaffoldCreate');
-Route::post('/grows/createFarm','GrowController@createFarm');
+
+Route::post('/farms','FarmController@store');
 
 Route::get('/mortalities/farms/{farm}/buildings/{building}', 'MortalityController@per_building');
 Route::post('/mortalities', 'MortalityController@store');
@@ -102,6 +103,7 @@ Route::get('/feeds_input','CalculatorController@input_feeds');
 Route::post('/feeds_calculate','CalculatorController@calculate_feeds');
 
 Route::get('/api/getAllMaterials','APIController@materials');
+Route::get('/api/getFarmsOfGrow/{grow}','APIController@getFarmsOfGrow');
 Route::get('/api/getLoadingsOfFarm/{farm}','APIController@getLoadingsOfFarm');
 Route::get('/api/getHarvestsOfFarm/{farm}','APIController@getHarvestsOfFarm');
 Route::get('/api/getEmployeeAssignmentsOfGrow/{grow}','APIController@getEmployeeAssignmentsOfGrow');
