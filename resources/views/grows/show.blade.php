@@ -108,6 +108,7 @@
 						name: this.selectedFarm,
 						grow_id: grow_id,
 					}).then(response => {
+
 						this.getFarms();
 
 						untaken = this.untaken_farms;
@@ -184,6 +185,7 @@
 						building_id: this.selectedBuilding[index],
 					}).then(response => {
 						this.taken_buildings_ids.push(this.selectedBuilding[index]);
+						this.getEmployeeAssignments();
 						this.updateUntakenBuildings();
 						this.getFarms();
 					});

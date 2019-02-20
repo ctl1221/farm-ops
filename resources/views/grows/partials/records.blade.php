@@ -16,16 +16,14 @@
 				</thead>
 
 				<tbody>
-					@foreach ($farms as $farm)
-						<tr>
-							<td>{{ $farm->name }}</td>	
-							<td><a href="/receivings/farms/{{ $farm->id }}">View</td>
-							<td><a href="/loadings/farms/{{ $farm->id }}">View</a></td>
-							<td><a href="/days/farms/{{ $farm->id }}">View</a></td>
-							<td><a href="/harvests/farms/{{ $farm->id }}">View</a></td>
-							<td><a href="/materials/farms/{{ $farm->id }}">View</a></td>
-						</tr>
-					@endforeach
+					<tr v-for="farm in farms">
+						<td>@{{ farm.name }}</td>	
+						<td><a href="/receivings/farms/@{{ farm.id }}">View</td>
+						<td><a href="/loadings/farms/@{{ farm.id }}">View</a></td>
+						<td><a href="/days/farms/@{{ farm.id }}">View</a></td>
+						<td><a href="/harvests/farms/@{{ farm.id }}">View</a></td>
+						<td><a href="/materials/farms/@{{ farm.id }}">View</a></td>
+					</tr>
 				</tbody>
 			</table>
     	</div>
