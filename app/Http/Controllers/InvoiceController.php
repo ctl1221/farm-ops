@@ -6,7 +6,9 @@ use App\Invoice;
 use App\InvoiceLine;
 use App\Grow;
 use App\Company;
+use App\Material;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -14,35 +16,37 @@ class InvoiceController extends Controller
     public function create(Grow $grow)
     {
         $suppliers = Company::where('is_supplier', '=', true)->get();
+        $materials = Material::getAllMaterials();
 
-        return view('invoices.create', compact('grow', 'suppliers'));
+        return view('invoices.create', compact('grow', 'suppliers','materials'));
     }
 
     public function store(Request $request)
     {
-        $invoice = Invoice::create([
-            'farm_id' => $request->farm_id,
-            'date' => $request->date,
-            'supplier_invoice_no' => $request->supplier_invoice_no,
-            'company_id' => $request->company_id,
-            'dr_reference_no' => $request->dr_reference_no,
-            'so_reference_no' => $request->so_reference_no,
-        ]);
+        //DB::transaction(function () {
 
-        for($i = 0; $i < $request->n_lines; $i++)
-        {
-            InvoiceLine::create([
-                'material_id' => $request->lines[$i]['id'],
-                'material_type' => 'App\\' . $request->lines[$i]['material_type'],
-                'price' => $request->lines[$i]['price'],
-                'quantity' => $request->lines[$i]['quantity'],
-                'invoice_id' => $invoice->id,
+            $invoice = Invoice::create([
+                'farm_id' => $request->farm_id,
+                'date' => $request->date,
+                'supplier_invoice_no' => $request->supplier_invoice_no,
+                'company_id' => $request->company_id,
+                'dr_reference_no' => $request->dr_reference_no,
+                'so_reference_no' => $request->so_reference_no,
             ]);
-        }
 
-        $url = '/grows/' . $request->grow_id;
+            foreach ($request->lines as $x) {
+                InvoiceLine::create([
+                    'invoice_id' => $invoice->id,
+                    'material_type' => 'App\\' . $x['material_type'],
+                    'material_id' => $x['material_id'],
+                    'quantity' => $x['quantity'],
+                    'price' => $x['price']
+                ]);
+            }
 
-        return $url;
+        //});
+
+        return 'success';
     }
 
     public function show(Invoice $invoice)

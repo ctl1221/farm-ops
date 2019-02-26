@@ -10,6 +10,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 window._ = require('lodash');
+window.moment = require('moment');
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -24,16 +25,14 @@ window._ = require('lodash');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.component('my-navbar', require('./components/Navbar.vue').default);
-Vue.component('invoice-line', require('./components/InvoiceLine.vue').default);
 Vue.component('invoice-slip', require('./components/InvoiceSlip.vue').default);
-Vue.component('grid', require('./components/GridComponent.vue').default);
 Vue.component('material-slip', require('./components/MaterialSlip.vue').default);
 Vue.component('pen-mortalities', require('./components/PenMortalities.vue').default);
 
 Vue.filter('currencyFormat', function (value) {
-	return value.toLocaleString('en-PH',{minimumFractionDigits: 2});
+	return value.toLocaleString('en-PH',{minimumFractionDigits: 2, maximumFractionDigits: 2});
 });
 
 Vue.filter('weightFormat', function (value) {
-	return value.toLocaleString('en-PH',{minimumFractionDigits: 3});
+	return value.toLocaleString('en-PH',{minimumFractionDigits: 3, maximumFractionDigits: 3});
 });

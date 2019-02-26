@@ -72,11 +72,11 @@
 
             <tbody>
                 <slipline 
-                    v-for="(x, index) in lines"
+                    v-for="(line, index) in lines"
                     :key="index"
 
                     :materials="materials" 
-                    :item="x"
+                    :item="line"
 
                     @input-changed="updateLine($event, index)"
                     @del-is-clicked="removeLine(index)">
@@ -135,13 +135,10 @@
         data () {
             return {
                 doc_no: '',
-                date: '',
+                date: moment().format('YYYY-MM-DD'),
                 farm_id: 1,
                 lines: [],
-                materials: [
-                        {'id': 1 , 'description':'Hello', 'code':'54321'},
-                        {'id': 2, 'description':'World', 'code':'12345'},
-                ],
+                materials: [],
             }
         },
 

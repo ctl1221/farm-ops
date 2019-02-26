@@ -8,6 +8,7 @@ use App\Grow;
 use App\Farm;
 use App\Feed;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReceivingController extends Controller
 {
@@ -31,7 +32,7 @@ class ReceivingController extends Controller
 
     public function store(Request $request)
     {
-        DB::transaction(function () {
+        //DB::transaction(function () {
             $receiving = Receiving::create([
                 'farm_id' => $request->farm_id,
                 'doc_no' => $request->doc_no,
@@ -47,7 +48,7 @@ class ReceivingController extends Controller
                     'batch_no' => $x['batch_no']
                 ]);
             }
-        });
+        //});
 
         $message = "Success";
 
