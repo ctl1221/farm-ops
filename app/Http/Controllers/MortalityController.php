@@ -28,10 +28,12 @@ class MortalityController extends Controller
 
     public function per_building(Farm $farm, Building $building)
     {
-        $current_days = Day::where([
+        $current_days = Day::with('mortalities')->where([
             ['farm_id', '=', $farm->id],
             ['building_id', '=', $building->id],
         ])->get();
+
+        //return $current_days;
 
         return view ('mortalities.per_building', compact ('current_days', 'farm', 'building'));
     }
@@ -88,6 +90,8 @@ class MortalityController extends Controller
         $mortality->quantity = $request->quantity;
         $mortality->save();
 
+        $message = 'Success';
+        return ['message' => $message];
         return back();
     }
 

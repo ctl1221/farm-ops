@@ -27,36 +27,10 @@
 
 @section('content')
 
-	<table class="table is-narrow is-bordered is-striped is-fullwidth" >
-		<thead>
-			<tr>
-				<th></th>
-				<th class="has-text-centered" colspan="7">A.M.</th>
-				<th class="has-text-centered" colspan="7">P.M.</th>
-				<th></th>
-			</tr>
-			<tr>
-				<th class="has-text-centered">Day</th>
-				<th class="has-text-centered">Pen 1</th>
-				<th class="has-text-centered">Pen 2</th>
-				<th class="has-text-centered">Pen 3</th>
-				<th class="has-text-centered">Pen 4</th>
-				<th class="has-text-centered">Pen 5</th>
-				<th class="has-text-centered">Pen 6</th>
-				<th class="has-text-centered">Pen 7</th>
-				<th class="has-text-centered">Pen 1</th>
-				<th class="has-text-centered">Pen 2</th>
-				<th class="has-text-centered">Pen 3</th>
-				<th class="has-text-centered">Pen 4</th>
-				<th class="has-text-centered">Pen 5</th>
-				<th class="has-text-centered">Pen 6</th>
-				<th class="has-text-centered">Pen 7</th>
-				<th class="has-text-centered">Subtotal</th>
-			</tr>
-		</thead>
+	
 
-		<tbody>
-			@foreach ($current_days as $x)
+
+			{{-- @foreach ($current_days as $x)
 				<tr>
 					<td class="has-text-centered">{{ $x->day }}</td>
 					@php
@@ -79,8 +53,20 @@
 					@endforeach
 					<td class="has-text-centered">{{ $current_total }}</td>
 				</tr>
-			@endforeach
-		</tbody>
-	</table>
+			@endforeach --}}
+
+	<pen-mortalities :current_days="{{ $current_days }}"></pen-mortalities>
 
 @endsection
+
+@section('scripts')
+
+<script>
+
+	var app = new Vue({
+		el: '#app_body'
+	});
+
+</script>
+
+@endsection 

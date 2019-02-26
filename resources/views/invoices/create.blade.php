@@ -92,10 +92,10 @@
 
 	</section>
 
-		<invoice-list ref="invoice_list" 
+		<invoice-slip ref="invoice_list" 
 			@subtract_n_lines="n_lines--"
 			@update_aggregates="updateAggregates">
-		</invoice-list>
+		</invoice-slip>
 
 		<div class="is-pulled-right">
 		<table class="table is-bordered">

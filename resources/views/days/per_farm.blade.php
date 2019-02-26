@@ -42,10 +42,10 @@
 					<thead>
 						<th>Day</th>
 						<th>Mortality <a href="/mortalities/farms/{{ $farm->id }}/buildings/{{ $building->id }}"><i class="fas fa-eye"></i></a> </th>
-						<th>Cumulative Mortality</th>
-						<th>Harvest Recovery</th>
+						<th>Cum. Mortality</th>
+						<th>% Alive</th>
 						<th>Feeds Consumed</th>
-						<th>Cumulative Feeds Consumed</th>
+						<th>Cum. Feeds Consumed</th>
 						<th>ALW <a href="/weighings/farms/{{ $farm->id }}/buildings/{{ $building->id }}"><i class="fas fa-eye"></i></a> </th>
 						<th>FCR</th>
 					</thead>
@@ -65,7 +65,7 @@
 
 									<td>
 										@if($building->pivot->birds_started)
-											{{ number_format($cmortality / $building->pivot->birds_started * 100,2) . " %" }}
+											{{ number_format((1 - $cmortality / $building->pivot->birds_started) * 100 ,2) . " %" }}
 										@else
 											---
 										@endif
@@ -80,9 +80,6 @@
 												<button class="button is-small"><i class="fas fa-arrow-circle-right"></i></button>
 											</div>
 										</form>
-										@if(session('message') == $x->feeds_consumption->id)
-											"Entry has been Updated"
-										@endif
 									</td>
 
 									<td>{{ $cfeedsconsumed += $x->feeds_consumption->quantity }}</td>

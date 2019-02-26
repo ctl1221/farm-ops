@@ -48,7 +48,7 @@ Route::post('/farms','FarmController@store');
 
 Route::get('/mortalities/farms/{farm}/buildings/{building}', 'MortalityController@per_building');
 Route::post('/mortalities', 'MortalityController@store');
-Route::patch('/mortalities/{mortality}', 'MortalityController@update');
+Route::post('/mortalities/{mortality}', 'MortalityController@update');
 
 Route::post('/buildings/farm/{farm}/assign','BuildingController@assignFarm');
 Route::post('/update_bird_started','BuildingController@updateBirdStarted');
@@ -80,6 +80,7 @@ Route::post('/invoiceLines', 'InvoiceLineController@store');
 Route::get('/materials/farms/{farm}', 'MaterialController@per_farm');
 
 Route::get('/receivings/farms/{farm}', 'ReceivingController@per_farm');
+Route::get('/receivings/grows/{grow}/create', 'ReceivingController@create');
 Route::post('/receivings', 'ReceivingController@store');
 
 Route::post('/receivingLines', 'ReceivingLineController@store');
@@ -102,6 +103,7 @@ Route::resource('/payslips', 'PaySlipController');
 Route::get('/feeds_input','CalculatorController@input_feeds');
 Route::post('/feeds_calculate','CalculatorController@calculate_feeds');
 
+Route::get('/api/getAllFeeds','APIController@getAllFeeds');
 Route::get('/api/getAllMaterials','APIController@materials');
 Route::get('/api/getFarmsOfGrow/{grow}','APIController@getFarmsOfGrow');
 Route::get('/api/getLoadingsOfFarm/{farm}','APIController@getLoadingsOfFarm');

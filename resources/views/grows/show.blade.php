@@ -29,6 +29,10 @@
 
 @section('content')
 
+	@include('grows.partials.performance')
+
+	<br/>
+
 	@include('grows.partials.info')
 
 	<br/>
@@ -47,6 +51,10 @@
 	<br/>
 
 	@include('grows.partials.invoices')
+
+	<br/>
+
+	@include('grows.partials.material_slips')
 
 	<br/>
 

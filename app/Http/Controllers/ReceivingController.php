@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Receiving;
+use App\ReceivingLine;
+use App\Grow;
 use App\Farm;
 use App\Feed;
 use Illuminate\Http\Request;
@@ -14,11 +16,6 @@ class ReceivingController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function per_farm(Farm $farm)
     {
         $feeds = Feed::all();
@@ -26,64 +23,52 @@ class ReceivingController extends Controller
         return view('receivings.per_farm', compact('farm', 'feeds'));
     }
 
-    public function create()
+    public function create(Grow $grow)
     {
-        //
+        
+        return view('receivings.create', compact('grow'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        Receiving::create($request->all());
+        DB::transaction(function () {
+            $receiving = Receiving::create([
+                'farm_id' => $request->farm_id,
+                'doc_no' => $request->doc_no,
+                'date' => $request->date,
+            ]);
 
-        return back();
+            foreach ($request->lines as $x) {
+                ReceivingLine::create([
+                    'receiving_id' => $receiving->id,
+                    'material_type' => 'App\Feeds',
+                    'material_id' => $x['material_id'],
+                    'quantity' => $x['quantity'],
+                    'batch_no' => $x['batch_no']
+                ]);
+            }
+        });
+
+        $message = "Success";
+
+        return ['message' => $message ];
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Receiving  $receiving
-     * @return \Illuminate\Http\Response
-     */
     public function show(Receiving $receiving)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Receiving  $receiving
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Receiving $receiving)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Receiving  $receiving
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Receiving $receiving)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Receiving  $receiving
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Receiving $receiving)
     {
         //

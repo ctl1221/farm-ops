@@ -22,8 +22,13 @@ window._ = require('lodash');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('invoice-line', require('./components/InvoiceLineComponent.vue').default);
-Vue.component('invoice-list', require('./components/InvoiceListComponent.vue').default);
+
+Vue.component('my-navbar', require('./components/Navbar.vue').default);
+Vue.component('invoice-line', require('./components/InvoiceLine.vue').default);
+Vue.component('invoice-slip', require('./components/InvoiceSlip.vue').default);
+Vue.component('grid', require('./components/GridComponent.vue').default);
+Vue.component('material-slip', require('./components/MaterialSlip.vue').default);
+Vue.component('pen-mortalities', require('./components/PenMortalities.vue').default);
 
 Vue.filter('currencyFormat', function (value) {
 	return value.toLocaleString('en-PH',{minimumFractionDigits: 2});

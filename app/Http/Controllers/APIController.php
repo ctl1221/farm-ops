@@ -10,9 +10,18 @@ use App\Loading;
 use App\Harvest;
 use App\Farm;
 use App\Grow;
+use App\Feed;
 
 class APIController extends Controller
 {
+
+    public function getAllFeeds()
+    {
+        $feeds = Feed::all();
+
+        return compact('feeds');
+    }
+
     public function materials()
     {
     	$materials = Material::getAllMaterials();

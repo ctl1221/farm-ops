@@ -37,7 +37,11 @@
 </template>
 
 <script>
+
+    //import invoice-line from './InvoiceLine.vue';
+
     export default {
+        //components: { invoice-line },
         data () {
             return {
                 'materials' : [],
