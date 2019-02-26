@@ -42,7 +42,7 @@ class ReceivingController extends Controller
             foreach ($request->lines as $x) {
                 ReceivingLine::create([
                     'receiving_id' => $receiving->id,
-                    'material_type' => 'App\Feeds',
+                    'material_type' => 'App\Feed',
                     'material_id' => $x['material_id'],
                     'quantity' => $x['quantity'],
                     'batch_no' => $x['batch_no']

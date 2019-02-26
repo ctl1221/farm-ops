@@ -26,7 +26,11 @@
 
 @section('content')		
 
-	<material-slip></material-slip>
+	<material-slip
+		redirect_url = "/grows/{{ $grow->id }}/#material_slips"
+	>
+		
+	</material-slip>
 
 @endsection
 

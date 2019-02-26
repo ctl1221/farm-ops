@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Building;
-use App\Farm;
-use App\Grow;
 use App\Day;
-use App\Mortality;
-use App\FeedsConsumption;
 use App\Employee;
+use App\Farm;
+use App\FeedsConsumption;
+use App\Grow;
+use App\Mortality;
+use App\ReceivingLine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -118,8 +119,10 @@ class GrowController extends Controller
 
         $supervisor_list = Employee::supervisors()->get();
         $caretaker_list = Employee::caretakers()->get();
+
+        $material_slips = ReceivingLine::all();
         
-        return view('grows.show', compact('farms','grow','buildings','taken_buildings_ids','period_start','period_end','farm_names','supervisor_list', 'caretaker_list'));
+        return view('grows.show', compact('farms','grow','buildings','taken_buildings_ids','period_start','period_end','farm_names','supervisor_list', 'caretaker_list','material_slips'));
     }
 
     public function edit(Grow $grow)

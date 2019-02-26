@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\LoadingCreated;
+//use App\Events\LoadingCreated;
 use App\Farm;
 use App\Loading;
 use Illuminate\Http\Request;
@@ -44,9 +44,24 @@ class LoadingController extends Controller
      */
     public function store(Request $request)
     {
-        $loading = Loading::create($request->all());
+        Loading::create([
+            'farm_id' => $request->farm_id,
+            'date' => $request->date,
+            'hatchery_source' => $request->hatchery_source,
+            'total_delivered' => $request->total_delivered,
+            'doa' => $request->doa,
+            'net_received' => $request->net_received,
+            'truck_plate_no' => $request->truck_plate_no,
+            'trucker_name' => $request->trucker_name,
+            'dep_hatchery' => $request->dep_hatchery,
+            'arr_farm' => $request->arr_farm,
+            'dep_farm' => $request->dep_farm,
+            'source_id' => $request->source_id,
+            'seal_no' => $request->seal_no,
+            'notes' => $request->notes,
+        ]);
 
-        return back();
+        return 'success';
     }
 
     /**

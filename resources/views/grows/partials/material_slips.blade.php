@@ -1,4 +1,4 @@
-<div id="invoices" class="card">
+<div id="material_slips" class="card">
 	<header class="card-header has-background-warning">
 		<nav class="level">
 			<div class="level-left">
@@ -22,6 +22,15 @@
 				</thead>
 
 				<tbody>
+					@foreach($material_slips as $x)
+						<tr>
+							<td>{{ $x->receiving->date }}</td>
+							<td>{{ $x->receiving->farm->name }}</td>
+							<td>Reference</td>
+							<td>{{ $x->receiving->total_declared_weight() }}</td>
+							<td>Company Weight</td>
+						</tr>
+					@endforeach
 				</tbody>
 					
 			</table>

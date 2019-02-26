@@ -15,16 +15,16 @@ class Loading extends Model
     // 	'created' => LoadingCreated::class
     // ];
 
-    protected static function boot()
-    {
-    	parent::boot();
+    // protected static function boot()
+    // {
+    // 	parent::boot();
 
-    	static::created(function ($loading) {
-	    	$grow = Grow::find($loading->farm->grow_id);
-	        $grow->date_start = $grow->loadings->first()->date;
-	        $grow->save();
-    	});
-    }
+    // 	static::created(function ($loading) {
+	   //  	$grow = Grow::find($loading->farm->grow_id);
+	   //      $grow->date_start = $grow->loadings->first()->date;
+	   //      $grow->save();
+    // 	});
+    // }
 
     public function farm()
     {

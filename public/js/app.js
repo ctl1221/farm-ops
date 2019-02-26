@@ -2203,6 +2203,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     slipline: _MaterialSlipLine_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  props: ['redirect_url'],
   data: function data() {
     return {
       doc_no: '',
@@ -2264,16 +2265,18 @@ __webpack_require__.r(__webpack_exports__);
       this.lines[ind].parallel_quantity = event.parallel_quantity;
     },
     submitForm: function submitForm() {
+      var _this = this;
+
       axios.post('/receivings', this.$data).then(function (response) {
-        console.log(response.data);
+        window.location.href = _this.redirect_url;
       });
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get('/api/getAllFeeds').then(function (response) {
-      _this.materials = response.data.feeds;
+      _this2.materials = response.data.feeds;
     });
   }
 });
@@ -68858,8 +68861,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

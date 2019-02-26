@@ -20,10 +20,24 @@ class FeedsSeeder extends Seeder
         ]);
 
         Feed::create([
-            'code' => '9999999999999',
-            'description' => 'PERSONAL 25KG',
+            'code' => '1012160432700',
+            'description' => 'INTRA CHICK BOOSTER CRUMBLE 50KG',
             'uom' => 'BAG',
-            'kg_weight' => '25',
+            'kg_weight' => '50',
+        ]);
+
+        Feed::create([
+            'code' => '0000000000',
+            'description' => 'INTRA BROILER GROWER CRUMBLE 50KG',
+            'uom' => 'BAG',
+            'kg_weight' => '50',
+        ]);
+
+        Feed::create([
+            'code' => '0000000000',
+            'description' => 'INTRA BROILER FINISHER CRUMBLE 50KG',
+            'uom' => 'BAG',
+            'kg_weight' => '50',
         ]);
     }
 }

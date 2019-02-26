@@ -10,7 +10,12 @@ class Receiving extends Model
 
     public function receiving_lines ()
     {
-     	return $this->hasMany(ReceivingLine::class);
+        return $this->hasMany(ReceivingLine::class);
+    }
+
+    public function farm ()
+    {
+     	return $this->belongsTo(Farm::class);
     }
 
     public function truck_weighings ()

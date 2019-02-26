@@ -132,6 +132,7 @@
 
     export default {
         components: { slipline },
+        props: ['redirect_url'],
         data () {
             return {
                 doc_no: '',
@@ -213,7 +214,7 @@
             submitForm: function() {
                 axios.post('/receivings',this.$data).then(response => 
                 {
-                    console.log(response.data);
+                    window.location.href = this.redirect_url
                 });
             },
         },

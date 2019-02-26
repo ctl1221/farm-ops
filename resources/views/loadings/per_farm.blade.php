@@ -139,22 +139,7 @@
 	  			},
 
 			  	submitForm: function() {
-				  		axios.post('/loadings',{
-				  			'farm_id':this.farm_id,
-				  			'date': this.date,
-				  			'hatchery_source': this.hatchery_source,
-				  			'total_delivered': this.total_delivered,
-				  			'doa': this.doa,
-				  			'net_received':this.net_received,
-				  			'truck_plate_no':this.truck_plate_no,
-				  			'trucker_name':this.trucker_name,
-				  			'dep_hatchery':this.dep_hatchery,
-				  			'arr_farm':this.arr_farm,
-				  			'dep_farm':this.dep_farm,
-				  			'source_id':this.source_id,
-				  			'seal_no':this.seal_no,
-				  			'notes':this.notes,
-				  		}).then(response => {
+				  	axios.post('/loadings', this.$data).then(response => {
 				  			this.getEntries();
 				  			this.clearInputs();
 				  		});
