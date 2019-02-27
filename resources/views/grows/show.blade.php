@@ -16,11 +16,11 @@
 
 	  <!-- Right side -->
 		<div class="level-right">
-	    	<h4 class="subtitle is-4 level-item">
+{{-- 	    	<h4 class="subtitle is-4 level-item">
 	    		Duration : {{ $period_start }} to {{ $period_end }} 
 	    		({{ Carbon\Carbon::parse($period_end)->diffInDays(Carbon\Carbon::parse($period_start)) + 1 }} 
 	    		Days)
-	    	</h4>
+	    	</h4> --}}
 	  	</div>
 	</nav>
 
@@ -37,14 +37,14 @@
 
 	<br/>
 
-	<div class="columns">
+{{-- 	<div class="columns">
 		<div class=column>
 			@include('grows.partials.sales_summary')
 		</div>
 		<div class=column>
 			@include('grows.partials.expenses_summary')
 		</div>
-	</div>
+	</div> --}}
 
 	@include('grows.partials.records')
 

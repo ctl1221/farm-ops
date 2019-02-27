@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" id="records">
 	<header class="card-header has-background-warning">
     	<p class="card-header-title">Records</p>
   	</header>

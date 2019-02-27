@@ -17,8 +17,10 @@
 					<th>Date</th>
 					<th>Farm</th>
 					<th>Reference</th>
-					<th>Weight</th>
-					<th>Company Weight</th>
+					<th>Declared Weight</th>
+					<th>Actual Weight</th>
+					<th>Ticket Scale No</th>
+					<th>Weigh</th>
 				</thead>
 
 				<tbody>
@@ -28,7 +30,21 @@
 							<td>{{ $x->receiving->farm->name }}</td>
 							<td>Reference</td>
 							<td>{{ $x->receiving->total_declared_weight() }}</td>
-							<td>Company Weight</td>
+							<td>{{ $x->receiving->total_actual_weight() }}</td>
+							<td>
+								@foreach ($x->receiving->truck_weighings as $y)
+									<a class="tooltip is-tooltip is-small" style="border-color:white" data-tooltip="{{ number_format($y->kg_net_weight) . ' KG'  }}"><u>{{ $y->ticket_no }}</u></a>
+								@endforeach
+							</td>
+							<td>
+								<form method="POST" action="/truckWeighings">
+									@csrf
+									<input type="hidden" name="receiving_id" value="{{ $x->receiving_id }}">
+									<input type="text" name="ticket_no" placeholder="ticket no">
+									<input type="text" name="kg_net_weight" placeholder="kg net weight">
+									<input type="submit" value="weigh">
+								</form>
+							</td>
 						</tr>
 					@endforeach
 				</tbody>

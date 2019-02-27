@@ -42,7 +42,6 @@ Route::post('/addBuilding', function(){
 
 Route::get('/grows/start','GrowController@start');
 Route::resource('/grows','GrowController');
-Route::post('/grows/start','GrowController@scaffoldCreate');
 
 Route::post('/farms','FarmController@store');
 

@@ -8,14 +8,9 @@
 			</div>
 
 			<div class="level-item">
-			 	<div v-if="showModal" class="modal is-active">
-				  <div class="modal-background"></div>
-				  	<div class="modal-content">
-						@include('grows.partials.create')
-				  	</div>
-				</div>
-
-				<button class="button is-small is-primary" @click="showModal = true">Create</button>			
+			 	<my-modal>
+					@include('grows.create')
+				</my-modal>
 			</div>
 		</div>
 
@@ -75,12 +70,6 @@
 		
 		var app_body = new Vue({
 		  el: '#app_body',
-		  data: {
-		  	showModal: false,
-		  },
-		  created() {
-		  	this.showModal = false;
-		  }
 		})
 
 	</script>

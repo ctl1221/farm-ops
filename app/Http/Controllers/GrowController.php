@@ -27,60 +27,6 @@ class GrowController extends Controller
         return view('grows.start');
     }
 
-    public function scaffoldCreate(Request $request)
-    {
-        $new_grow = Grow::create([
-            'cycle' => $request->cycle,
-            'date_start' => $request->date_start,
-            'date_end' => $request->date_end
-        ]);
-
-        for($i=0; $i < config('default.n_farms'); $i++)
-        {
-            $new_farm = Farm::create([
-                'name' => config('default.farm_names')[$i],
-                'grow_id' => $new_grow->id
-            ]);
-
-            for($j=0; $j < count(config('default.building_assignments')[$i]); $j++)
-            {
-                $new_farm->buildings()->attach(config('default.building_assignments')[$i][$j]);
-
-                for($k=0; $k < config('default.n_days'); $k++)
-                {
-
-                    $new_day = Day::create([
-                        'farm_id' => $new_farm->id,
-                        'building_id' => config('default.building_assignments')[$i][$j],
-                        'day' => $k + 1,
-                    ]);
-
-                    $current_building = Building::find(config('default.building_assignments')[$i][$j]);
-
-                    foreach ($current_building->pens as $pen) {
-                        Mortality::create([
-                            'day_id' => $new_day->id,
-                            'pen_id' => $pen->id,
-                            'midday' => 'am',
-                        ]);
-                    }
-
-                    foreach ($current_building->pens as $pen) {
-                        Mortality::create([
-                            'day_id' => $new_day->id,
-                            'pen_id' => $pen->id,
-                            'midday' => 'pm',
-                        ]);
-                    }
-
-                    FeedsConsumption::create(['day_id' => $new_day->id]);
-                }
-            }
-        }
-
-        return redirect('/grows');
-    }
-
     public function create()
     {
         return view('grows.create');
@@ -89,9 +35,7 @@ class GrowController extends Controller
     public function store(Request $request)
     {
         
-        $grow = Grow::create([
-            'cycle' => $request->cycle,
-        ]);
+        $grow = Grow::create($request->all());
 
         return redirect ('/grows/' . $grow->id);
     }

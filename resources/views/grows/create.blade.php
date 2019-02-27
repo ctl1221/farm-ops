@@ -1,31 +1,26 @@
-<article class="message is-primary">
+<template slot="title">Create New Grow</template>
 
-	<div class="message-header">
-		<h5 class='title is-5 has-text-centered'>Create New Grow</h5>
-		<button class="delete" aria-label="delete" @click="showModal = false"></button>
-	</div>
+<template slot="body">
+	<form method="POST" action='/grows'>
+		@csrf
 
-	<div class="message-body">
-		<form method="POST" action='/grows'>
-			@csrf
-
-			<div class="field">
-				<label class="label">Grow Reference</label>
-				<div class="control">
-					<input class="input" type="text" name="cycle" placeholder="e.g. Grow 2019-01">
-				</div>
-			</div>
-
+		<div class="field">
+			<label class="label">Grow Reference</label>
 			<div class="control">
-				<button class="button is-outlined is-primary" type="submit">Submit</button>
+				<input class="input" type="text" name="cycle" placeholder="e.g. Grow 2019-01">
 			</div>
-		</form>
-  </div>
+		</div>
 
-</article>
+		<div class="field">
+			<label class="label">Date Start</label>
+			<div class="control">
+				<input class="input" type="date" name="date_start" value="{{\Carbon\Carbon::now()->toDateString()}}">
+			</div>
+		</div>
 
-
-
-
-
-
+		<div class="control">
+			<button class="button is-outlined is-primary" type="submit">Submit</button>
+		</div>
+		
+	</form>
+</template>
