@@ -34,6 +34,13 @@ class EmployeesSeeder extends Seeder
         ]);
 
         Employee::create([
+            'job_id' => 3,
+            'first_name' => 'Brie',
+            'last_name' => 'Larson',
+            'display_name' => 'Brie Larson',
+        ]);
+
+        Employee::create([
             'job_id' => 4,
             'first_name' => 'Paul',
             'last_name' => 'Rudd',

@@ -179,15 +179,7 @@
 						building_id: building_id,
 					}).then(response => this.getEmployeeAssignments());
 				},
-
-				assignCaretaker: function (farm_id) {
-					axios.post('/assign_building_caretaker',{
-						farm_id: farm_id,
-						building_id: building_id,
-						caretaker_id: this.selectedCaretaker[index],
-					}).then(response => this.getEmployeeAssignments());
-				},
-
+				
 				assignBuilding: function (farm_id, index) {
 					axios.post('/buildings/farm/' + farm_id + '/assign', {
 						building_id: this.selectedBuilding[index],

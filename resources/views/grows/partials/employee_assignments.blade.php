@@ -1,3 +1,12 @@
+{{-- <grow-employee-assignments 
+	:grow="{{ $grow }}"
+	:employee_assignments="{{ $employee_assignments }}"
+	:supervisor_list="{{ $supervisor_list }}"
+	:caretaker_list="{{ $caretaker_list }}"
+
+	@employee_assignments_changed="">
+		
+</grow-employee-assignments> --}}
 <div class="card">
 	<header class="card-header has-background-info">
     	<p class="card-header-title">Employee Assignments</p>
@@ -55,8 +64,8 @@
 									</div>
 								</div>
 								<div class="right">	
-		 							<button v-if="! x.caretaker_name" @click="assignCaretaker(index,x.building_id,x.farm_id)" class="button is-outlined is-small is-success">Assign</button> 
-		 							<button v-if="x.caretaker_name" @click="unassignCaretaker(x.building_id,x.farm_id)" class="button is-outlined is-small is-danger">Unassign</button>
+		 							<button v-if="! x.caretaker_name" @click="assignCaretaker(index, x.building_id, x.farm_id)" class="button is-outlined is-small is-success">Assign</button> 
+		 							<button v-if="x.caretaker_name" @click="unassignCaretaker(x.building_id, x.farm_id)" class="button is-outlined is-small is-danger">Unassign</button>
 		 						</div>	
  							</div>
 						</td>

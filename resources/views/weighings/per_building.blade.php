@@ -1,46 +1,45 @@
 @extends('master')
 
+@section('breadcrumb')
+
+	<nav class="level">
+		<div class="level-left">
+		    <div class="level-item">
+				<nav class="breadcrumb" aria-label="breadcrumbs" style="margin-top: 0.5rem">
+				  <ul>
+				    <li><a href="/grows"><h3 class="title is-3 has-text-link">Grows</h3></a></li>
+				    <li><a href="/grows/{{ $farm->grow->id }}#records"><h3 class="title is-3 has-text-link">{{ $farm->grow->cycle }}</h3></a></li>
+				    <li><a href="/days/farms/{{ $farm->id }}#{{ $building->name }}"><h3 class="title is-3 has-text-link">{{ $farm->name }}</h3></a></li>
+				    <li class="is-active"><a><h3 class="title is-3">{{ $building->name }}</h3></a></li>
+				    <li class="is-active"><a><h3 class="title is-3">Weighings</h3></a></li>
+				  </ul>
+				</nav>
+			</div>
+	  	</div>
+
+	  <!-- Right side -->
+		<div class="level-right">
+	    	
+	  	</div>
+	</nav>
+
+@endsection
+
 @section('content')
 
-	Per pen ALW here
+	<span>*** weights are in g</span>
+	<pen-weighings :current_weighings="{{ $current_weighings }}" :n_weighings="{{ config('default.n_weighs')}}"></pen-weighings>
 
-	<table border="1" >
-		<thead>
-			<tr>
-				<th>Day</th>
-				<th>Weigh No</th>
-				<th>Pen 1</th>
-				<th>Pen 2</th>
-				<th>Pen 3</th>
-				<th>Pen 4</th>
-				<th>Pen 5</th>
-				<th>Pen 6</th>
-				<th>Pen 7</th>
-			</tr>
-		</thead>
+@endsection
 
-		<tbody>
-			@foreach ($current_days as $x)
-				<tr>
-					<td rowspan="{{ $x->weighings->count() + 1 }}">{{ $x->day }}</td>
-					@foreach($x->weighings as $y)
-						<tr>
-						<td>{{ $y->weigh_no }}</td>
-						@foreach($y->pen_weighings as $z)
-							<td>
-								<form method="POST" action="/penWeighings/{{ $z->id }}">
-									@csrf
-									@method('patch')
-									<input type="text" name="weight" value="{{ $z->weight }}">
-									<input type="submit" value="U">
-								</form>	
-							</td>
-						@endforeach
-						</tr>
-					@endforeach
-				</tr>
-			@endforeach 
-		</tbody>
-	</table>
+@section('scripts')
+
+	<script type="text/javascript">
+
+		var app = new Vue({
+			el: '#app_body',
+		});
+		
+	</script>
 
 @endsection

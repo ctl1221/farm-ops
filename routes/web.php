@@ -69,7 +69,7 @@ Route::post('/harvests', 'HarvestController@store');
 
 Route::get('/weighings/farms/{farm}/buildings/{building}', 'WeighingController@per_building');
 
-Route::patch('/penWeighings/{penWeighing}', 'PenWeighingController@update');
+Route::post('/penWeighings/{penWeighing}', 'PenWeighingController@update');
 
 Route::get('/invoices/grows/{grow}/create', 'InvoiceController@create');
 Route::post('/invoices', 'InvoiceController@store');

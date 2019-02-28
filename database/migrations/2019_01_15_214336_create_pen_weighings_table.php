@@ -17,7 +17,7 @@ class CreatePenWeighingsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('weighing_id');
             $table->unsignedInteger('pen_id');
-            $table->float('weight', 4, 3)->default(0.0);
+            $table->double('weight', 8, 3)->default(0.0);
             $table->timestamps();
         });
     }

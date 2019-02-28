@@ -214,7 +214,7 @@
             submitForm: function() {
                 axios.post('/receivings',this.$data).then(response => 
                 {
-                    window.location.href = this.redirect_url
+                    window.location.href = this.redirect_url;
                 });
             },
         },

@@ -1,4 +1,4 @@
-<footer class="footer has-background-primary" style="margin-top: 3rem; padding:2rem">
+<footer class="footer has-background-primary" style="margin-top: 12rem; padding:2rem">
   <div class="content">
   	<div class="columns">
   		<div class="column">

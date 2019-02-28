@@ -26,9 +26,11 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 Vue.component('my-navbar', require('./components/Navbar.vue').default);
 Vue.component('my-modal', require('./components/Modal.vue').default);
+//Vue.component('grow-employee-assignments', require('./components/EmployeeAssignments.vue').default);
 Vue.component('invoice-slip', require('./components/InvoiceSlip.vue').default);
 Vue.component('material-slip', require('./components/MaterialSlip.vue').default);
 Vue.component('pen-mortalities', require('./components/PenMortalities.vue').default);
+Vue.component('pen-weighings', require('./components/PenWeighings.vue').default);
 
 Vue.filter('currencyFormat', function (value) {
 	return value.toLocaleString('en-PH',{minimumFractionDigits: 2, maximumFractionDigits: 2});

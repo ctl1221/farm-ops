@@ -2603,6 +2603,91 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PenWeighings.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PenWeighings.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['current_weighings', 'n_weighings'],
+  data: function data() {
+    return {
+      weight: [],
+      classObject: []
+    };
+  },
+  methods: {
+    updateWeight: function updateWeight(id, value, x_index, y_index) {
+      var _this = this;
+
+      //alert('The input with ID ' + id + ' will change value to ' + value);
+      axios.post('/penWeighings/' + id, {
+        weight: value
+      }).then(function (response) {
+        _this.weight[x_index][y_index] = value;
+        _this.classObject[x_index][y_index]['is-danger'] = false;
+      }).catch(function (errors) {
+        _this.classObject[x_index][y_index]['is-danger'] = true;
+        _this.weight[x_index][y_index] = value;
+      });
+    }
+  },
+  created: function created() {
+    this.current_weighings.forEach(function (x) {
+      var i = [];
+      var j = [];
+      x.pen_weighings.forEach(function (y) {
+        i.push(y.weight);
+        j.push({
+          'input': true,
+          'is-small': true,
+          'is-danger': false
+        });
+      });
+      this.weight.push(i);
+      this.classObject.push(j);
+    }, this);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/bootstrap/dist/js/bootstrap.js":
 /*!*****************************************************!*\
   !*** ./node_modules/bootstrap/dist/js/bootstrap.js ***!
@@ -56004,7 +56089,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _vm.showModal
-      ? _c("div", { staticClass: "modal is-active" }, [
+      ? _c("div", { staticClass: "modal is-active", attrs: { width: "80%" } }, [
           _c("div", { staticClass: "modal-background" }),
           _vm._v(" "),
           _c("div", { staticClass: "modal-content" }, [
@@ -56390,6 +56475,98 @@ var staticRenderFns = [
         _c("th", { staticClass: "has-text-centered" }, [_vm._v("Pen 7")]),
         _vm._v(" "),
         _c("th", { staticClass: "has-text-centered" }, [_vm._v("Subtotal")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PenWeighings.vue?vue&type=template&id=56c7091f&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PenWeighings.vue?vue&type=template&id=56c7091f& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("table", { staticClass: "table is-bordered is-fullwidth" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "tbody",
+      _vm._l(_vm.current_weighings, function(x, x_index) {
+        return _c(
+          "tr",
+          [
+            x_index % _vm.n_weighings == 0
+              ? _c("td", { attrs: { rowspan: _vm.n_weighings } }, [
+                  _vm._v(_vm._s(x.day.day))
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(x.weigh_no))]),
+            _vm._v(" "),
+            _vm._l(x.pen_weighings, function(y, y_index) {
+              return _c("td", [
+                _c("input", {
+                  class: _vm.classObject[x_index][y_index],
+                  domProps: { value: _vm.weight[x_index][y_index] },
+                  on: {
+                    input: function($event) {
+                      return _vm.updateWeight(
+                        y.id,
+                        $event.target.value,
+                        x_index,
+                        y_index
+                      )
+                    }
+                  }
+                })
+              ])
+            })
+          ],
+          2
+        )
+      }),
+      0
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Day")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Weigh No")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Pen 1")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Pen 2")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Pen 3")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Pen 4")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Pen 5")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Pen 6")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Pen 7")])
       ])
     ])
   }
@@ -68397,10 +68574,12 @@ window.moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
 Vue.component('my-navbar', __webpack_require__(/*! ./components/Navbar.vue */ "./resources/js/components/Navbar.vue").default);
-Vue.component('my-modal', __webpack_require__(/*! ./components/Modal.vue */ "./resources/js/components/Modal.vue").default);
+Vue.component('my-modal', __webpack_require__(/*! ./components/Modal.vue */ "./resources/js/components/Modal.vue").default); //Vue.component('grow-employee-assignments', require('./components/EmployeeAssignments.vue').default);
+
 Vue.component('invoice-slip', __webpack_require__(/*! ./components/InvoiceSlip.vue */ "./resources/js/components/InvoiceSlip.vue").default);
 Vue.component('material-slip', __webpack_require__(/*! ./components/MaterialSlip.vue */ "./resources/js/components/MaterialSlip.vue").default);
 Vue.component('pen-mortalities', __webpack_require__(/*! ./components/PenMortalities.vue */ "./resources/js/components/PenMortalities.vue").default);
+Vue.component('pen-weighings', __webpack_require__(/*! ./components/PenWeighings.vue */ "./resources/js/components/PenWeighings.vue").default);
 Vue.filter('currencyFormat', function (value) {
   return value.toLocaleString('en-PH', {
     minimumFractionDigits: 2,
@@ -69021,6 +69200,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PenMortalities_vue_vue_type_template_id_50281eef___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PenMortalities_vue_vue_type_template_id_50281eef___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PenWeighings.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/PenWeighings.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PenWeighings_vue_vue_type_template_id_56c7091f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PenWeighings.vue?vue&type=template&id=56c7091f& */ "./resources/js/components/PenWeighings.vue?vue&type=template&id=56c7091f&");
+/* harmony import */ var _PenWeighings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PenWeighings.vue?vue&type=script&lang=js& */ "./resources/js/components/PenWeighings.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PenWeighings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PenWeighings_vue_vue_type_template_id_56c7091f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PenWeighings_vue_vue_type_template_id_56c7091f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PenWeighings.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PenWeighings.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/PenWeighings.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PenWeighings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PenWeighings.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PenWeighings.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PenWeighings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PenWeighings.vue?vue&type=template&id=56c7091f&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/PenWeighings.vue?vue&type=template&id=56c7091f& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PenWeighings_vue_vue_type_template_id_56c7091f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PenWeighings.vue?vue&type=template&id=56c7091f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PenWeighings.vue?vue&type=template&id=56c7091f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PenWeighings_vue_vue_type_template_id_56c7091f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PenWeighings_vue_vue_type_template_id_56c7091f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

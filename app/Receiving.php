@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Receiving extends Model
 {
@@ -21,6 +22,11 @@ class Receiving extends Model
     public function truck_weighings ()
     {
      	return $this->hasMany(TruckWeighing::class);
+    }
+
+    public function getDateAttribute($date)
+    {
+        return Carbon::parse($date)->format('M d, Y');
     }
 
     public function total_declared_weight ()

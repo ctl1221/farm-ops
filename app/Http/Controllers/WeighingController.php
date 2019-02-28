@@ -27,11 +27,12 @@ class WeighingController extends Controller
             ['building_id', '=', $building->id],
         ])->pluck('id');
 
-        $weighings_ids = Weighing::whereIn('day_id',$day_array)->groupBy('day_id')->pluck('day_id');
+        //$weighings_ids = Weighing::whereIn('day_id',$day_array)->groupBy('day_id')->pluck('day_id');
         
-        $current_days = Day::whereIn('id',$weighings_ids)->get();
+        //$current_days = Day::whereIn('id',$weighings_ids)->with('weighings')->get();
+        $current_weighings = Weighing::whereIn('day_id',$day_array)->with('day','pen_weighings')->get();
 
-        return view ('weighings.per_building', compact ('current_days'));
+        return view ('weighings.per_building', compact ('current_weighings','farm','building'));
     }
 
     public function create()

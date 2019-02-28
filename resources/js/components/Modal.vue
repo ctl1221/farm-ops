@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div v-if="showModal" class="modal is-active">
+        <div v-if="showModal" class="modal is-active" width="80%">
             <div class="modal-background"></div>
-            <div class="modal-content">
+            <div class="modal-content" >
                 <article class="message is-primary">
                     <div class="message-header">
                         <h5 class='title is-5 has-text-centered'>

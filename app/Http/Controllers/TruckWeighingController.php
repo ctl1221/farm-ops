@@ -35,9 +35,9 @@ class TruckWeighingController extends Controller
      */
     public function store(Request $request)
     {
-        TruckWeighing::create($request->all());
+        $new = TruckWeighing::create($request->all());
 
-        return back();
+        return redirect('/grows/' . $new->receiving->farm->grow->id . '#material_slips');
     }
 
     /**

@@ -9,9 +9,10 @@ use App\Farm;
 use App\FeedsConsumption;
 use App\Grow;
 use App\Mortality;
-use App\ReceivingLine;
+use App\Receiving;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GrowController extends Controller
 {
@@ -61,12 +62,25 @@ class GrowController extends Controller
         $period_start = $grow->loadings->count() ? $grow->loadings->first()->date : '';
         $period_end = $grow->harvests->count() ? $grow->harvests->first()->date : '';
 
+        //Employee Assignments Section
+        $farm_ids = $grow->farms->pluck('id');
+        $employee_assignments = DB::table('building_farm as first')
+            ->select('first.*')
+            ->addSelect('second.name as farm_name')
+            ->addSelect('third.display_name as supervisor_name')
+            ->addSelect('fourth.display_name as caretaker_name')
+            ->addSelect('fifth.name as building_name')
+            ->leftJoin('farms as second','first.farm_id','second.id')
+            ->leftJoin('employees as third','first.supervisor_id','third.id')
+            ->leftJoin('employees as fourth','first.caretaker_id','fourth.id')
+            ->leftJoin('buildings as fifth','first.building_id','fifth.id')
+            ->whereIn('farm_id', $farm_ids)
+            ->orderBy('second.name')
+            ->get();
         $supervisor_list = Employee::supervisors()->get();
         $caretaker_list = Employee::caretakers()->get();
 
-        $material_slips = ReceivingLine::all();
-        
-        return view('grows.show', compact('farms','grow','buildings','taken_buildings_ids','period_start','period_end','farm_names','supervisor_list', 'caretaker_list','material_slips'));
+        return view('grows.show', compact('farms','grow','buildings','taken_buildings_ids','period_start','period_end','farm_names','supervisor_list', 'caretaker_list','employee_assignments'));
     }
 
     public function edit(Grow $grow)

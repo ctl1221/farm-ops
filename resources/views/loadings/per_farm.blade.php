@@ -18,7 +18,11 @@
 
 	  <!-- Right side -->
 		<div class="level-right">
-	    	
+			<div class="level-item">
+			 	<my-modal>
+					@include('loadings.create')
+				</my-modal>
+			</div>
 	  	</div>
 	</nav>
 
@@ -68,27 +72,6 @@
 		</tr>
 	</tbody>
 </table>
-
-<form method="POST" action='/loadings'>
-	@csrf
-
-	<input type="hidden" v-model="farm_id" value="{{ $farm->id }}">
-
-	<input class="input" type="date" v-model="date">
-	<input class="input" type="text" v-model="hatchery_source" placeholder="hatchery source">
-	<input class="input" type="text" v-model="total_delivered" placeholder="total delivered">
-	<input class="input" type="text" v-model="doa" placeholder="doa">
-	<input class="input" type="text" v-model="net_received" placeholder="net chicks received">
-	<input class="input" type="text" v-model="truck_plate_no" placeholder="truck plate no">
-	<input class="input" type="text" v-model="trucker_name" placeholder="trucker's name">
-	Time Departure Hatchery<input class="input" type="time" v-model="dep_hatchery">
-	Time Arrival Farm<input class="input" type="time" v-model="arr_farm">
-	Time Departure Farm<input class="input" type="time" v-model="dep_farm">
-	<input class="input" type="text" v-model="source_id" placeholder="source identification">
-	<input class="input" type="text" v-model="seal_no" placeholder="seal no">
-	<input class="input" type="text" v-model="notes" placeholder="notes">
-	<input @click.prevent="submitForm" type="submit" class="button is-info is-outlined">
-</form>
 
 @endsection
 

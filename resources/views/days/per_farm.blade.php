@@ -8,7 +8,7 @@
 				<nav class="breadcrumb" aria-label="breadcrumbs" style="margin-top: 0.5rem">
 				  <ul>
 				    <li><a href="/grows"><h3 class="title is-3 has-text-link">Grows</h3></a></li>
-				    <li><a href="/grows/{{ $farm->grow->id }}"><h3 class="title is-3 has-text-link">{{ $farm->grow->cycle }}</h3></a></li>
+				    <li><a href="/grows/{{ $farm->grow->id }}#records"><h3 class="title is-3 has-text-link">{{ $farm->grow->cycle }}</h3></a></li>
 				    <li class="is-active"><a><h3 class="title is-3">{{ $farm->name }}</h3></a></li>
 				    <li class="is-active"><a><h3 class="title is-3">Daily Data</h3></a></li>
 				  </ul>
@@ -28,7 +28,7 @@
 @section('content')
 	
 	@foreach($farm->buildings as $building)
-		<div class="card">
+		<div class="card" id="{{ $building->name }}">
 			<div class="card-header has-background-warning">
 				<p class="card-header-title">
 					{{ $building->name }} : &nbsp;
@@ -90,7 +90,11 @@
 												@php 
 													$denominator = ($building->pivot->birds_started - $cmortality) * $alw; 
 												@endphp
-												{{ number_format($cfeedsconsumed * 50 / $denominator, 3)  }}
+												@if($denominator)
+													{{ number_format($cfeedsconsumed * 50 / $denominator / 1000, 3)  }}
+												@else
+													Missing Data
+												@endif
 											@endif
 										</td>	
 									@else
