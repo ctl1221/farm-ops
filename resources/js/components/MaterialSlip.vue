@@ -137,7 +137,7 @@
             return {
                 doc_no: '',
                 date: moment().format('YYYY-MM-DD'),
-                farm_id: 1,
+                farm_id: 2,
                 lines: [],
                 materials: [],
             }

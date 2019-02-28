@@ -56,6 +56,22 @@ class Grow extends Model
     	return $sum;
     }
 
+    public function sum_of_disinfectant_expenses()
+    {
+        $sum = 0;
+        foreach($this->invoices as $invoice)
+        {
+            foreach($invoice->invoice_lines as $x)
+            {
+                if($x->material_type == 'App\Disinfectant')
+                {
+                    $sum += $x->price * $x->quantity;
+                }
+            }
+        }
+        return $sum;
+    }
+
     public function sum_of_electrical_expenses()
     {
         $period_start = $this->loadings->count() ? $this->loadings->first()->date : '';

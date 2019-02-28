@@ -40,6 +40,8 @@ Route::post('/addBuilding', function(){
 });
 
 
+Route::get('/sales/{farm}/create', 'SalesController@create');
+
 Route::get('/grows/start','GrowController@start');
 Route::resource('/grows','GrowController');
 

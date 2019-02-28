@@ -42,4 +42,14 @@ class Farm extends Model
     {
         return $this->hasManyThrough(InvoiceLine::class, Invoice::class);
     }
+
+    public function mortalities ()
+    {
+        return $this->hasManyThrough(Mortality::class, Day::class);
+    }
+
+    public function feeds_consumptions ()
+    {
+        return $this->hasManyThrough(FeedsConsumption::class, Day::class);
+    }
 }

@@ -5,7 +5,23 @@
 
   	<div class="card-content has-background-light">
   		<div class="content" style="padding-bottom: 1.25rem">
-  			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+  			<table>
+  				<thead>
+  					<tr>
+  						<th>Farm Designation</th>
+  						<th>Link</th>
+  					</tr>
+  				</thead>
+
+  				<tbody>
+  					@foreach ($grow->farms as $x)
+  						<tr>
+  							<td>{{ $x->name }}</td>
+  							<td><a href="/sales/{{ $x->id }}/create">View</a></td>
+  						</tr>
+  					@endforeach
+  				</tbody>
+  			</table>
 
     	</div>
   	</div>

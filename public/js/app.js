@@ -2208,7 +2208,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       doc_no: '',
       date: moment().format('YYYY-MM-DD'),
-      farm_id: 1,
+      farm_id: 2,
       lines: [],
       materials: []
     };
@@ -69292,8 +69292,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

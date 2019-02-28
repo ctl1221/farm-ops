@@ -84,14 +84,14 @@
 
 									<td>{{ $cfeedsconsumed += $x->feeds_consumption->quantity }}</td>
 									@if(in_array($x->id, $weighing_days_ids))
-										<td>{{ $alw = $x->pen_weighings->where('weight','>',0)->avg('weight') }}</td>
+										<td>{{ $alw = number_format($x->pen_weighings->where('weight','>',0)->avg('weight') / 1000, 3) }}</td>
 										<td>
 											@if ($alw)
 												@php 
 													$denominator = ($building->pivot->birds_started - $cmortality) * $alw; 
 												@endphp
 												@if($denominator)
-													{{ number_format($cfeedsconsumed * 50 / $denominator / 1000, 3)  }}
+													{{ number_format($cfeedsconsumed * 50 / $denominator ,3)  }}
 												@else
 													Missing Data
 												@endif

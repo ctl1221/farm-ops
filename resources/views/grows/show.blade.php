@@ -37,6 +37,10 @@
 
 	<br/>
 
+	@include('grows.partials.sales_summary')
+
+	<br/>
+
 {{-- 	<div class="columns">
 		<div class=column>
 			@include('grows.partials.sales_summary')
