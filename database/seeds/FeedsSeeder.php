@@ -13,17 +13,17 @@ class FeedsSeeder extends Seeder
     public function run()
     {
         Feed::create([
-        	'code' => '1012160432613',
-        	'description' => 'INTRA BROILER STARTER CRUMBLE 50KG',
-        	'uom' => 'BAG',
-        	'kg_weight' => '50',
-        ]);
-
-        Feed::create([
             'code' => '1012160432700',
             'description' => 'INTRA CHICK BOOSTER CRUMBLE 50KG',
             'uom' => 'BAG',
             'kg_weight' => '50',
+        ]);
+
+        Feed::create([
+        	'code' => '1012160432613',
+        	'description' => 'INTRA BROILER STARTER CRUMBLE 50KG',
+        	'uom' => 'BAG',
+        	'kg_weight' => '50',
         ]);
 
         Feed::create([
