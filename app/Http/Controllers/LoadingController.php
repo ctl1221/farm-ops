@@ -58,7 +58,7 @@ class LoadingController extends Controller
             'dep_farm' => $request->dep_farm,
             'source_id' => $request->source_id,
             'seal_no' => $request->seal_no,
-            'notes' => $request->notes,
+            'notes' => htmlspecialchars($request->notes),
         ]);
 
         return 'success';

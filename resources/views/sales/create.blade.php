@@ -53,6 +53,7 @@ Creating Sales for {{ $farm->name }}
 
 		@php
 			$total_mortalities = $farm->mortalities->sum('quantity');
+			$pct_hr = (1 - $total_mortalities / $quantity_started) * 100;
 		@endphp
 		<tr>
 			<td>%HR</td>

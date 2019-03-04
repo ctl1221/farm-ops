@@ -15,16 +15,16 @@ class CreateLoadingsTable extends Migration
     {
         Schema::create('loadings', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('farm_id')->nullable();
-            $table->date('date')->nullable();
-            $table->string('hatchery_source')->nullable();
-            $table->unsignedInteger('total_delivered')->nullable();
-            $table->unsignedInteger('doa')->nullable();
-            $table->unsignedInteger('net_received')->nullable();
+            $table->unsignedInteger('farm_id');
+            $table->date('date');
+            $table->string('hatchery_source');
+            $table->unsignedInteger('total_delivered');
+            $table->unsignedInteger('doa');
+            $table->unsignedInteger('net_received');
             $table->string('truck_plate_no')->nullable();
             $table->string('trucker_name')->nullable();
-            $table->time('dep_hatchery')->nullable();
-            $table->time('arr_farm')->nullable();
+            $table->time('dep_hatchery');
+            $table->time('arr_farm');
             $table->time('dep_farm')->nullable();
             $table->string('source_id')->nullable();
             $table->string('seal_no')->nullable();

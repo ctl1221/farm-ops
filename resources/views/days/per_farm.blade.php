@@ -44,8 +44,8 @@
 						<th>Mortality <a href="/mortalities/farms/{{ $farm->id }}/buildings/{{ $building->id }}"><i class="fas fa-eye"></i></a> </th>
 						<th>Cum. Mortality</th>
 						<th>% Alive</th>
-						<th>Feeds Consumed</th>
-						<th>Cum. Feeds Consumed</th>
+						<th>Feeds Cons. (Bags)</th>
+						<th>Cum. Feeds Cons. (Bags)</th>
 						<th>ALW <a href="/weighings/farms/{{ $farm->id }}/buildings/{{ $building->id }}"><i class="fas fa-eye"></i></a> </th>
 						<th>FCR</th>
 					</thead>

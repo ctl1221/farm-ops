@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Farm;
 use App\Sales;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
 {
@@ -25,18 +26,19 @@ class SalesController extends Controller
      */
     public function create(Farm $farm)
     {
-        return $farm->receiving_lines->groupBy('material_id');
+        $feeds_breakdown = DB::table('receiving_lines as first')
+            ->join('feeds as third','third.id','=','first.material_id' )
+            ->join('receivings as second','second.id','=','first.receiving_id' )
+            ->select(DB::raw('third.description, sum(quantity) as total'))
+            ->where('first.material_type','App\\Feed')
+            ->where('second.farm_id',$farm->id)
+            ->groupBy('third.description')->get();
 
         $quantity_started = $farm->buildings->reduce(function ($carry, $value){
             return $carry += $value->pivot->birds_started;
         });
 
-
-        $mortalities = $farm->mortalities->sum('quantity');
-
-        $pct_hr = (1 - $mortalities / $quantity_started) * 100;
-
-        return view('sales.create', compact('farm', 'pct_hr'));
+        return view('sales.create', compact('farm', 'quantity_started','feeds_breakdown'));
     }
 
     /**

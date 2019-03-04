@@ -68,7 +68,7 @@
 
 			</td>
 			<td>@{{ x.seal_no }}</td>
-			<td>@{{ x.notes }}</td>
+			<td><span v-html="x.notes"></span></td>
 		</tr>
 	</tbody>
 </table>
@@ -106,6 +106,7 @@
 				},
 
 				clearInputs: function() {
+					this.farm_id = '',
 	  				this.date = '';
 					this.hatchery_source = '';
 				  	this.total_delivered = '';

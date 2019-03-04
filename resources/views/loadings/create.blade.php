@@ -28,10 +28,6 @@
 				  </div>
 				</div>
 
-				
-				
-				
-				
 			</div>
 
 			<div class="column">
@@ -113,7 +109,7 @@
 		<div class="field">
 		  <label class="label">Notes</label>
 		  <div class="control">
-		    <input class="textarea" type="textarea" v-model="notes" placeholder="notes">
+		    <textarea class="textarea" v-html="notes"></textarea>
 		  </div>
 		</div>
 		
