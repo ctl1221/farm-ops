@@ -19,8 +19,13 @@ class DatabaseSeeder extends Seeder
         $this->call(JobsSeeder::class);
         $this->call(FeedsSeeder::class);
         $this->call(CompaniesSeeder::class);
+        $this->call(FacilitiesSeeder::class);
         $this->call(DisinfectantsSeeder::class);
+        $this->call(TransactionsMainSeeder::class);
+        $this->call(TransactionsReceivingSeeder::class);
+        $this->call(TransactionsDailySeeder::class);
+        $this->call(TransactionsHarvestSeeder::class);
 
-        $this->call(TransactionsSeeder::class);
+        //$this->call(TransactionsSeeder::class);
     }
 }
