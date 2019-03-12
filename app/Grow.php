@@ -22,7 +22,7 @@ class Grow extends Model
 
     public function loadings ()
     {
-        return $this->hasManyThrough(Loading::class, Farm::class)->orderBy('date');
+        return $this->hasManyThrough(Loading::class, Farm::class)->orderBy('date_dep_hatchery','desc');
     }
 
      public function harvests ()

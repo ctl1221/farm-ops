@@ -17,7 +17,7 @@ class MedicinesSeeder extends Seeder
         	'description' => 'VIT B COMPLEX (BROILER) WSP 1KG',
         	'uom' => 'PCK',
         	'kg_weight' => '1.000',
-            'price' => 2500.00,
+            'price' => 650.00,
             'vatable' => 'VATABLE',
         ]);
 
@@ -26,7 +26,16 @@ class MedicinesSeeder extends Seeder
         	'description' => 'VITAMIN E 60% OS 1L',
         	'uom' => 'BTL',
         	'kg_weight' => '1.000',
-            'price' => 2800.00,
+            'price' => 3300.00,
+            'vatable' => 'VATABLE',
+        ]);
+
+        Medicine::create([
+            'code' => '4212164720070',
+            'description' => 'VITAMIN ADE OS 1L',
+            'uom' => 'BTL',
+            'kg_weight' => '1.000',
+            'price' => 1750.00,
             'vatable' => 'VATABLE',
         ]);
 
@@ -35,7 +44,7 @@ class MedicinesSeeder extends Seeder
         	'description' => 'ELEC - V 1KG',
         	'uom' => 'PCK',
         	'kg_weight' => '1.000',
-            'price' => 1200.00,
+            'price' => 500.00,
             'vatable' => 'VATABLE',
         ]);
 

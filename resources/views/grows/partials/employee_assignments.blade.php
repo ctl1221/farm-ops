@@ -16,8 +16,8 @@
   		<div class="content">
   			<table class="table is-narrow is-fullwidth is-bordered">
 				<thead>
-					<th>Farm</th>
 					<th>Building</th>
+					<th>Farm Manager</th>
 					<th>Supervisor</th>
 					<th>Caretaker</th>
 				</thead>
@@ -25,9 +25,34 @@
 
 				<tbody>
 					<tr v-for="(x, index) in employee_assignments">
-						<td>@{{ x.farm_name }}</td>
 						<td>@{{ x.building_name }}</td>
-						<td style="width:350px">
+						<td style="width:250px">
+							<div class="level">
+								<div class="level-left">
+									<div class="select is-small" v-if="!x.manager_name">
+										<select v-model="selectedManager[index]">
+											<option v-for="y in manager_list" :value="y.id">
+												@{{ y.display_name }}
+											</option>
+										</select>
+									</div>
+									@{{ x.manager_name }}
+								</div>
+
+								<div class="level-right">
+									<button v-if="!x.manager_name" class="button is-outlined is-success is-small" 
+										@click="assignManager(index, x.building_id, x.farm_id)">
+											Assign
+									</button>
+									<button v-if="x.manager_name" class="button is-outlined is-danger is-small" 
+										@click="unassignManager(x.building_id, x.farm_id)">
+											Unassign
+									</button>
+								</div>
+							</div>
+							
+						</td>
+						<td style="width:250px">
 							<div class="level">
 								<div class="level-left">
 									<div class="select is-small" v-if="!x.supervisor_name">
@@ -53,7 +78,7 @@
 							</div>
 							
 						</td>
-						<td style="width:350px">
+						<td style="width:250px">
 							<div class="level">
 								<div class="left">	
 									@{{ x.caretaker_name }}

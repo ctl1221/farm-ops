@@ -39,7 +39,7 @@ Route::post('/addBuilding', function(){
 	]);
 });
 
-
+Route::get('/sales/{sale}', 'SalesController@show');
 Route::get('/sales/{farm}/create', 'SalesController@create');
 
 Route::get('/grows/start','GrowController@start');
@@ -53,6 +53,10 @@ Route::post('/mortalities/{mortality}', 'MortalityController@update');
 
 Route::post('/buildings/farm/{farm}/assign','BuildingController@assignFarm');
 Route::post('/update_bird_started','BuildingController@updateBirdStarted');
+
+
+Route::post('/assign_building_manager','BuildingController@assignBuildingManager');
+Route::post('/unassign_building_manager','BuildingController@unassignBuildingManager');
 Route::post('/assign_building_supervisor','BuildingController@assignBuildingSupervisor');
 Route::post('/unassign_building_supervisor','BuildingController@unassignBuildingSupervisor');
 Route::post('/assign_building_caretaker','BuildingController@assignBuildingCaretaker');
@@ -73,7 +77,10 @@ Route::get('/weighings/farms/{farm}/buildings/{building}', 'WeighingController@p
 
 Route::post('/penWeighings/{penWeighing}', 'PenWeighingController@update');
 
-Route::get('/invoices/grows/{grow}/create', 'InvoiceController@create');
+
+
+Route::get('/invoices/farms/{farm}', 'InvoiceController@per_farm');
+Route::get('/invoices/farms/{farm}/create', 'InvoiceController@create');
 Route::post('/invoices', 'InvoiceController@store');
 // Route::get('/invoiceLines/invoices/{invoice}', 'InvoiceLineController@create');
 Route::post('/invoiceLines', 'InvoiceLineController@store');

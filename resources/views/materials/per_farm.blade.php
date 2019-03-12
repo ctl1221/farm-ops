@@ -29,7 +29,7 @@
 	
 	@foreach ($material_types as $material_type)
 
-		<h4 class="subtitle is-4">{{ $material_type }}s</h4>
+		<h4 class="subtitle is-4"><u>{{ $material_type }}s</u></h4>
 
 		<table class="table is-bordered is-narrow is-fullwidth is-striped">
 			<thead class="has-background-light">
@@ -47,9 +47,19 @@
 					@if($x['material_type'] == "App\\" . $material_type)
 						<tr>
 							@if(array_key_exists('receiving', $x))
-								<td style="width:20%">Material Slip Ref : {{ $x['receiving']['doc_no']}}</td>
+								<td style="width:20%">
+									<span class="tag is-warning">
+										Material Slip
+									</span>
+									{{ $x['receiving']['doc_no']}}
+								</td>
 							@else
-								<td style="width:20%">Invoice No : {{ $x['invoice']['supplier_invoice_no']}}</td>
+								<td style="width:20%">
+									<span class="tag is-danger">
+										Invoice
+									</span>
+									{{ $x['invoice']['supplier_invoice_no']}}
+								</td>
 							@endif
 							<td style="width:20%">{{ $x['material']['code'] }}</td>
 							<td style="width:40%">{{ $x['material']['description'] }}</td>

@@ -52,4 +52,5 @@ class Farm extends Model
     {
         return $this->hasManyThrough(FeedsConsumption::class, Day::class);
     }
+    
 }

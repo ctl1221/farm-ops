@@ -16,11 +16,13 @@
 
 	  <!-- Right side -->
 		<div class="level-right">
-{{-- 	    	<h4 class="subtitle is-4 level-item">
-	    		Duration : {{ $period_start }} to {{ $period_end }} 
-	    		({{ Carbon\Carbon::parse($period_end)->diffInDays(Carbon\Carbon::parse($period_start)) + 1 }} 
-	    		Days)
-	    	</h4> --}}
+			<div class="item">
+				<div class="buttons has-addons">
+				  <span class="button">Yes</span>
+				  <span class="button">Maybe</span>
+				  <span class="button">No</span>
+				</div>
+			</div>
 	  	</div>
 	</nav>
 
@@ -37,28 +39,7 @@
 
 	<br/>
 
-	@include('grows.partials.sales_summary')
-
-	<br/>
-
-{{-- 	<div class="columns">
-		<div class=column>
-			@include('grows.partials.sales_summary')
-		</div>
-		<div class=column>
-			@include('grows.partials.expenses_summary')
-		</div>
-	</div> --}}
-
 	@include('grows.partials.records')
-
-	<br/>
-
-	@include('grows.partials.invoices')
-
-	<br/>
-
-	@include('grows.partials.material_slips')
 
 	<br/>
 
@@ -80,8 +61,10 @@
 			data: {
 				selectedFarm: '',
 				selectedBuilding: [],
+				selectedManager: [],
 				selectedSupervisor: [],
 				selectedCaretaker: [],
+				manager_list: {!! $manager_list !!},
 				supervisor_list: {!! $supervisor_list !!},
 				caretaker_list: {!! $caretaker_list !!},
 				employee_assignments: [],
@@ -91,6 +74,7 @@
 				buildings: {!! $buildings !!},
 				taken_buildings_ids: {!! $taken_buildings_ids !!},
 				untaken_building_ids: [],
+				days_recorded: {{ $days_recorded }}
 			},
 
 			methods: {
@@ -99,8 +83,9 @@
 						this.employee_assignments = response.data;
 
 						for (var i = 0; i < response.data.length; i++) { 
-						  this.selectedSupervisor[i] = this.supervisor_list[0].id;
-						  this.selectedCaretaker[i] = this.caretaker_list[0].id;
+							this.selectedManager[i] = this.manager_list[0].id;
+							this.selectedSupervisor[i] = this.supervisor_list[0].id;
+							this.selectedCaretaker[i] = this.caretaker_list[0].id;
 						}
 					});
 				},
@@ -152,6 +137,21 @@
 					};
 
 					this.untaken_building_ids = untaken;
+				},
+
+				assignManager: function (index, building_id, farm_id) {
+					axios.post('/assign_building_manager',{
+						farm_id: farm_id,
+						building_id: building_id,
+						manager_id: this.selectedManager[index]
+					}).then(response => this.getEmployeeAssignments());
+				},
+
+				unassignManager: function (building_id, farm_id) {
+					axios.post('/unassign_building_manager',{
+						farm_id: farm_id,
+						building_id: building_id,
+					}).then(response => this.getEmployeeAssignments());
 				},
 
 				assignSupervisor: function (index, building_id, farm_id) {

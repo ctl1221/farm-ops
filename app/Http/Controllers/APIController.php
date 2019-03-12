@@ -11,6 +11,7 @@ use App\Harvest;
 use App\Farm;
 use App\Grow;
 use App\Feed;
+use App\Day;
 
 class APIController extends Controller
 {
@@ -36,6 +37,23 @@ class APIController extends Controller
         return $farms;
     }
 
+    public function getDaysRecordedOfGrow($grow)
+    {
+        $array = [];
+        foreach($grow->farms as $key => $farm)
+        {
+            $temp = [];
+            foreach($farm->buildings as $x)
+            {
+                $day = Day::where('building_id',$x->id)->where('farm_id', $farm->id)->orderBy('day','desc')->first();
+                array_push($temp, $day ? $day->day : 0);   
+            }
+            $array[$key] = $temp;
+        }
+
+        return json_encode($array);
+    }
+
     public function getLoadingsOfFarm(Farm $farm)
     {
         $loadings = Loading::where('farm_id','=', $farm->id)->orderBy('date','desc')->get();
@@ -58,6 +76,7 @@ class APIController extends Controller
         $employee_assignments = DB::table('building_farm as first')
                                 ->select('first.*')
                                 ->addSelect('second.name as farm_name')
+                                ->addSelect('sixth.display_name as manager_name')
                                 ->addSelect('third.display_name as supervisor_name')
                                 ->addSelect('fourth.display_name as caretaker_name')
                                 ->addSelect('fifth.name as building_name')
@@ -65,6 +84,7 @@ class APIController extends Controller
                                 ->leftJoin('employees as third','first.supervisor_id','third.id')
                                 ->leftJoin('employees as fourth','first.caretaker_id','fourth.id')
                                 ->leftJoin('buildings as fifth','first.building_id','fifth.id')
+                                ->leftJoin('employees as sixth','first.manager_id','sixth.id')
                                 ->whereIn('farm_id', $farms_of_current_grow)
                                 ->orderBy('second.name')
                                 ->get();

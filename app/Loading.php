@@ -31,25 +31,16 @@ class Loading extends Model
     	return $this->belongsTo(Farm::class);
     }
 
-    public function getDateAttribute($date)
+    public function getDateDepHatcheryAttribute($date)
     {
         return Carbon::parse($date)->format('M d, Y');
     }
 
-    public function getDepHatcheryAttribute($time)
+    public function getTimeArrFarmAttribute($time)
     {
         return Carbon::parse($time)->format('h:i A');
     }
 
-    public function getArrFarmAttribute($time)
-    {
-        return Carbon::parse($time)->format('h:i A');
-    }
-
-    public function getDepFarmAttribute($time)
-    {
-        return Carbon::parse($time)->format('h:i A');
-    }
 
 
 }

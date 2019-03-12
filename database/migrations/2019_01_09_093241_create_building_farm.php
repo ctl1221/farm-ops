@@ -17,6 +17,7 @@ class CreateBuildingFarm extends Migration
             $table->unsignedInteger('building_id');
             $table->unsignedInteger('farm_id');
             $table->unsignedInteger('birds_started')->default(0);
+            $table->unsignedInteger('manager_id')->nullable();
             $table->unsignedInteger('supervisor_id')->nullable();
             $table->unsignedInteger('caretaker_id')->nullable();
             $table->index(['building_id','farm_id']);

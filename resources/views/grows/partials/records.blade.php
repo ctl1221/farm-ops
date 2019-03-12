@@ -3,24 +3,58 @@
     	<p class="card-header-title">Records</p>
   	</header>
 
-  	<div class="card-content">
+  	<div class="card-content has-background-light">
   		<div class="content">
   			<table class="table is-narrow is-fullwidth is-bordered">
 				<thead>
 					<th>Farm Designation</th>
-					<th>Loadings</th>
-					<th>Daily Data</th>
-					<th>Harvest</th>
-					<th>Materials Received</th>
+
+					<th class="has-text-centered">
+						<i class="fas fa-calendar-day"></i>
+						<i class="fas fa-pen"></i>
+					</th>
+
+					<th class="has-text-centered">
+						<i class="fas fa-crow"></i>
+						<i class="fas fa-arrow-right"></i>
+						<i class="fas fa-home"></i>
+					</th>
+					<th class="has-text-centered"><i class="fas fa-book"></i></th>
+
+					<th class="has-text-centered">
+						<i class="fas fa-cookie"></i>
+						<i class="fas fa-prescription-bottle-alt"></i>
+						<i class="fas fa-spray-can"></i>
+					</th>
+
+					<th class="has-text-centered">
+						<i class="fab fa-earlybirds"></i>
+						<i class="fas fa-arrow-right"></i>
+						<i class="fas fa-drumstick-bite"></i>
+					</th>
+					
+					<th class="has-text-centered"><i class="fas fa-file-invoice"></i></th>
+
+					<th class="has-text-centered"><i class="fas fa-file-invoice-dollar"></i></th>
+
+					<th class="has-text-centered"><i class="fas fa-money-check-alt"></i></th>
 				</thead>
 
 				<tbody>
-					<tr v-for="farm in farms">
+					<tr v-for="(farm, farm_index) in farms">
 						<td>@{{ farm.name }}</td>	
-						<td><a :href="'/loadings/farms/' + farm.id">View</a></td>
-						<td><a :href="'/days/farms/' + farm.id">View</a></td>
-						<td><a :href="'/harvests/farms/' + farm.id">View</a></td>
-						<td><a :href="'/materials/farms/' + farm.id">View</a></td>
+						<td class="has-text-centered">
+							<div class="tags" style="justify-content: center">
+								<span class="tag is-link" v-for="day in days_recorded[farm_index]">@{{ day }}<span>
+							</div>
+						</td>
+						<td class="has-text-centered"><a :href="'/loadings/farms/' + farm.id">View</a></td>
+						<td class="has-text-centered"><a :href="'/days/farms/' + farm.id">View</a></td>
+						<td class="has-text-centered"><a :href="'/materials/farms/' + farm.id">View</a></td>
+						<td class="has-text-centered"><a :href="'/harvests/farms/' + farm.id">View</a></td>
+						<td class="has-text-centered"><a :href="'/receivings/farms/' + farm.id">View</a></td>
+						<td class="has-text-centered"><a :href="'/invoices/farms/' + farm.id">View</a></td>
+						<td class="has-text-centered"><a :href="'/sales/' + farm.id">View</a></td>
 					</tr>
 				</tbody>
 			</table>

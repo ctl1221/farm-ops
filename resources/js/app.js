@@ -39,3 +39,7 @@ Vue.filter('currencyFormat', function (value) {
 Vue.filter('weightFormat', function (value) {
 	return value.toLocaleString('en-PH',{minimumFractionDigits: 3, maximumFractionDigits: 3});
 });
+
+Vue.filter('numberFormat', function (value) {
+	return value.toLocaleString('en-PH',{minimumFractionDigits: 0, maximumFractionDigits: 0});
+});

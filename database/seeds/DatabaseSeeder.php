@@ -23,9 +23,10 @@ class DatabaseSeeder extends Seeder
         $this->call(DisinfectantsSeeder::class);
         $this->call(TransactionsMainSeeder::class);
         $this->call(TransactionsReceivingSeeder::class);
+        $this->call(TransactionsInvoiceSeeder::class);
         $this->call(TransactionsDailySeeder::class);
         $this->call(TransactionsHarvestSeeder::class);
-
+        
         //$this->call(TransactionsSeeder::class);
     }
 }

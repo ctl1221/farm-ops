@@ -16,8 +16,9 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->boolean('is_supplier');
-            $table->boolean('is_customer');
+            $table->boolean('is_supplier')->default(false);
+            $table->boolean('is_customer')->default(false);
+            $table->boolean('is_chick_supplier')->default(false);
             $table->timestamps();
         });
     }

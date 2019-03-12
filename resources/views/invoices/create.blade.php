@@ -9,8 +9,8 @@
 				  <ul>
 				    <li><a href="/grows"><h3 class="title is-3 has-text-link">Grows</h3></a></li>
 				    <li>
-				    	<a href="/grows/{{$grow->id}}">
-						    <h3 class="title is-3 has-text-link">{{ $grow->cycle}}</h3>
+				    	<a href="/grows/{{$farm->grow->id}}">
+						    <h3 class="title is-3 has-text-link">{{ $farm->grow->cycle}}</h3>
 						   </a>
 					</li>
 				    <li class="is-active"><a><h3 class="title is-3">New Purchase Invoice</h3></a></li>
@@ -34,9 +34,9 @@
 @section('content')
 
 		<invoice-slip ref="invoice_list" 
-			redirect_url="/grows/{{$grow->id}}#invoices"
+			redirect_url="/grows/{{$farm->grow->id}}#invoices"
 			:suppliers="{{ $suppliers }}"
-			:farms="{{ $grow->farms }}"
+			:farm="{{ $farm }}"
 			:materials="{{ $materials }}">
 		</invoice-slip>
 

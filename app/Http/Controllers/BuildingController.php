@@ -17,6 +17,22 @@ class BuildingController extends Controller
         return back();
     }
 
+    public function assignBuildingManager(Request $request)
+    {
+        $current_farm = Farm::find($request->farm_id);
+        $current_farm->buildings()->updateExistingPivot($request->building_id, ['manager_id' => $request->manager_id]);
+
+        return back();
+    }
+
+    public function unassignBuildingManager(Request $request)
+    {
+        $current_farm = Farm::find($request->farm_id);
+        $current_farm->buildings()->updateExistingPivot($request->building_id, ['manager_id' => NULL]);
+
+        return back();
+    }
+
     public function assignBuildingSupervisor(Request $request)
     {
         $current_farm = Farm::find($request->farm_id);

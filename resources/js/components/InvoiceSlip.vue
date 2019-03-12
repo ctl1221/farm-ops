@@ -29,13 +29,7 @@
             </tr>
             <tr>
                 <th>Farm</th>
-                <th>
-                    <div class="select is-small">
-                        <select style="width:300px" v-model="farm_id">
-                            <option v-for="farm in farms":value="farm.id">{{farm.name}}</option>
-                        </select>
-                    </div>
-                </th>
+                <td>{{ farm.name }}</td>
                 <th>DR Reference No.</th>
                 <th style="width:300px">
                     <input class="input is-small" style="width:300px" type="text" v-model="dr_reference_no">
@@ -132,12 +126,12 @@
 
     export default {
         components: { slipline },
-        props: ['redirect_url','farms','suppliers','materials'],
+        props: ['redirect_url','farm','suppliers','materials'],
         data () {
             return {
                 date : moment().format('YYYY-MM-DD'),
                 company_id : 2,
-                farm_id : this.farms[0].id,
+                farm_id : this.farm.id,
                 supplier_invoice_no : 'Test',
                 so_reference_no : 'Charles',
                 dr_reference_no : 'Licup',

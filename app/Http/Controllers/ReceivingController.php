@@ -12,16 +12,12 @@ use Illuminate\Support\Facades\DB;
 
 class ReceivingController extends Controller
 {
-    public function index()
-    {
-        //
-    }
 
     public function per_farm(Farm $farm)
     {
-        $feeds = Feed::all();
+        //$feeds = Feed::all();
 
-        return view('receivings.per_farm', compact('farm', 'feeds'));
+        return view('receivings.per_farm', compact('farm'));
     }
 
     public function create(Grow $grow)

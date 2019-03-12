@@ -1,126 +1,110 @@
-<template slot="title">Create New Chick Loading</template>
+<form method="POST" action='/loadings'>
+	@csrf
 
-<template slot="body">
-	<form method="POST" action='/loadings'>
-		@csrf
-		<div class="columns">
-			<div class="column">
-				<input type="hidden" v-model="farm_id" value="{{ $farm->id }}">
+	<input type="hidden" name="farm_id" value="{{ $farm->id }}">
+	<input type="hidden" name="net_delivered" :value="net_delivered">
 
-				<div class="field">
-				  <label class="label">Date</label>
-				  <div class="control">
-				    <input class="input" type="date" v-model="date">
-				  </div>
+	<div class="level">
+
+		<div class="level-left">
+
+			<div class="field is-horizontal">
+				<div class="field-label is-normal">
+					<label class="label">Supplier</label>
 				</div>
-				
-				<div class="field">
-				  <label class="label">Hatchery Source</label>
-				  <div class="control">
-				    <input class="input" type="text" v-model="hatchery_source" placeholder="hatchery source">
-				  </div>
-				</div>
-
-				<div class="field">
-				  <label class="label">Source Identification</label>
-				  <div class="control">
-				    <input class="input" type="text" v-model="source_id" placeholder="source identification">
-				  </div>
-				</div>
-
-			</div>
-
-			<div class="column">
-				
-				<div class="field">
-				  <label class="label">Time Dep. Hatchery</label>
-				  <div class="control">
-				    <input class="input" type="time" v-model="dep_hatchery">
-				  </div>
-				</div>
-				
-
-				<div class="field">
-				  <label class="label">Time Arr. Farm</label>
-				  <div class="control">
-				    <input class="input" type="time" v-model="arr_farm">
-				  </div>
-				</div>
-
-				
-
-				<div class="field">
-				  <label class="label">Time Dep. Farm</label>
-				  <div class="control">
-				    <input class="input" type="time" v-model="dep_farm">
-				  </div>
-				</div>
-				
-
-			</div>
-
-			<div class="column">
-				<div class="field">
-				  <label class="label">Truck Plate No.</label>
-				  <div class="control">
-				    <input class="input" type="text" v-model="truck_plate_no" placeholder="truck plate no">
-				  </div>
-				</div>
-				
-				<div class="field">
-				  <label class="label">Trucker's Name</label>
-				  <div class="control">
-				    <input class="input" type="text" v-model="trucker_name" placeholder="trucker's name">
-				  </div>
-				</div>
-				
-				<div class="field">
-				  <label class="label">Seal No.</label>
-				  <div class="control">
-				    <input class="input" type="text" v-model="seal_no" placeholder="seal no">
-				  </div>
+				<div class="field-body">
+					<div class="select">
+						<select name="company_id">
+							@foreach($chick_suppliers as $supplier)
+							<option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+							@endforeach
+						</select>
+					</div>
 				</div>
 			</div>
 
-			<div class="column">
-				<div class="field">
-				  <label class="label">Total Birds Delivered</label>
-				  <div class="control">
-				    <input class="input" type="text" v-model="total_delivered" placeholder="total delivered">
-				  </div>
-				</div>
-				
-				<div class="field">
-				  <label class="label">Dead On Arrival</label>
-				  <div class="control">
-				    <input class="input" type="text" v-model="doa" placeholder="doa">
-				  </div>
-				</div>
-				
-				<div class="field">
-				  <label class="label">Net Chicks Received</label>
-				  <div class="control">
-				    <input class="input" type="text" v-model="net_received" placeholder="net chicks received">
-				  </div>
-				</div>
-			</div>			
 		</div>
-		
-		<div class="field">
-		  <label class="label">Notes</label>
-		  <div class="control">
-		    <textarea class="textarea" v-html="notes"></textarea>
-		  </div>
+
+		<div class="level-right">
+
+			<b>Net Delivered</b>
+			&nbsp;&nbsp;&nbsp; 
+			@{{ net_delivered | numberFormat }} Birds
+
+		</div>			
+
+	</div>
+
+	<div class="columns">
+
+		<div class="column">
+
+			<div class="field">
+				<label class="label">Date Depart Hatchery</label>
+				<div class="control">
+					<input class="input" type="date" name="date_dep_hatchery" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
+				</div>
+			</div>
+
+			<div class="field">
+				<label class="label">Time Arrived Farm</label>
+				<div class="control">
+					<input class="input" type="time" name="time_arr_farm" value="{{ Carbon\Carbon::now()->format('H:i') }}">
+				</div>
+			</div>
+
 		</div>
-		
+
+		<div class="column">
+
+			<div class="field">
+				<label class="label">Total Delivered</label>
+				<div class="control">
+					<input class="input" name="total_delivered" v-model="total_delivered" value="0">
+				</div>
+			</div>
+
+			<div class="field">
+				<label class="label">DOA Delivered</label>
+				<div class="control">
+					<input class="input" name="doa_delivered" type="number" v-model="doa_delivered" value="0">
+				</div>
+			</div>
+
+		</div>			
+
+		<div class="column">
+			<div class="field">
+				<label class="label">Hatchery Source</label>
+				<div class="control">
+					<input class="input" type="text" name="hatchery_source">
+				</div>
+			</div>
+
+			<div class="field">
+				<label class="label">Truck Plate No</label>
+				<div class="control">
+					<input class="input" type="text" name="truck_plate_no" placeholder="ABC 1234">
+				</div>
+			</div>
+
+		</div>
 
 
-		<div class="field">
-		  <div class="control">
-		    <input @click.prevent="submitForm" type="submit" class="button is-info is-outlined">
-		  </div>
+	</div>
+
+	<div class="field">
+		<label class="label">Notes</label>
+		<div class="control">
+			<textarea class="textarea" name="notes"></textarea>
 		</div>
-		
-		
-	</form>
-</template>
+	</div>
+
+	<div class="field">
+		<div class="control">
+			<button type="reset" class="button is-outlined is-danger" value="Reset">Reset</button>
+			<button type="submit" class="button is-outlined is-success">Submit</button>
+		</div>
+	</div>
+
+</form>

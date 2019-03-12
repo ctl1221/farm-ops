@@ -21,5 +21,14 @@ class DisinfectantsSeeder extends Seeder
             'vatable' => 'VATABLE',
         ]);
 
+        Disinfectant::create([
+            'code' => '4212154204100',
+            'description' => 'BESTAQUAM',
+            'uom' => 'L',
+            'kg_weight' => '1.000',
+            'price' => 1442.00,
+            'vatable' => 'VATABLE',
+        ]);
+
     }
 }

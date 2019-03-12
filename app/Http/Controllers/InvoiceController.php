@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Invoice;
 use App\InvoiceLine;
 use App\Grow;
+use App\Farm;
 use App\Company;
 use App\Material;
 use Illuminate\Http\Request;
@@ -13,12 +14,12 @@ use Illuminate\Support\Facades\DB;
 class InvoiceController extends Controller
 {
 
-    public function create(Grow $grow)
+    public function create(Farm $farm)
     {
         $suppliers = Company::where('is_supplier', '=', true)->get();
         $materials = Material::getAllMaterials();
 
-        return view('invoices.create', compact('grow', 'suppliers','materials'));
+        return view('invoices.create', compact('farm', 'suppliers','materials'));
     }
 
     public function store(Request $request)
@@ -49,24 +50,9 @@ class InvoiceController extends Controller
         return 'success';
     }
 
-    public function show(Invoice $invoice)
+    public function per_farm(Farm $farm)
     {
-        //
+        return view('invoices.per_farm', compact('farm'));
     }
 
-    public function edit(Invoice $invoice)
-    {
-        //
-    }
-
-
-    public function update(Request $request, Invoice $invoice)
-    {
-        //
-    }
-
-    public function destroy(Invoice $invoice)
-    {
-        //
-    }
 }

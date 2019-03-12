@@ -14,20 +14,21 @@ class CompaniesSeeder extends Seeder
     {
         Company::create([
         	'name' => 'Superstar Coconut Products Inc',
-        	'is_supplier' => false,
-        	'is_customer' => false,
         ]);
 
         Company::create([
         	'name' => 'Meralco',
         	'is_supplier' => true,
-        	'is_customer' => false,
         ]);
 
         Company::create([
             'name' => 'San Miguel Foods, Inc - Feeds Business',
             'is_supplier' => true,
-            'is_customer' => false,
+        ]);
+
+        Company::create([
+            'name' => 'San Miguel Foods, Inc - Magnolia Poultry Farms',
+            'is_chick_supplier' => true,
         ]);
     }
 }

@@ -1919,23 +1919,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     slipline: _InvoiceSlipLine_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['redirect_url', 'farms', 'suppliers', 'materials'],
+  props: ['redirect_url', 'farm', 'suppliers', 'materials'],
   data: function data() {
     return {
       date: moment().format('YYYY-MM-DD'),
       company_id: 2,
-      farm_id: this.farms[0].id,
+      farm_id: this.farm.id,
       supplier_invoice_no: 'Test',
       so_reference_no: 'Charles',
       dr_reference_no: 'Licup',
@@ -55329,45 +55323,7 @@ var render = function() {
       _c("tr", [
         _c("th", [_vm._v("Farm")]),
         _vm._v(" "),
-        _c("th", [
-          _c("div", { staticClass: "select is-small" }, [
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.farm_id,
-                    expression: "farm_id"
-                  }
-                ],
-                staticStyle: { width: "300px" },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.farm_id = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              _vm._l(_vm.farms, function(farm) {
-                return _c("option", { domProps: { value: farm.id } }, [
-                  _vm._v(_vm._s(farm.name))
-                ])
-              }),
-              0
-            )
-          ])
-        ]),
+        _c("td", [_vm._v(_vm._s(_vm.farm.name))]),
         _vm._v(" "),
         _c("th", [_vm._v("DR Reference No.")]),
         _vm._v(" "),
@@ -68590,6 +68546,12 @@ Vue.filter('weightFormat', function (value) {
   return value.toLocaleString('en-PH', {
     minimumFractionDigits: 3,
     maximumFractionDigits: 3
+  });
+});
+Vue.filter('numberFormat', function (value) {
+  return value.toLocaleString('en-PH', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
   });
 });
 

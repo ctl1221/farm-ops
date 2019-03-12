@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 //use App\Events\LoadingCreated;
 use App\Farm;
 use App\Loading;
+use App\Company;
 use Illuminate\Http\Request;
 
 class LoadingController extends Controller
@@ -26,9 +27,15 @@ class LoadingController extends Controller
      */
      public function per_farm(Farm $farm)
     {
-        $loadings = Loading::where('farm_id', '=', $farm->id)->orderBy('date')->get();
+        $chick_suppliers = Company::where('is_chick_supplier',true)->get();
 
-        return view('loadings.per_farm', compact('loadings', 'farm'));
+        $loadings = Loading::where('farm_id', '=', $farm->id)
+            ->orderBy('date_dep_hatchery','desc')
+            ->orderBy('time_arr_farm','asc')
+            ->get();
+
+
+        return view('loadings.per_farm', compact('loadings', 'farm','chick_suppliers'));
     }
 
     public function create()
@@ -46,22 +53,18 @@ class LoadingController extends Controller
     {
         Loading::create([
             'farm_id' => $request->farm_id,
-            'date' => $request->date,
+            'company_id' => $request->company_id,
+            'date_dep_hatchery' => $request->date_dep_hatchery,
             'hatchery_source' => $request->hatchery_source,
             'total_delivered' => $request->total_delivered,
-            'doa' => $request->doa,
-            'net_received' => $request->net_received,
+            'doa_delivered' => $request->doa_delivered,
+            'net_delivered' => $request->net_delivered,
             'truck_plate_no' => $request->truck_plate_no,
-            'trucker_name' => $request->trucker_name,
-            'dep_hatchery' => $request->dep_hatchery,
-            'arr_farm' => $request->arr_farm,
-            'dep_farm' => $request->dep_farm,
-            'source_id' => $request->source_id,
-            'seal_no' => $request->seal_no,
-            'notes' => htmlspecialchars($request->notes),
+            'time_arr_farm' => $request->time_arr_farm,
+            'notes' => nl2br($request->notes),
         ]);
 
-        return 'success';
+        return back();
     }
 
     /**
