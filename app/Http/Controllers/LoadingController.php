@@ -34,8 +34,10 @@ class LoadingController extends Controller
             ->orderBy('time_arr_farm','asc')
             ->get();
 
+        $hatcheries = Company::where('is_hatchery',true)->get();
 
-        return view('loadings.per_farm', compact('loadings', 'farm','chick_suppliers'));
+
+        return view('loadings.per_farm', compact('loadings', 'farm','chick_suppliers','hatcheries'));
     }
 
     public function create()
@@ -63,6 +65,16 @@ class LoadingController extends Controller
             'time_arr_farm' => $request->time_arr_farm,
             'notes' => nl2br($request->notes),
         ]);
+
+        $hatchery = Company::where('name',$request->hatchery_source)->count();
+
+        if(!$hatchery)
+        {
+            Company::create([
+                'name' => $request->hatchery_source,
+                'is_hatchery' => true 
+            ]);
+        }
 
         return back();
     }

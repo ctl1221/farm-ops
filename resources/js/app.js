@@ -11,6 +11,9 @@ window.Vue = require('vue');
 
 window._ = require('lodash');
 window.moment = require('moment');
+
+import vSuggest from 'v-suggest';
+Vue.use(vSuggest);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -26,6 +29,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 Vue.component('my-navbar', require('./components/Navbar.vue').default);
 Vue.component('my-modal', require('./components/Modal.vue').default);
+Vue.component('receivings', require('./components/Receivings.vue').default);
 //Vue.component('grow-employee-assignments', require('./components/EmployeeAssignments.vue').default);
 Vue.component('invoice-slip', require('./components/InvoiceSlip.vue').default);
 Vue.component('material-slip', require('./components/MaterialSlip.vue').default);

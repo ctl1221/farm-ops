@@ -17,7 +17,7 @@ class DayController extends Controller
 {
     public function per_farm(Farm $farm)
     { 
-        $days = Day::where('farm_id','=',$farm->id)->get();
+        $days = Day::where('farm_id','=',$farm->id)->orderBy('day','desc')->get();
 
         $current_farm_days_ids = Day::where('farm_id','=',$farm->id)->pluck('id');
         $weighing_days_ids = Weighing::whereIn('day_id',$current_farm_days_ids)->groupBy('day_id')->pluck('day_id')->toArray();

@@ -19,6 +19,7 @@ class CreateCompaniesTable extends Migration
             $table->boolean('is_supplier')->default(false);
             $table->boolean('is_customer')->default(false);
             $table->boolean('is_chick_supplier')->default(false);
+            $table->boolean('is_hatchery')->default(false);
             $table->timestamps();
         });
     }

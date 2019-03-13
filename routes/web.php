@@ -112,9 +112,9 @@ Route::get('/feeds_input','CalculatorController@input_feeds');
 Route::post('/feeds_calculate','CalculatorController@calculate_feeds');
 
 Route::get('/api/getAllFeeds','APIController@getAllFeeds');
-Route::get('/api/getAllMaterials','APIController@materials');
+Route::get('/api/getAllMaterials','APIController@getAllMaterials');
 Route::get('/api/getFarmsOfGrow/{grow}','APIController@getFarmsOfGrow');
-Route::get('/api/getLoadingsOfFarm/{farm}','APIController@getLoadingsOfFarm');
+Route::get('/api/getReceivingsOfFarm/{farm}','APIController@getReceivingsOfFarm');
 Route::get('/api/getHarvestsOfFarm/{farm}','APIController@getHarvestsOfFarm');
 Route::get('/api/getEmployeeAssignmentsOfGrow/{grow}','APIController@getEmployeeAssignmentsOfGrow');
 

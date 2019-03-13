@@ -8,8 +8,8 @@ class TruckWeighing extends Model
 {
     protected $guarded = [];
 
-    public function receiving ()
+    public function activity()
     {
-        return $this->belongsTo(Receiving::class);
+        return $this->morphTo();
     }
 }

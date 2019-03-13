@@ -25,8 +25,11 @@
 	<thead>
 		<tr class="has-background-light">
 			<th>Date</th>
-			<th>Truck Plate No.</th>
-			<th>Birds Harvested</th>
+			<th>Plant / Live</th>
+			<th>RS No.</th>
+			<th>Plate No.</th>
+			<th>Coops</th>
+			<th>Plant Head Ct</th>
 		</tr>
 	</thead>
 

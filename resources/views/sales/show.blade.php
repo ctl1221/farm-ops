@@ -1,5 +1,23 @@
 @extends('master')
 
+@section('breadcrumb')
+
+	<nav class="level">
+		<div class="level-left">
+		    <div class="level-item">
+				<nav class="breadcrumb" aria-label="breadcrumbs" style="margin-top: 0.5rem">
+				  <ul>
+				    <li><a href="/grows"><h3 class="title is-3 has-text-link">Grows</h3></a></li>
+				    <li><a href="/grows/{{ $farm->grow->id }}"><h3 class="title is-3 has-text-link">{{ $farm->grow->cycle }}</h3></a></li>
+				    <li class="is-active"><a><h3 class="title is-3">{{ $farm->name }}</h3></a></li>
+				    <li class="is-active"><a><h3 class="title is-3">Sales</h3></a></li>
+				  </ul>
+				</nav>
+			</div>
+	  	</div>
+	</nav>
+
+@endsection
 
 
 @section('content')

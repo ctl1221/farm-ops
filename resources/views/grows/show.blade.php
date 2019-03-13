@@ -74,7 +74,6 @@
 				buildings: {!! $buildings !!},
 				taken_buildings_ids: {!! $taken_buildings_ids !!},
 				untaken_building_ids: [],
-				days_recorded: {{ $days_recorded }}
 			},
 
 			methods: {

@@ -14,29 +14,18 @@ class TransactionsHarvestSeeder extends Seeder
     {
         //RS Slip - Farm A
         Harvest::create([
+            'control_no' => '436216',
             'farm_id' => 1,
-            'date' => '2018-11-23',
+            'dressing_plant' => 'IP4 Lipa',
             'truck_plate_no' => 'MV 237',
-            'total_birds_harvested' => 1624,
-        ]);
-
-        Harvest::create([
-            'farm_id' => 1,
             'date' => '2018-11-23',
-            'truck_plate_no' => 'UUP 454',
-            'total_birds_harvested' => 1674,
-        ]);
-        Harvest::create([
-            'farm_id' => 1,
-            'date' => '2018-11-23',
-            'truck_plate_no' => 'JM 0397',
-            'total_birds_harvested' => 1920,
-        ]);
-        Harvest::create([
-            'farm_id' => 1,
-            'date' => '2018-11-23',
-            'truck_plate_no' => 'JM 0299',
-            'total_birds_harvested' => 1920,
+            //'shift' => 'D',
+            'total_harvested' => 1624,
+            // 'time_in_plant' => '02:50',
+            // 'time_weighed_plant' => '04:15',
+            // 'kg_plant_net_weight' => '3021.9',
+            // 'kg_plant_feeds_in_crop' => '0',
+            'coops_per_truck' => 232
         ]);
     }
 }

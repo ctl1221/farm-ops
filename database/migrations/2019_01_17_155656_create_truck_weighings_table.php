@@ -15,7 +15,7 @@ class CreateTruckWeighingsTable extends Migration
     {
         Schema::create('truck_weighings', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('receiving_id');
+            $table->morphs('activity');
             $table->float('kg_net_weight');
             $table->string('ticket_no');
             $table->timestamps();

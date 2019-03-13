@@ -17,13 +17,17 @@
   					<th colspan="2">BPI</th>
   				</tr>
 
-  				@foreach($grow->farms as $farm)
+  				@foreach($grow->farms as $t => $farm)
   					@foreach($farm->buildings as $i => $x)
 	  				<tr>
 	  					<td>
 	  						{{ $x->name}}
 	  					</td>
-	  					<td>---</td>
+	  					<td>
+	  						{{-- <span class="tag is-link"> --}}
+	  							{{ $days_recorded[$t][$i] }}
+	  						{{-- <span> --}}
+	  					</td>
 	  					<td>---</td>
 	  					@if($i == 0)
 	  						<td rowspan="2">---</td>

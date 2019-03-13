@@ -36,9 +36,10 @@ class TransactionsReceivingSeeder extends Seeder
 
 
                 TruckWeighing::create([
-                'receiving_id' => $receiving->id,
-                'kg_net_weight' => 10970,
-                'ticket_no' => '0013'
+                    'activity_id' => $receiving->id,
+                    'activity_type' => 'App\Receiving',
+                    'kg_net_weight' => 10970,
+                    'ticket_no' => '0013'
             ]);
         });
 
@@ -68,7 +69,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
     	
     	TruckWeighing::create([
-    		'receiving_id' => $receiving->id,
+    		'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
     		'kg_net_weight' => 11000,
     		'ticket_no' => '0886'
     	]);
@@ -99,13 +101,15 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11230,
             'ticket_no' => '0881'
         ]);
 
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11300,
             'ticket_no' => '0880'
         ]);
@@ -128,7 +132,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 10990,
             'ticket_no' => '0863'
         ]);
@@ -159,7 +164,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 10960,
             'ticket_no' => '0856'
         ]);
@@ -183,7 +189,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11010,
             'ticket_no' => '0840'
         ]);
@@ -207,7 +214,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11000,
             'ticket_no' => '0841'
         ]);
@@ -238,7 +246,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 10990,
             'ticket_no' => '0825'
         ]);
@@ -261,7 +270,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 10990,
             'ticket_no' => '0059'
         ]);
@@ -284,12 +294,15 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 9980,
             'ticket_no' => '0810'
         ]);
+
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 9980,
             'ticket_no' => '0811'
         ]);
@@ -312,7 +325,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11010,
             'ticket_no' => '0793'
         ]);
@@ -335,12 +349,14 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11250,
             'ticket_no' => '0785'
         ]);
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11250,
             'ticket_no' => '0787'
         ]);
@@ -363,7 +379,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 10990,
             'ticket_no' => '0000'
         ]);
@@ -386,7 +403,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11000,
             'ticket_no' => '0773'
         ]);
@@ -409,7 +427,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11010,
             'ticket_no' => '0770'
         ]);
@@ -439,7 +458,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11020,
             'ticket_no' => '0766'
         ]);
@@ -462,7 +482,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11010,
             'ticket_no' => '0751'
         ]);
@@ -485,7 +506,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 11000,
             'ticket_no' => '0713'
         ]);
@@ -515,7 +537,8 @@ class TransactionsReceivingSeeder extends Seeder
         });
         
         TruckWeighing::create([
-            'receiving_id' => $receiving->id,
+            'activity_id' => $receiving->id,
+            'activity_type' => 'App\Receiving',
             'kg_net_weight' => 12500,
             'ticket_no' => '0696'
         ]);

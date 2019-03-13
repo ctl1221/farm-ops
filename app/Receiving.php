@@ -21,7 +21,7 @@ class Receiving extends Model
 
     public function truck_weighings ()
     {
-     	return $this->hasMany(TruckWeighing::class);
+     	return $this->morphMany(TruckWeighing::class, 'activity');
     }
 
     public function getDateAttribute($date)

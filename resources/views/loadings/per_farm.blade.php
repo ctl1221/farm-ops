@@ -78,6 +78,7 @@
 		data: {
 			total_delivered:0,
 			doa_delivered:0,
+			hatchery_source:'',
 		},
 
 		computed: {

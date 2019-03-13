@@ -12,6 +12,7 @@ use App\Farm;
 use App\Grow;
 use App\Feed;
 use App\Day;
+use App\Receiving;
 
 class APIController extends Controller
 {
@@ -23,7 +24,7 @@ class APIController extends Controller
         return compact('feeds');
     }
 
-    public function materials()
+    public function getAllMaterials()
     {
     	$materials = Material::getAllMaterials();
 
@@ -51,19 +52,20 @@ class APIController extends Controller
             $array[$key] = $temp;
         }
 
-        return json_encode($array);
+        return $array;
     }
 
-    public function getLoadingsOfFarm(Farm $farm)
+    public function getReceivingsOfFarm(Farm $farm)
     {
-        $loadings = Loading::where('farm_id','=', $farm->id)->orderBy('date','desc')->get();
+        $receivings = Receiving::with('receiving_lines','truck_weighings')->where('farm_id', $farm->id)->get();
 
-        return compact('loadings');
+        return compact('receivings');
     }
 
     public function getHarvestsOfFarm(Farm $farm)
     {
-        $harvests = Harvest::where('farm_id','=', $farm->id)->orderBy('date','desc')->get();
+
+        $harvests = Harvest::where('farm_id', $farm->id)->orderBy('date','desc')->get();
 
         return compact('harvests');
     }

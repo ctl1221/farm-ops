@@ -17,6 +17,8 @@ class CreateDisinfectantsTable extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('description');
+            $table->string('short_name')->nullable();
+            $table->string('short_description')->nullable();
             $table->string('uom');
             $table->float('kg_weight');
             $table->double('price');

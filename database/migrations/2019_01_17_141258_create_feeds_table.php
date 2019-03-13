@@ -17,8 +17,8 @@ class CreateFeedsTable extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('description');
-            $table->string('short_name');
-            $table->string('short_description');
+            $table->string('short_name')->nullable();
+            $table->string('short_description')->nullable();
             $table->string('uom');
             $table->float('kg_weight');
             $table->timestamps();

@@ -3,6 +3,7 @@
 
 	<input type="hidden" name="farm_id" value="{{ $farm->id }}">
 	<input type="hidden" name="net_delivered" :value="net_delivered">
+	<input type="hidden" name="hatchery_source" :value="hatchery_source">
 
 	<div class="level">
 
@@ -42,14 +43,14 @@
 			<div class="field">
 				<label class="label">Date Depart Hatchery</label>
 				<div class="control">
-					<input class="input" type="date" name="date_dep_hatchery" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
+					<input class="input" type="date" name="date_dep_hatchery" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" required>
 				</div>
 			</div>
 
 			<div class="field">
 				<label class="label">Time Arrived Farm</label>
 				<div class="control">
-					<input class="input" type="time" name="time_arr_farm" value="{{ Carbon\Carbon::now()->format('H:i') }}">
+					<input class="input" type="time" name="time_arr_farm" value="{{ Carbon\Carbon::now()->format('H:i') }}" required>
 				</div>
 			</div>
 
@@ -60,14 +61,14 @@
 			<div class="field">
 				<label class="label">Total Delivered</label>
 				<div class="control">
-					<input class="input" name="total_delivered" v-model="total_delivered" value="0">
+					<input class="input" name="total_delivered" v-model="total_delivered" value="0" required> 
 				</div>
 			</div>
 
 			<div class="field">
 				<label class="label">DOA Delivered</label>
 				<div class="control">
-					<input class="input" name="doa_delivered" type="number" v-model="doa_delivered" value="0">
+					<input class="input" name="doa_delivered" type="number" v-model="doa_delivered" value="0" required>
 				</div>
 			</div>
 
@@ -77,14 +78,15 @@
 			<div class="field">
 				<label class="label">Hatchery Source</label>
 				<div class="control">
-					<input class="input" type="text" name="hatchery_source">
+					<v-suggest :data="{{ $hatcheries }}" show-field="name" v-model="hatchery_source"></v-suggest>
+					{{-- <input class="input" type="text" name="hatchery_source" required> --}}
 				</div>
 			</div>
 
 			<div class="field">
 				<label class="label">Truck Plate No</label>
 				<div class="control">
-					<input class="input" type="text" name="truck_plate_no" placeholder="ABC 1234">
+					<input class="input" type="text" name="truck_plate_no" placeholder="ABC 1234" required>
 				</div>
 			</div>
 
