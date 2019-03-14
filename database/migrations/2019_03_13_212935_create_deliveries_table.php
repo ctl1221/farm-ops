@@ -24,17 +24,10 @@ class CreateDeliveriesTable extends Migration
             $table->time('time_weighed_plant');
             $table->double('kg_plant_net_weight');
             $table->double('kg_plant_feeds_in_crop');
-
-            //Optionals
-            
+            $table->double('kg_adjusted_net_weight');
+            $table->double('alw_rate');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('deliveries');

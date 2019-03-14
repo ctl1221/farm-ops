@@ -1,70 +1,82 @@
 <template>
     <table class="table is-narrow is-fullwidth is-bordered">
         <thead>
-            <th>Date</th>
-            <th>Reference</th>
-            <th>Material</th>
-            <th>Quantity</th>
-            <th>Declared Weight</th>
-            <th>Actual Weight</th>
-            <th>Ticket Scale No</th>
-            <th>Weigh</th>
+            <th class="has-text-centered">Date</th>
+            <th class="has-text-centered">Reference</th>
+            <th class="has-text-centered">Material</th>
+            <th class="has-text-centered">Quantity</th>
+            <th class="has-text-centered">Dec. Weight</th>
+            <th class="has-text-centered">Act. Weight</th>
+            <th class="has-text-centered">Ticket Scale No</th>
+            <th class="has-text-centered">Weigh</th>
         </thead>
 
         <tbody>
             <template v-for="(x, x_index) in receivings">
                 <tr v-for="(y, y_index) in x.receiving_lines">
                     <template v-if="y_index == 0">
-                        <td :rowspan="x.receiving_lines.length">{{ x.date }}</td>
-                        <td :rowspan="x.receiving_lines.length">{{ x.doc_no }}</td>
+                        <td :rowspan="x.receiving_lines.length" style="vertical-align:middle">
+                            <center>{{ x.date }}</center>
+                        </td>
+                        <td :rowspan="x.receiving_lines.length" style="vertical-align:middle">
+                            <center>{{ x.doc_no }}</center>
+                        </td>
                     </template>
 
-                    <td>{{ material(y.material_type, y.material_id).short_description }}</td>
-                    <td>{{ y.quantity }}</td>
+                    <td>
+                        <center>{{ material(y.material_type, y.material_id).short_description }}</center>
+                    </td>
+                    <td><center>{{ y.quantity }}</center></td>
 
                     <template v-if="y_index == 0">
-                        <td :rowspan="x.receiving_lines.length"
+                        <td :rowspan="x.receiving_lines.length" style="vertical-align:middle"
                             :bgcolor="total_declared_weight(x.receiving_lines) != total_actual_weight(x.truck_weighings)? '#FF6347' : 'white'" >
-                            {{ total_declared_weight(x.receiving_lines) | numberFormat }}
+                            <center>
+                                {{ total_declared_weight(x.receiving_lines) | numberFormat }}
+                            </center>
                         </td>
                     
-                        <td :rowspan="x.receiving_lines.length">
-                            {{ total_actual_weight(x.truck_weighings) | numberFormat }}
+                        <td :rowspan="x.receiving_lines.length" style="vertical-align:middle">
+                            <center>
+                                {{ total_actual_weight(x.truck_weighings) | numberFormat }}
+                            </center>
                         </td>
 
-                        <td :rowspan="x.receiving_lines.length">
-                            <a v-for="z in x.truck_weighings" 
-                            class="tooltip is-tooltip is-small" 
-                            style="border-color:white; padding-right:0.25rem;" 
-                            :data-tooltip="z.kg_net_weight+ ' KG'">
-                                <u>{{ z.ticket_no }}</u>
-                            </a>
+                        <td :rowspan="x.receiving_lines.length" style="vertical-align:middle">
+                            <center>
+                                <a v-for="z in x.truck_weighings" 
+                                class="tooltip is-tooltip is-small" 
+                                style="border-color:white; padding-right:0.25rem;" 
+                                :data-tooltip="z.kg_net_weight+ ' KG'">
+                                    <u>{{ z.ticket_no }}</u>
+                                </a>
+                            </center>
                         </td>
-                        <td :rowspan="x.receiving_lines.length">
-                            <input type="text" v-model="weighing_forms[x_index].ticket_no" placeholder="ticket no">
-                            <input type="text" v-model="weighing_forms[x_index].kg_net_weight" placeholder="kg net weight">
-                            <button class="button" @click="weigh(x_index)">Weigh</button>
+                        
+                        <td :rowspan="x.receiving_lines.length" style="vertical-align:middle">
+                            <div class="field has-addons" style="justify-content:center">
+                                <p class="control">
+                                    <input class="input is-small" 
+                                    type="text" 
+                                    v-model="weighing_forms[x_index].ticket_no" 
+                                    placeholder="Ticket No">
+                                </p>
+                                <p class="control">
+                                    <input class="input is-small"
+                                    type="text" 
+                                    v-model="weighing_forms[x_index].kg_net_weight" 
+                                    placeholder="KG Net Weight">
+                                </p>
+                                <p class="control">
+                                    <button class="button is-small is-success" @click="weigh(x_index)">Weigh</button>
+                                </p>
+                            </div>
                         </td>
                     </template>
 
                 </tr>
-
-<!--                 <td rowspan="{{ $x->receiving_lines->count() }}">
-                    <form method="POST" action="/truckWeighings">
-                        @csrf
-                        <input type="hidden" name="activity_id" value="{{ $x->id }}">
-                        <input type="hidden" name="activity_type" value="Receiving">
-                        <input type="text" name="ticket_no" placeholder="ticket no" required>
-                        <input type="text" name="kg_net_weight" placeholder="kg net weight" required>
-                        <input type="submit" value="weigh">
-                    </form>
-                </td>
-                @endif
-            </tr>
-            @endforeach -->
             </template>
         </tbody>
-
     </table>
 </template>
 
@@ -92,15 +104,15 @@ export default {
 
         getAllReceivings: function () {
             axios.get('/api/getReceivingsOfFarm/' + this.farm.id)
-                .then(response => {
-                    this.receivings = response.data.receivings
-                    this.initializeWeighingForms();
-                });
+            .then(response => {
+                this.receivings = response.data.receivings
+                this.initializeWeighingForms();
+            });
         },
 
         getAllMaterials: function () {
             axios.get('/api/getAllMaterials')
-                .then(response => this.materials = response.data.materials);
+            .then(response => this.materials = response.data.materials);
         },
 
         material: function (material_type, material_id) {
@@ -145,10 +157,10 @@ export default {
                 activity_type: 'App\\Receiving',
                 activity_id: this.receivings[x_index].id
             }).then(response => {
-                    this.getAllReceivings();
-                    this.weighing_forms[x_index].ticket_no = '';
-                    this.weighing_forms[x_index].kg_net_weight = '';
-                });
+                this.getAllReceivings();
+                this.weighing_forms[x_index].ticket_no = '';
+                this.weighing_forms[x_index].kg_net_weight = '';
+            });
         }
 
     },

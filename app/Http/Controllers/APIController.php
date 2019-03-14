@@ -13,6 +13,7 @@ use App\Grow;
 use App\Feed;
 use App\Day;
 use App\Receiving;
+use App\Company;
 
 class APIController extends Controller
 {
@@ -29,6 +30,13 @@ class APIController extends Controller
     	$materials = Material::getAllMaterials();
 
     	return compact('materials');
+    }
+
+    public function getAllDressingPlants()
+    {
+        $dressing_plants = Company::where('is_dressing_plant',true)->get();
+
+        return compact('dressing_plants');
     }
 
     public function getFarmsOfGrow(Grow $grow)
@@ -65,7 +73,11 @@ class APIController extends Controller
     public function getHarvestsOfFarm(Farm $farm)
     {
 
-        $harvests = Harvest::where('farm_id', $farm->id)->orderBy('date','desc')->get();
+        $harvests = Harvest::where('farm_id', $farm->id)
+            ->with('delivery')
+            ->orderBy('date')
+            ->orderBy('control_no')
+            ->get();
 
         return compact('harvests');
     }

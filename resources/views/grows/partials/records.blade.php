@@ -49,7 +49,7 @@
 						<td class="has-text-centered"><a :href="'/days/farms/' + farm.id">View</a></td>
 						<td class="has-text-centered"><a :href="'/materials/farms/' + farm.id">View</a></td>
 						<td class="has-text-centered"><a :href="'/harvests/farms/' + farm.id">View</a></td>
-						<td class="has-text-centered"><a :href="'/harvests/farms/' + farm.id">View</a></td>
+						<td class="has-text-centered"><a :href="'/deliveries/farms/' + farm.id">View</a></td>
 						<td class="has-text-centered"><a :href="'/receivings/farms/' + farm.id">View</a></td>
 						<td class="has-text-centered"><a :href="'/invoices/farms/' + farm.id">View</a></td>
 						<td class="has-text-centered"><a :href="'/sales/' + farm.id">View</a></td>

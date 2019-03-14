@@ -11,6 +11,11 @@ class Harvest extends Model
 
     public function getDateAttribute($date)
 	{
-	    return Carbon::parse($date)->format('M d, Y');
+	    return Carbon::parse($date)->format('m/d/Y');
+	}
+
+	public function delivery()
+	{
+		return $this->hasOne(Delivery::class);
 	}
 }

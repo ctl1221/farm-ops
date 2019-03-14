@@ -71,7 +71,9 @@ Route::get('/loadings/farms/{farm}', 'LoadingController@per_farm');
 Route::post('/loadings', 'LoadingController@store');
 
 Route::get('/harvests/farms/{farm}', 'HarvestController@per_farm');
+Route::get('/deliveries/farms/{farm}', 'DeliveryController@per_farm');
 Route::post('/harvests', 'HarvestController@store');
+Route::post('/deliveries', 'DeliveryController@store');
 
 Route::get('/weighings/farms/{farm}/buildings/{building}', 'WeighingController@per_building');
 
@@ -113,6 +115,7 @@ Route::post('/feeds_calculate','CalculatorController@calculate_feeds');
 
 Route::get('/api/getAllFeeds','APIController@getAllFeeds');
 Route::get('/api/getAllMaterials','APIController@getAllMaterials');
+Route::get('/api/getAllDressingPlants','APIController@getAllDressingPlants');
 Route::get('/api/getFarmsOfGrow/{grow}','APIController@getFarmsOfGrow');
 Route::get('/api/getReceivingsOfFarm/{farm}','APIController@getReceivingsOfFarm');
 Route::get('/api/getHarvestsOfFarm/{farm}','APIController@getHarvestsOfFarm');

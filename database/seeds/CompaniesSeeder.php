@@ -30,5 +30,10 @@ class CompaniesSeeder extends Seeder
             'name' => 'San Miguel Foods, Inc - Magnolia Poultry Farms',
             'is_chick_supplier' => true,
         ]);
+
+        Company::create([
+            'name' => 'Tiaong',
+            'is_dressing_plant' => true,
+        ]);
     }
 }

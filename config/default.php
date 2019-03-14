@@ -7,5 +7,7 @@ return [
     'n_weighs' => 1,
     'farm_names' => ['Farm A', 'Farm B', 'Farm C', 'Farm D', 'Farm E'],
     'building_assignments' => [[1,2],[3,4],[5,6],[7,8],[9,10]],
-    'material_types' => ['Feed','Medicine','Disinfectant'],
+    'material_types' => ['Feed','Medicine','Disinfectant'],	
+    'delayed_plant_weighing_pct' => ['D' => 0.0056, 'N' => 0.0046],
+    'delayed_plant_weighing_treshold' => ['D' => 1, 'N' => 2],
 ];
