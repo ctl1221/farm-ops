@@ -25,8 +25,8 @@ class CreateHarvestsTable extends Migration
             $table->string('truck_plate_no');
             $table->date('date'); 
             $table->unsignedInteger('total_harvested');
-            
             $table->integer('coops_per_truck');
+            $table->float('alw_rate');
 
             //Semi Required
             $table->unsignedInteger('manager_id')->nullable();

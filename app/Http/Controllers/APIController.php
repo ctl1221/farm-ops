@@ -74,7 +74,7 @@ class APIController extends Controller
     {
 
         $harvests = Harvest::where('farm_id', $farm->id)
-            ->with('delivery')
+            ->with('delivery','truck_weighings')
             ->orderBy('date')
             ->orderBy('control_no')
             ->get();

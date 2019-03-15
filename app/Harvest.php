@@ -18,4 +18,9 @@ class Harvest extends Model
 	{
 		return $this->hasOne(Delivery::class);
 	}
+
+	public function truck_weighings ()
+    {
+     	return $this->morphMany(TruckWeighing::class, 'activity');
+    }
 }

@@ -27,7 +27,11 @@
 
 @section('content')
 
-	<harvests :farm="{{ $farm }}"></harvests>
+	<harvests 
+		:farm="{{ $farm }}"
+		:alw_rates="{{ $alw_rates }}">
+		
+	</harvests>
 
 @endsection
 

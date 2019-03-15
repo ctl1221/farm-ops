@@ -96,7 +96,7 @@
                     <td>{{ totalWeight() }}</td>
                     <td>{{ totalFIC() }}</td>
                     <td colspan="3" class="has-background-dark"></td>
-                    <td>{{ totalAdjustedWeight() }}</td>
+                    <td>{{ totalAdjustedWeight() | currencyFormat }}</td>
                     <td>{{ (totalAdjustedWeight() / totalBirds()) | weightFormat  }}</td>
                     <td>{{ (totalIncentive() / totalBirds()) | currencyFormat  }}</td>
                     <td>{{ totalIncentive() | currencyFormat }}</td>

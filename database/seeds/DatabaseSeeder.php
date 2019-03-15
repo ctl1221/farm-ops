@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TransactionsReceivingSeeder::class);
         $this->call(TransactionsInvoiceSeeder::class);
         $this->call(TransactionsDailySeeder::class);
-        $this->call(TransactionsHarvestSeeder::class);
+       // $this->call(TransactionsHarvestSeeder::class);
         $this->call(RatesSeeder::class);
         
         //$this->call(TransactionsSeeder::class);

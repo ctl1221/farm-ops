@@ -34,12 +34,11 @@ class TransactionsReceivingSeeder extends Seeder
 	    		'batch_no' => '81124CF449'
 	    	]);
 
-
-                TruckWeighing::create([
-                    'activity_id' => $receiving->id,
-                    'activity_type' => 'App\Receiving',
-                    'kg_net_weight' => 10970,
-                    'ticket_no' => '0013'
+            TruckWeighing::create([
+                'activity_id' => $receiving->id,
+                'activity_type' => 'App\Receiving',
+                'kg_net_weight' => 10970,
+                'ticket_no' => '0013'
             ]);
         });
 

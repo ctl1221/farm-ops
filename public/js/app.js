@@ -2166,8 +2166,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['farm'],
+  props: ['farm', 'alw_rates'],
   data: function data() {
     return {
       farm_id: '',
@@ -2178,10 +2235,34 @@ __webpack_require__.r(__webpack_exports__);
       control_no: '',
       coops_per_truck: '',
       truck_plate_no: '',
-      total_harvested: ''
+      total_harvested: '',
+      ticket_no: '',
+      kg_net_weight: 0,
+      weighing_forms: [],
+      alw_rate: ''
     };
   },
   computed: {
+    alw: function alw() {
+      return this.kg_net_weight / this.total_harvested;
+    },
+    calc_alw_rate: function calc_alw_rate() {
+      var rate = 0.00;
+      var rounded_alw = this.alw.toLocaleString('en-PH', {
+        minimumFractionDigits: 3,
+        maximumFractionDigits: 3
+      });
+      this.alw_rates.forEach(function (x) {
+        if (rounded_alw >= x.start && rounded_alw <= x.end) {
+          rate = x.rate;
+        }
+      });
+      this.alw_rate = rate;
+      return rate;
+    },
+    alw_incentive: function alw_incentive() {
+      return this.total_harvested * this.calc_alw_rate;
+    },
     submittable: function submittable() {
       if (!this.date || !this.dressing_plant || !this.control_no || !this.coops_per_truck || !this.truck_plate_no || !this.total_harvested) {
         return false;
@@ -2191,11 +2272,21 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    initializeWeighingForms: function initializeWeighingForms() {
+      this.harvests.forEach(function (x) {
+        this.weighing_forms.push({
+          'ticket_no': '',
+          'kg_net_weight': ''
+        });
+      }, this);
+    },
     getAllharvests: function getAllharvests() {
       var _this = this;
 
       axios.get('/api/getHarvestsOfFarm/' + this.farm.id).then(function (response) {
-        return _this.harvests = response.data.harvests;
+        _this.harvests = response.data.harvests;
+
+        _this.initializeWeighingForms();
       });
     },
     getAllDressingPlants: function getAllDressingPlants() {
@@ -2204,6 +2295,27 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/api/getAllDressingPlants').then(function (response) {
         return _this2.dressing_plants = response.data.dressing_plants;
       });
+    },
+    totalBirds: function totalBirds() {
+      var total = 0;
+      this.harvests.forEach(function (x) {
+        total += x.total_harvested;
+      });
+      return total;
+    },
+    totalWeight: function totalWeight() {
+      var total = 0;
+      this.harvests.forEach(function (x, i) {
+        total += x.truck_weighings.length > 0 ? x.truck_weighings[0].kg_net_weight : 0;
+      }, this);
+      return total;
+    },
+    totalIncentive: function totalIncentive() {
+      var total = 0;
+      this.harvests.forEach(function (x, i) {
+        total += x.alw_rate * x.total_harvested;
+      }, this);
+      return total;
     },
     createHarvest: function createHarvest() {
       var _this3 = this;
@@ -57070,7 +57182,11 @@ var render = function() {
                 attrs: { colspan: "3" }
               }),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(_vm.totalAdjustedWeight()))]),
+              _c("td", [
+                _vm._v(
+                  _vm._s(_vm._f("currencyFormat")(_vm.totalAdjustedWeight()))
+                )
+              ]),
               _vm._v(" "),
               _c("td", [
                 _vm._v(
@@ -57224,12 +57340,56 @@ var render = function() {
       "table",
       { staticClass: "table is-bordered is-narrow is-hoverable is-fullwidth" },
       [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", [
+            _c("th", {
+              staticClass: "has-text-right",
+              attrs: { colspan: "5" }
+            }),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-text-centered has-background-info" }, [
+              _vm._v(_vm._s(_vm._f("numberFormat")(_vm.totalBirds())))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-text-centered has-background-info" }, [
+              _vm._v(_vm._s(_vm._f("numberFormat")(_vm.totalWeight())))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-text-centered has-background-info" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(
+                    _vm._f("weightFormat")(_vm.totalWeight() / _vm.totalBirds())
+                  )
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-text-centered has-background-info" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(
+                    _vm._f("currencyFormat")(
+                      _vm.totalIncentive() / _vm.totalBirds()
+                    )
+                  )
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-text-centered has-background-info" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm._f("currencyFormat")(_vm.totalIncentive()))
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
           [
-            _vm._l(_vm.harvests, function(x) {
+            _vm._l(_vm.harvests, function(x, x_index) {
               return _c("tr", [
                 _c("td", [_vm._v(_vm._s(x.date))]),
                 _vm._v(" "),
@@ -57243,9 +57403,127 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(x.total_harvested))]),
                 _vm._v(" "),
-                _c("td", [_vm._v("---")]),
+                _c("td", [
+                  x.truck_weighings.length < 1
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "field has-addons",
+                          staticStyle: { "justify-content": "center" }
+                        },
+                        [
+                          _c("p", { staticClass: "control" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.weighing_forms[x_index].ticket_no,
+                                  expression:
+                                    "weighing_forms[x_index].ticket_no"
+                                }
+                              ],
+                              staticClass: "input is-small",
+                              attrs: { type: "text", placeholder: "Ticket No" },
+                              domProps: {
+                                value: _vm.weighing_forms[x_index].ticket_no
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.weighing_forms[x_index],
+                                    "ticket_no",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "control" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value:
+                                    _vm.weighing_forms[x_index].kg_net_weight,
+                                  expression:
+                                    "weighing_forms[x_index].kg_net_weight"
+                                }
+                              ],
+                              staticClass: "input is-small",
+                              attrs: {
+                                type: "text",
+                                placeholder: "KG Net Weight"
+                              },
+                              domProps: {
+                                value: _vm.weighing_forms[x_index].kg_net_weight
+                              },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.weighing_forms[x_index],
+                                    "kg_net_weight",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "control" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "button is-small is-success",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.weigh(x_index)
+                                  }
+                                }
+                              },
+                              [_vm._v("Weigh")]
+                            )
+                          ])
+                        ]
+                      )
+                    : _c("span", [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(x.truck_weighings[0].kg_net_weight) +
+                            "\n                    "
+                        )
+                      ])
+                ]),
                 _vm._v(" "),
-                _c("td", [_vm._v("---")])
+                _c("td", [
+                  _vm._v(
+                    _vm._s(
+                      _vm._f("weightFormat")(
+                        (x.truck_weighings.length > 0
+                          ? x.truck_weighings[0].kg_net_weight
+                          : 0) / x.total_harvested
+                      )
+                    )
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(x.alw_rate))]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(
+                    _vm._s(
+                      _vm._f("currencyFormat")(x.alw_rate * x.total_harvested)
+                    )
+                  )
+                ])
               ])
             }),
             _vm._v(" "),
@@ -57396,7 +57674,74 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("td"),
+              _c("td", [
+                _c(
+                  "div",
+                  {
+                    staticClass: "field has-addons",
+                    staticStyle: { "justify-content": "center" }
+                  },
+                  [
+                    _c("p", { staticClass: "control" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.ticket_no,
+                            expression: "ticket_no"
+                          }
+                        ],
+                        staticClass: "input is-small",
+                        attrs: { type: "text", placeholder: "Ticket No" },
+                        domProps: { value: _vm.ticket_no },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.ticket_no = $event.target.value
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "control" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.kg_net_weight,
+                            expression: "kg_net_weight"
+                          }
+                        ],
+                        staticClass: "input is-small",
+                        attrs: { type: "number", placeholder: "KG Net Weight" },
+                        domProps: { value: _vm.kg_net_weight },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.kg_net_weight = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(_vm._f("weightFormat")(_vm.alw)))]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.calc_alw_rate)))
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.alw_incentive)))
+              ]),
               _vm._v(" "),
               _c("td", [
                 _c(
@@ -57422,24 +57767,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "has-background-light" }, [
-        _c("th", [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Plant / Live")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("RS No.")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Coops")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Plate No.")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("No. Of Heads")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Total Weight")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("ALW")])
-      ])
+    return _c("tr", { staticClass: "has-background-light" }, [
+      _c("th", [_vm._v("Date")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Plant / Live")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("RS No.")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Coops")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Plate No.")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("No. Of Heads")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Total Weight")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ALW")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ALW Rate")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ALW Incentive")])
     ])
   }
 ]
