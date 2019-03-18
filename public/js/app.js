@@ -71627,6 +71627,12 @@ Vue.filter('numberFormat', function (value) {
     maximumFractionDigits: 0
   });
 });
+Vue.filter('fcrFormat', function (value) {
+  return value.toLocaleString('en-PH', {
+    minimumFractionDigits: 4,
+    maximumFractionDigits: 4
+  });
+});
 
 /***/ }),
 
@@ -72621,8 +72627,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

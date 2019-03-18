@@ -75,3 +75,7 @@ Vue.filter('weightFormat', function (value) {
 Vue.filter('numberFormat', function (value) {
 	return value.toLocaleString('en-PH',{minimumFractionDigits: 0, maximumFractionDigits: 0});
 });
+
+Vue.filter('fcrFormat', function (value) {
+	return value.toLocaleString('en-PH',{minimumFractionDigits: 4, maximumFractionDigits: 4});
+});

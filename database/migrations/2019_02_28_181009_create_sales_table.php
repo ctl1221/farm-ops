@@ -15,6 +15,11 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('farm_id');
+            $table->float('pct_hr');
+            $table->float('fcr');
+            $table->float('alw');
+            $table->float('age');
             $table->timestamps();
         });
     }
