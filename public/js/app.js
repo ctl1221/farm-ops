@@ -1876,6 +1876,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['farm', 'treshold', 'multiplier', 'alw_rates'],
   data: function data() {
@@ -2223,8 +2232,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['farm', 'alw_rates'],
+  props: ['farm', 'alw_rates', 'deliveries_aggregates'],
   data: function data() {
     return {
       farm_id: '',
@@ -2264,7 +2286,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.total_harvested * this.calc_alw_rate;
     },
     submittable: function submittable() {
-      if (!this.date || !this.dressing_plant || !this.control_no || !this.coops_per_truck || !this.truck_plate_no || !this.total_harvested) {
+      if (!this.date || !this.dressing_plant || !this.control_no || !this.coops_per_truck || !this.truck_plate_no || !this.total_harvested || !(this.ticket_no && this.kg_net_weight || !this.ticket_no && !this.kg_net_weight)) {
         return false;
       }
 
@@ -2273,10 +2295,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     initializeWeighingForms: function initializeWeighingForms() {
+      this.weighing_forms = [];
       this.harvests.forEach(function (x) {
         this.weighing_forms.push({
+          'total_harvested': x.total_harvested,
           'ticket_no': '',
-          'kg_net_weight': ''
+          'kg_net_weight': '',
+          'harvest_id': x.id
         });
       }, this);
     },
@@ -2313,7 +2338,9 @@ __webpack_require__.r(__webpack_exports__);
     totalIncentive: function totalIncentive() {
       var total = 0;
       this.harvests.forEach(function (x, i) {
-        total += x.alw_rate * x.total_harvested;
+        if (x.truck_weighings.length > 0) {
+          total += x.alw_rate * parseFloat(x.truck_weighings[0].kg_net_weight);
+        }
       }, this);
       return total;
     },
@@ -2335,6 +2362,19 @@ __webpack_require__.r(__webpack_exports__);
       this.coops_per_truck = '';
       this.truck_plate_no = '';
       this.total_harvested = '';
+      this.ticket_no = '';
+      this.kg_net_weight = 0;
+    },
+    weigh: function weigh(index) {
+      var _this4 = this;
+
+      if (this.weighing_forms[index].kg_net_weight && this.weighing_forms[index].ticket_no) {
+        axios.post('/harvests/weigh', this.weighing_forms[index]).then(function (response) {
+          _this4.getAllharvests();
+        });
+      } else {
+        alert('Incomplete Data');
+      }
     }
   },
   mounted: function mounted() {
@@ -56778,443 +56818,500 @@ var render = function() {
       "table",
       { staticClass: "table is-bordered is-narrow is-hoverable is-fullwidth" },
       [
-        _vm._m(0),
+        _c("thead", [
+          _c("tr", [
+            _c(
+              "th",
+              { staticClass: "has-text-right", attrs: { colspan: "2" } },
+              [_vm._v("Farm")]
+            ),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-info" }, [
+              _vm._v(_vm._s(_vm._f("numberFormat")(_vm.totalBirds())))
+            ]),
+            _vm._v(" "),
+            _c("th", { attrs: { colspan: "2" } }),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-info" }, [
+              _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.totalWeight())))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-info" }, [
+              _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.totalFIC())))
+            ]),
+            _vm._v(" "),
+            _c("th", { attrs: { colspan: "3" } }),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-info" }, [
+              _vm._v(
+                _vm._s(_vm._f("currencyFormat")(_vm.totalAdjustedWeight()))
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-info" }, [
+              _vm._v(
+                _vm._s(
+                  _vm._f("weightFormat")(
+                    _vm.totalAdjustedWeight() / _vm.totalBirds()
+                  )
+                )
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-info" }, [
+              _vm._v(
+                _vm._s(
+                  _vm._f("currencyFormat")(
+                    _vm.totalIncentive() / _vm.totalAdjustedWeight()
+                  )
+                )
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-info" }, [
+              _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.totalIncentive())))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tr", [
+            _c(
+              "th",
+              { staticClass: "has-text-right", attrs: { colspan: "2" } },
+              [_vm._v("Dressing Plant")]
+            ),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-primary" }, [
+              _vm._v(_vm._s(_vm._f("numberFormat")(_vm.totalBirds())))
+            ]),
+            _vm._v(" "),
+            _c("th", { attrs: { colspan: "2" } }),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-primary" }, [
+              _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.totalWeight())))
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-primary" }, [
+              _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.totalFIC())))
+            ]),
+            _vm._v(" "),
+            _c("th", { attrs: { colspan: "3" } }),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-primary" }, [
+              _vm._v(
+                _vm._s(_vm._f("currencyFormat")(_vm.totalAdjustedWeight()))
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-primary" }, [
+              _vm._v(
+                _vm._s(
+                  _vm._f("weightFormat")(
+                    _vm.totalAdjustedWeight() / _vm.totalBirds()
+                  )
+                )
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-primary" }, [
+              _vm._v(
+                _vm._s(
+                  _vm._f("currencyFormat")(
+                    _vm.totalIncentive() / _vm.totalAdjustedWeight()
+                  )
+                )
+              )
+            ]),
+            _vm._v(" "),
+            _c("th", { staticClass: "has-background-primary" }, [
+              _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.totalIncentive())))
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ]),
         _vm._v(" "),
         _c(
           "tbody",
-          [
-            _vm._l(_vm.harvests, function(x, x_index) {
-              return _c(
-                "tr",
-                [
-                  _c("td", [_vm._v(_vm._s(x.date))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v("RS" + _vm._s(x.control_no))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(x.total_harvested))]),
-                  _vm._v(" "),
-                  x.delivery
-                    ? [
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("timeFormat")(x.delivery.time_in_plant)
+          _vm._l(_vm.harvests, function(x, x_index) {
+            return _c(
+              "tr",
+              [
+                _c("td", [_vm._v(_vm._s(x.date))]),
+                _vm._v(" "),
+                _c("td", [_vm._v("RS" + _vm._s(x.control_no))]),
+                _vm._v(" "),
+                _c("td", [
+                  _vm._v(_vm._s(_vm._f("numberFormat")(x.total_harvested)))
+                ]),
+                _vm._v(" "),
+                x.delivery
+                  ? [
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(_vm._f("timeFormat")(x.delivery.time_in_plant))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("timeFormat")(x.delivery.time_weighed_plant)
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("currencyFormat")(
+                              x.delivery.kg_plant_net_weight
                             )
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("timeFormat")(
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("currencyFormat")(
+                              x.delivery.kg_plant_feeds_in_crop
+                            )
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(x.delivery.shift))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("minToHourMinute")(
+                              _vm.minutesDiffInTime(
+                                x.delivery.time_in_plant,
                                 x.delivery.time_weighed_plant
                               )
                             )
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(x.delivery.kg_plant_net_weight))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(x.delivery.kg_plant_feeds_in_crop))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(x.delivery.shift))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("minToHourMinute")(
-                                _vm.minutesDiffInTime(
-                                  x.delivery.time_in_plant,
-                                  x.delivery.time_weighed_plant
-                                )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("currencyFormat")(
+                              x.delivery.kg_adjusted_net_weight -
+                                x.delivery.kg_plant_net_weight
+                            )
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("currencyFormat")(
+                              x.delivery.kg_adjusted_net_weight
+                            )
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("weightFormat")(
+                              _vm.alw(
+                                x.delivery.kg_adjusted_net_weight,
+                                x.total_harvested
                               )
                             )
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("currencyFormat")(
-                                x.delivery.kg_adjusted_net_weight -
-                                  x.delivery.kg_plant_net_weight
-                              )
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("currencyFormat")(
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(_vm._f("currencyFormat")(x.delivery.alw_rate))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("currencyFormat")(
+                              x.delivery.alw_rate *
                                 x.delivery.kg_adjusted_net_weight
-                              )
                             )
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("weightFormat")(
-                                _vm.alw(
-                                  x.delivery.kg_adjusted_net_weight,
-                                  x.total_harvested
-                                )
-                              )
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("currencyFormat")(x.delivery.alw_rate)
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("currencyFormat")(
-                                x.delivery.alw_rate *
-                                  x.delivery.kg_adjusted_net_weight
-                              )
-                            )
-                          )
-                        ])
-                      ]
-                    : [
-                        _c("td", [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value:
-                                  _vm.delivery_forms[x_index].time_in_plant,
-                                expression:
-                                  "delivery_forms[x_index].time_in_plant"
-                              }
-                            ],
-                            staticClass: "input is-small",
-                            attrs: { type: "time" },
-                            domProps: {
-                              value: _vm.delivery_forms[x_index].time_in_plant
-                            },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.delivery_forms[x_index],
-                                  "time_in_plant",
-                                  $event.target.value
-                                )
-                              }
+                        )
+                      ])
+                    ]
+                  : [
+                      _c("td", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.delivery_forms[x_index].time_in_plant,
+                              expression:
+                                "delivery_forms[x_index].time_in_plant"
                             }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value:
-                                  _vm.delivery_forms[x_index]
-                                    .time_weighed_plant,
-                                expression:
-                                  "delivery_forms[x_index].time_weighed_plant"
+                          ],
+                          staticClass: "input is-small",
+                          attrs: { type: "time" },
+                          domProps: {
+                            value: _vm.delivery_forms[x_index].time_in_plant
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
-                            ],
-                            staticClass: "input is-small",
-                            attrs: { type: "time" },
-                            domProps: {
+                              _vm.$set(
+                                _vm.delivery_forms[x_index],
+                                "time_in_plant",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
                               value:
-                                _vm.delivery_forms[x_index].time_weighed_plant
-                            },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.delivery_forms[x_index],
-                                  "time_weighed_plant",
-                                  $event.target.value
-                                )
-                              }
+                                _vm.delivery_forms[x_index].time_weighed_plant,
+                              expression:
+                                "delivery_forms[x_index].time_weighed_plant"
                             }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value:
-                                  _vm.delivery_forms[x_index]
-                                    .kg_plant_net_weight,
-                                expression:
-                                  "delivery_forms[x_index].kg_plant_net_weight"
+                          ],
+                          staticClass: "input is-small",
+                          attrs: { type: "time" },
+                          domProps: {
+                            value:
+                              _vm.delivery_forms[x_index].time_weighed_plant
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
-                            ],
-                            staticClass: "input is-small",
-                            attrs: { type: "number" },
-                            domProps: {
+                              _vm.$set(
+                                _vm.delivery_forms[x_index],
+                                "time_weighed_plant",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
                               value:
-                                _vm.delivery_forms[x_index].kg_plant_net_weight
-                            },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.delivery_forms[x_index],
-                                  "kg_plant_net_weight",
-                                  $event.target.value
-                                )
-                              }
+                                _vm.delivery_forms[x_index].kg_plant_net_weight,
+                              expression:
+                                "delivery_forms[x_index].kg_plant_net_weight"
                             }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value:
-                                  _vm.delivery_forms[x_index]
-                                    .kg_plant_feeds_in_crop,
-                                expression:
-                                  "delivery_forms[x_index].kg_plant_feeds_in_crop"
+                          ],
+                          staticClass: "input is-small",
+                          attrs: { type: "number" },
+                          domProps: {
+                            value:
+                              _vm.delivery_forms[x_index].kg_plant_net_weight
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
-                            ],
-                            staticClass: "input is-small",
-                            attrs: { type: "number" },
-                            domProps: {
+                              _vm.$set(
+                                _vm.delivery_forms[x_index],
+                                "kg_plant_net_weight",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
                               value:
                                 _vm.delivery_forms[x_index]
-                                  .kg_plant_feeds_in_crop
-                            },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.delivery_forms[x_index],
-                                  "kg_plant_feeds_in_crop",
-                                  $event.target.value
-                                )
-                              }
+                                  .kg_plant_feeds_in_crop,
+                              expression:
+                                "delivery_forms[x_index].kg_plant_feeds_in_crop"
                             }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c("div", { staticClass: "select is-small" }, [
-                            _c(
-                              "select",
-                              {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.delivery_forms[x_index].shift,
-                                    expression: "delivery_forms[x_index].shift"
-                                  }
-                                ],
-                                on: {
-                                  change: function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      _vm.delivery_forms[x_index],
-                                      "shift",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
-                                  }
-                                }
-                              },
-                              [
-                                _c("option", { attrs: { value: "D" } }, [
-                                  _vm._v("D")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "N" } }, [
-                                  _vm._v("N")
-                                ])
-                              ]
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("minToHourMinute")(
-                                _vm.minutesDiffInTime(
-                                  _vm.delivery_forms[x_index].time_in_plant,
-                                  _vm.delivery_forms[x_index].time_weighed_plant
-                                )
+                          ],
+                          staticClass: "input is-small",
+                          attrs: { type: "number" },
+                          domProps: {
+                            value:
+                              _vm.delivery_forms[x_index].kg_plant_feeds_in_crop
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.delivery_forms[x_index],
+                                "kg_plant_feeds_in_crop",
+                                $event.target.value
                               )
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(
-                                _vm._f("currencyFormat")(
-                                  _vm.adjustedWeight(x_index)
-                                )
-                              ) +
-                              "\n                    "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("currencyFormat")(
-                                _vm.adjustedNetWeight(x_index)
-                              )
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("weightFormat")(_vm.adjustedALW(x_index))
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("currencyFormat")(
-                                _vm.adjustedALWRate(x_index)
-                              )
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("currencyFormat")(
-                                _vm.adjustedALWIncentive(x_index)
-                              )
-                            )
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("div", { staticClass: "select is-small" }, [
                           _c(
-                            "button",
+                            "select",
                             {
-                              staticClass: "button is-small is-success",
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.delivery_forms[x_index].shift,
+                                  expression: "delivery_forms[x_index].shift"
+                                }
+                              ],
                               on: {
-                                click: function($event) {
-                                  return _vm.createDelivery(x_index)
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.delivery_forms[x_index],
+                                    "shift",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
                                 }
                               }
                             },
                             [
-                              _vm._v(
-                                "\n                            Save\n                        "
-                              )
+                              _c("option", { attrs: { value: "D" } }, [
+                                _vm._v("D")
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "N" } }, [
+                                _vm._v("N")
+                              ])
                             ]
                           )
                         ])
-                      ]
-                ],
-                2
-              )
-            }),
-            _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", {
-                staticClass: "has-background-dark",
-                attrs: { colspan: "2" }
-              }),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(_vm.totalBirds()))]),
-              _vm._v(" "),
-              _c("td", {
-                staticClass: "has-background-dark",
-                attrs: { colspan: "2" }
-              }),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(_vm.totalWeight()))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(_vm.totalFIC()))]),
-              _vm._v(" "),
-              _c("td", {
-                staticClass: "has-background-dark",
-                attrs: { colspan: "3" }
-              }),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  _vm._s(_vm._f("currencyFormat")(_vm.totalAdjustedWeight()))
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  _vm._s(
-                    _vm._f("weightFormat")(
-                      _vm.totalAdjustedWeight() / _vm.totalBirds()
-                    )
-                  )
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  _vm._s(
-                    _vm._f("currencyFormat")(
-                      _vm.totalIncentive() / _vm.totalBirds()
-                    )
-                  )
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(_vm._s(_vm._f("currencyFormat")(_vm.totalIncentive())))
-              ])
-            ])
-          ],
-          2
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("minToHourMinute")(
+                              _vm.minutesDiffInTime(
+                                _vm.delivery_forms[x_index].time_in_plant,
+                                _vm.delivery_forms[x_index].time_weighed_plant
+                              )
+                            )
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(
+                              _vm._f("currencyFormat")(
+                                _vm.adjustedWeight(x_index)
+                              )
+                            ) +
+                            "\n                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("currencyFormat")(
+                              _vm.adjustedNetWeight(x_index)
+                            )
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("weightFormat")(_vm.adjustedALW(x_index))
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("currencyFormat")(
+                              _vm.adjustedALWRate(x_index)
+                            )
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("currencyFormat")(
+                              _vm.adjustedALWIncentive(x_index)
+                            )
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "button is-small is-success",
+                            on: {
+                              click: function($event) {
+                                return _vm.createDelivery(x_index)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Save\n                        "
+                            )
+                          ]
+                        )
+                      ])
+                    ]
+              ],
+              2
+            )
+          }),
+          0
         )
       ]
     )
@@ -57225,46 +57322,34 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", { staticClass: "has-background-light" }, [
-        _c("th", [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Doc. No.")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Plant Ct")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("AR Time")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Weigh Time")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Plant Wt")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("FIC")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("D/N")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Adj Time")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Adj Kg")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Adj Wt")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Adj ALW")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("ALW Rate")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("ALW Incentive")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("td", { staticClass: "has-text-white", attrs: { colspan: "14" } }, [
-        _vm._v("Total")
-      ])
+    return _c("tr", { staticClass: "has-background-light" }, [
+      _c("th", [_vm._v("Date")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Doc. No.")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Plant Ct")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("AR Time")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Weigh Time")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Plant Wt")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("FIC")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("D/N")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Adj Time")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Adj Kg")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Adj Wt")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Adj ALW")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ALW Rate")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ALW Incentive")])
     ])
   }
 ]
@@ -57343,10 +57428,84 @@ var render = function() {
       [
         _c("thead", [
           _c("tr", [
-            _c("th", {
-              staticClass: "has-text-right",
-              attrs: { colspan: "5" }
-            }),
+            _c(
+              "th",
+              { staticClass: "has-text-right", attrs: { colspan: "5" } },
+              [_vm._v("Dressing Plant")]
+            ),
+            _vm._v(" "),
+            _c(
+              "th",
+              { staticClass: "has-text-centered has-background-primary" },
+              [_vm._v(_vm._s(_vm._f("numberFormat")(_vm.totalBirds())))]
+            ),
+            _vm._v(" "),
+            _c(
+              "th",
+              { staticClass: "has-text-centered has-background-primary" },
+              [
+                _vm._v(
+                  _vm._s(
+                    _vm._f("numberFormat")(
+                      _vm.deliveries_aggregates.total_weight
+                    )
+                  )
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "th",
+              { staticClass: "has-text-centered has-background-primary" },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(
+                      _vm._f("weightFormat")(
+                        _vm.deliveries_aggregates.total_alw
+                      )
+                    )
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "th",
+              { staticClass: "has-text-centered has-background-primary" },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(
+                      _vm._f("currencyFormat")(
+                        _vm.deliveries_aggregates.total_alw_rate
+                      )
+                    )
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "th",
+              { staticClass: "has-text-centered has-background-primary" },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(
+                      _vm._f("currencyFormat")(
+                        _vm.deliveries_aggregates.total_alw_incentive
+                      )
+                    )
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("tr", [
+            _c(
+              "th",
+              { staticClass: "has-text-right", attrs: { colspan: "5" } },
+              [_vm._v("Farm")]
+            ),
             _vm._v(" "),
             _c("th", { staticClass: "has-text-centered has-background-info" }, [
               _vm._v(_vm._s(_vm._f("numberFormat")(_vm.totalBirds())))
@@ -57370,7 +57529,7 @@ var render = function() {
                 "\n                    " +
                   _vm._s(
                     _vm._f("currencyFormat")(
-                      _vm.totalIncentive() / _vm.totalBirds()
+                      _vm.totalIncentive() / _vm.totalWeight()
                     )
                   )
               )
@@ -57458,7 +57617,7 @@ var render = function() {
                               ],
                               staticClass: "input is-small",
                               attrs: {
-                                type: "text",
+                                type: "number",
                                 placeholder: "KG Net Weight"
                               },
                               domProps: {
@@ -57521,7 +57680,12 @@ var render = function() {
                 _c("td", [
                   _vm._v(
                     _vm._s(
-                      _vm._f("currencyFormat")(x.alw_rate * x.total_harvested)
+                      _vm._f("currencyFormat")(
+                        x.alw_rate *
+                          (x.truck_weighings.length > 0
+                            ? x.truck_weighings[0].kg_net_weight
+                            : 0)
+                      )
                     )
                   )
                 ])
@@ -72628,8 +72792,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

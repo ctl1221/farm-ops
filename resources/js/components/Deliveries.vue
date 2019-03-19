@@ -2,6 +2,33 @@
     <div>
         <table class="table is-bordered is-narrow is-hoverable is-fullwidth">
             <thead>
+
+                <tr>
+                    <th colspan="2" class="has-text-right">Farm</th>
+                    <th class="has-background-info">{{ totalBirds() | numberFormat }}</th>
+                    <th colspan="2"></th>
+                    <th class="has-background-info">{{ totalWeight() | currencyFormat }}</th>
+                    <th class="has-background-info">{{ totalFIC() | currencyFormat }}</th>
+                    <th colspan="3"></th>
+                    <th class="has-background-info">{{ totalAdjustedWeight() | currencyFormat }}</th>
+                    <th class="has-background-info">{{ (totalAdjustedWeight() / totalBirds()) | weightFormat  }}</th>
+                    <th class="has-background-info">{{ (totalIncentive() / totalAdjustedWeight()) | currencyFormat }}</th>
+                    <th class="has-background-info">{{ totalIncentive() | currencyFormat }}</th>
+                </tr>
+
+                <tr>
+                    <th colspan="2" class="has-text-right">Dressing Plant</th>
+                    <th class="has-background-primary">{{ totalBirds() | numberFormat }}</th>
+                    <th colspan="2"></th>
+                    <th class="has-background-primary">{{ totalWeight() | currencyFormat }}</th>
+                    <th class="has-background-primary">{{ totalFIC() | currencyFormat }}</th>
+                    <th colspan="3"></th>
+                    <th class="has-background-primary">{{ totalAdjustedWeight() | currencyFormat }}</th>
+                    <th class="has-background-primary">{{ (totalAdjustedWeight() / totalBirds()) | weightFormat  }}</th>
+                    <th class="has-background-primary">{{ (totalIncentive() / totalAdjustedWeight()) | currencyFormat }}</th>
+                    <th class="has-background-primary">{{ totalIncentive() | currencyFormat }}</th>
+                </tr>
+
                 <tr class="has-background-light">
                     <th>Date</th>
                     <th>Doc. No.</th>
@@ -27,13 +54,13 @@
 
                     <td>{{ x.date }}</td>
                     <td>RS{{ x.control_no }}</td>
-                    <td>{{ x.total_harvested }}</td>
+                    <td>{{ x.total_harvested | numberFormat }}</td>
 
                     <template v-if="x.delivery">
                         <td>{{ x.delivery.time_in_plant | timeFormat }}</td>
                         <td>{{ x.delivery.time_weighed_plant | timeFormat }}</td>
-                        <td>{{ x.delivery.kg_plant_net_weight }}</td>
-                        <td>{{ x.delivery.kg_plant_feeds_in_crop }}</td>
+                        <td>{{ x.delivery.kg_plant_net_weight | currencyFormat }}</td>
+                        <td>{{ x.delivery.kg_plant_feeds_in_crop | currencyFormat }}</td>
                         <td>{{ x.delivery.shift }}</td>
                         <td>{{ minutesDiffInTime(x.delivery.time_in_plant, x.delivery.time_weighed_plant) | minToHourMinute }}</td>
                         <td>{{ (x.delivery.kg_adjusted_net_weight - x.delivery.kg_plant_net_weight) | currencyFormat }}</td>
@@ -85,24 +112,6 @@
                             </button></td>
                     </template>
                 </tr>
-
-                <tr>
-                    <td colspan="14" class="has-text-white">Total</td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="has-background-dark"></td>
-                    <td>{{ totalBirds() }}</td>
-                    <td colspan="2" class="has-background-dark"></td>
-                    <td>{{ totalWeight() }}</td>
-                    <td>{{ totalFIC() }}</td>
-                    <td colspan="3" class="has-background-dark"></td>
-                    <td>{{ totalAdjustedWeight() | currencyFormat }}</td>
-                    <td>{{ (totalAdjustedWeight() / totalBirds()) | weightFormat  }}</td>
-                    <td>{{ (totalIncentive() / totalBirds()) | currencyFormat  }}</td>
-                    <td>{{ totalIncentive() | currencyFormat }}</td>
-                </tr>
-
-
             </tbody>
         </table>
 

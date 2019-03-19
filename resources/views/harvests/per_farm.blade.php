@@ -18,7 +18,7 @@
 
 	  	<div class="level-right">
 	  		<a href="/deliveries/farms/{{ $farm->id }}">
-	  			<button class="button is-outlined is-link">Deliveries Records</button>
+	  			<button class="button is-outlined is-primary">Deliveries Records</button>
 	  		</a>
 	  	</div>
 	</nav>
@@ -29,7 +29,8 @@
 
 	<harvests 
 		:farm="{{ $farm }}"
-		:alw_rates="{{ $alw_rates }}">
+		:alw_rates="{{ $alw_rates }}"
+		:deliveries_aggregates="{{ $deliveries_aggregates }}">
 		
 	</harvests>
 

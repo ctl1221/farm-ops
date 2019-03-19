@@ -3,16 +3,29 @@
         <table class="table is-bordered is-narrow is-hoverable is-fullwidth">
             <thead>
                 <tr>
-                    <th colspan="5" class="has-text-right"></th>
+                    <th colspan="5" class="has-text-right">Dressing Plant</th>
+                    <th class="has-text-centered has-background-primary">{{ totalBirds() | numberFormat }}</th>
+                    <th class="has-text-centered has-background-primary">{{ deliveries_aggregates.total_weight | numberFormat }}</th>
+                    <th class="has-text-centered has-background-primary">
+                        {{ deliveries_aggregates.total_alw | weightFormat }}</th>
+                    <th class="has-text-centered has-background-primary">
+                        {{ deliveries_aggregates.total_alw_rate | currencyFormat }}</th>
+                    <th class="has-text-centered has-background-primary">
+                        {{ deliveries_aggregates.total_alw_incentive | currencyFormat }}</th>
+                </tr>
+
+                <tr>
+                    <th colspan="5" class="has-text-right">Farm</th>
                     <th class="has-text-centered has-background-info">{{ totalBirds() | numberFormat }}</th>
                     <th class="has-text-centered has-background-info">{{ totalWeight() | numberFormat }}</th>
                     <th class="has-text-centered has-background-info">
                         {{ (totalWeight() / totalBirds()) | weightFormat }}</th>
                     <th class="has-text-centered has-background-info">
-                        {{ (totalIncentive() / totalBirds()) | currencyFormat }}</th>
+                        {{ (totalIncentive() / totalWeight()) | currencyFormat }}</th>
                     <th class="has-text-centered has-background-info">
                         {{ totalIncentive() | currencyFormat }}</th>
                 </tr>
+
                 <tr class="has-background-light">
                     <th>Date</th>
                     <th>Plant / Live</th>
@@ -45,7 +58,7 @@
                             </p>
                             <p class="control">
                                 <input class="input is-small"
-                                type="text" 
+                                type="number" 
                                 v-model="weighing_forms[x_index].kg_net_weight" 
                                 placeholder="KG Net Weight">
                             </p>
@@ -60,7 +73,7 @@
                     </td>
                     <td>{{ ((x.truck_weighings.length > 0 ? x.truck_weighings[0].kg_net_weight : 0) / x.total_harvested) | weightFormat }}</td>
                     <td>{{ x.alw_rate }}</td>
-                    <td>{{ (x.alw_rate * x.total_harvested) | currencyFormat }}</td>
+                    <td>{{ (x.alw_rate * (x.truck_weighings.length > 0 ? x.truck_weighings[0].kg_net_weight : 0)) | currencyFormat }}</td>
                 </tr>
 
                 <tr class="has-background-light">
@@ -141,7 +154,7 @@
 
 <script>
     export default {
-        props: ['farm','alw_rates'],
+        props: ['farm','alw_rates','deliveries_aggregates'],
         data () {
             return {
                 farm_id: '',
@@ -193,7 +206,8 @@
                     !this.control_no || 
                     !this.coops_per_truck || 
                     !this.truck_plate_no || 
-                    !this.total_harvested)
+                    !this.total_harvested || 
+                    !((this.ticket_no && this.kg_net_weight) || (!this.ticket_no && !this.kg_net_weight)))
                 {
                     return false
                 }
@@ -204,10 +218,15 @@
         methods: {
 
             initializeWeighingForms: function () {
+
+                this.weighing_forms = [];
+
                 this.harvests.forEach(function(x){
                     this.weighing_forms.push({
+                        'total_harvested': x.total_harvested,
                         'ticket_no': '',
                         'kg_net_weight': '',
+                        'harvest_id':x.id,
                     });
                 }, this);
             },
@@ -249,7 +268,11 @@
             totalIncentive: function () {
                 let total = 0;
                 this.harvests.forEach(function(x, i) {
-                    total += x.alw_rate * x.total_harvested;
+                    if(x.truck_weighings.length > 0)
+                    {
+                        total += x.alw_rate * parseFloat(x.truck_weighings[0].kg_net_weight);
+                    }
+                    
                 }, this);
 
                 return total;
@@ -270,7 +293,24 @@
                 this.coops_per_truck = ''; 
                 this.truck_plate_no = ''; 
                 this.total_harvested = '';
-            }
+                this.ticket_no= '';
+                this.kg_net_weight=0;
+            },
+
+            weigh: function(index) {
+                if(this.weighing_forms[index].kg_net_weight && this.weighing_forms[index].ticket_no)
+                {
+                    axios.post('/harvests/weigh',this.weighing_forms[index])
+                    .then(response => {
+                        this.getAllharvests();
+                    });
+                }
+                else
+                {
+                    alert('Incomplete Data');
+                }
+
+            },
         },
 
         mounted() {

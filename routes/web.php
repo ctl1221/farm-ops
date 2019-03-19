@@ -75,6 +75,7 @@ Route::post('/loadings', 'LoadingController@store');
 Route::get('/harvests/farms/{farm}', 'HarvestController@per_farm');
 Route::get('/deliveries/farms/{farm}', 'DeliveryController@per_farm');
 Route::post('/harvests', 'HarvestController@store');
+Route::post('/harvests/weigh', 'HarvestController@harvest_weigh');
 Route::post('/deliveries', 'DeliveryController@store');
 
 Route::get('/weighings/farms/{farm}/buildings/{building}', 'WeighingController@per_building');

@@ -52,5 +52,15 @@ class Farm extends Model
     {
         return $this->hasManyThrough(FeedsConsumption::class, Day::class);
     }
+
+    public function harvests ()
+    {
+        return $this->hasMany(Harvest::class);
+    }
+
+    public function deliveries ()
+    {
+        return $this->hasManyThrough(Delivery::class, Harvest::class);
+    }
     
 }

@@ -195,7 +195,7 @@ class TransactionsHarvestSeeder extends Seeder
                 'time_weighed_plant' => $weighed_array[$i],
                 'kg_plant_net_weight' => $sm_weight_array[$i],
                 'kg_plant_feeds_in_crop' => $feeds_array[$i],
-                'kg_adjusted_net_weight' => '3062.23', 
+                'kg_adjusted_net_weight' => $sm_weight_array[$i], 
                 'alw_rate' => '5.3'
             ]);
 
