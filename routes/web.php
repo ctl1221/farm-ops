@@ -39,8 +39,10 @@ Route::post('/addBuilding', function(){
 	]);
 });
 
-Route::get('/sales/{sale}', 'SalesController@show');
+Route::get('/sales/{farm}/view_ops', 'SalesController@view_ops');
+Route::get('/sales/{farm}/compare', 'SalesController@compare');
 Route::get('/sales/{farm}/create', 'SalesController@create');
+Route::post('/sales', 'SalesController@store');
 
 Route::get('/grows/start','GrowController@start');
 Route::resource('/grows','GrowController');

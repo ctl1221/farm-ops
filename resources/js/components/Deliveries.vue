@@ -40,7 +40,7 @@
                         <td>{{ x.delivery.kg_adjusted_net_weight | currencyFormat}}</td>
                         <td>{{ alw(x.delivery.kg_adjusted_net_weight, x.total_harvested) | weightFormat }}</td>
                         <td>{{ x.delivery.alw_rate | currencyFormat }}</td>
-                        <td>{{ (x.delivery.alw_rate * x.total_harvested) | currencyFormat }}</td></td>
+                        <td>{{ (x.delivery.alw_rate * x.delivery.kg_adjusted_net_weight) | currencyFormat }}</td></td>
                     </template>
 
                     <template v-else>
@@ -262,7 +262,7 @@
             },
 
             adjustedALWIncentive: function (index) {
-                return this.adjustedALWRate(index) * this.harvests[index].total_harvested;
+                return this.adjustedALWRate(index) * this.adjustedNetWeight(index);
             },
 
             totalBirds: function () {
@@ -316,7 +316,7 @@
                 let total = 0;
                 this.harvests.forEach(function(x, i) {
                     total += x.delivery ? 
-                                x.delivery.alw_rate * x.total_harvested : 
+                                x.delivery.alw_rate * x.delivery.kg_adjusted_net_weight : 
                                 this.adjustedALWIncentive(i);
                 }, this);
 

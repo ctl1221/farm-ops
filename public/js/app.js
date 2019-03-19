@@ -1994,7 +1994,7 @@ __webpack_require__.r(__webpack_exports__);
       return '0.00';
     },
     adjustedALWIncentive: function adjustedALWIncentive(index) {
-      return this.adjustedALWRate(index) * this.harvests[index].total_harvested;
+      return this.adjustedALWRate(index) * this.adjustedNetWeight(index);
     },
     totalBirds: function totalBirds() {
       var total = 0;
@@ -2027,7 +2027,7 @@ __webpack_require__.r(__webpack_exports__);
     totalIncentive: function totalIncentive() {
       var total = 0;
       this.harvests.forEach(function (x, i) {
-        total += x.delivery ? x.delivery.alw_rate * x.total_harvested : this.adjustedALWIncentive(i);
+        total += x.delivery ? x.delivery.alw_rate * x.delivery.kg_adjusted_net_weight : this.adjustedALWIncentive(i);
       }, this);
       return total;
     }
@@ -56882,7 +56882,8 @@ var render = function() {
                           _vm._v(
                             _vm._s(
                               _vm._f("currencyFormat")(
-                                x.delivery.alw_rate * x.total_harvested
+                                x.delivery.alw_rate *
+                                  x.delivery.kg_adjusted_net_weight
                               )
                             )
                           )

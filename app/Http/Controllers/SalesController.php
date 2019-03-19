@@ -42,20 +42,21 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Sales::create([
+            'farm_id' => $request->farm_id,
+            'pct_hr' => $request->pct_hr,
+            'fcr' => $request->fcr,
+            'alw' => $request->alw,
+            'age' => $request->age
+        ]);
+
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Sales  $sales
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Sales $sales)
+
+    public function compare(Farm $farm)
     {
-        //Hard Coding
-        $farm = Farm::find(1);
-        //
+
         $feeds_breakdown = DB::table('receiving_lines as first')
             ->join('feeds as third','third.id','=','first.material_id' )
             ->join('receivings as second','second.id','=','first.receiving_id' )
@@ -68,7 +69,7 @@ class SalesController extends Controller
             return $carry += $value->pivot->birds_started;
         });
 
-        return view('sales.show', compact('farm', 'quantity_started','feeds_breakdown'));
+        return view('sales.compare', compact('farm', 'quantity_started','feeds_breakdown'));
     }
 
     /**
