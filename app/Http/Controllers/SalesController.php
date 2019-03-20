@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Farm;
 use App\Sales;
+use App\TruckWeighing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,7 +48,39 @@ class SalesController extends Controller
             'pct_hr' => $request->pct_hr,
             'fcr' => $request->fcr,
             'alw' => $request->alw,
-            'age' => $request->age
+            'bpi' => $request->bpi,
+            'age' => $request->age,
+            'gross_birds_received' => $request->gross_birds_received,
+            'birds_adjustment' => $request->birds_adjustment,
+            'net_birds_received' => $request->net_birds_received,
+            'birds_harvested' => $request->birds_harvested,
+            'gross_weight' => $request->gross_weight,
+            'staging_adjustment' => $request->staging_adjustment,
+            'net_weight' => $request->net_weight,
+            'feed_in_crop' => $request->feed_in_crop,
+            'IBFP' => $request->IBFP,
+            'IBGP' => $request->IBGP,
+            'IBSC' => $request->IBSC,
+            'ICBC' => $request->ICBC,
+            'alw_fee' => $request->alw_fee,
+            'fcr_rate' => $request->fcr_rate,
+            'hr_rate' => $request->hr_rate,
+            'bpi_rate' => $request->bpi_rate,
+            'fcri_rate' => $request->fcri_rate,
+            'class_a_fee' => $request->class_a_fee,
+            'growing_defectives_rate' => $request->growing_defectives_rate,
+            'hauling_defectives_rate' => $request->hauling_defectives_rate,
+            'lpg_rate' => $request->lpg_rate,
+            'incentive_1_rate' => $request->incentive_1_rate,
+            'incentive_2_rate' => $request->incentive_2_rate,
+            'power_subsidy' => $request->power_subsidy,
+            'vetmed_disinfectant_rebate' => $request->vetmed_disinfectant_rebate,
+            'total_growers_fee' => $request->total_growers_fee,
+            'dob_vaccination' => $request->dob_vaccination,
+            'depletion' => $request->depletion,
+            'fly_charges_rate' => $request->fly_charges_rate,
+            'total_chargeable' => $request->total_chargeable,
+            'net_growers_fee' => $request->net_growers_fee,
         ]);
 
         return back();
@@ -69,7 +102,39 @@ class SalesController extends Controller
             return $carry += $value->pivot->birds_started;
         });
 
-        return view('sales.compare', compact('farm', 'quantity_started','feeds_breakdown'));
+        $birds_harvested = $farm->harvests->reduce(function ($carry, $value){
+            return $carry += $value->total_harvested;
+        });
+
+        $birds_weight = $farm->harvests->reduce(function ($carry, $value){
+            return $carry += $value->truck_weighings ? $value->truck_weighings[0]->kg_net_weight : 0;
+        });
+
+        $alw_fee = $farm->harvests->reduce(function ($carry, $value){
+            return $carry += $value->truck_weighings ? $value->truck_weighings[0]->kg_net_weight * $value->alw_rate : 0;
+        });
+
+        $alw = $birds_weight / $birds_harvested;
+
+        $pct_hr = $birds_harvested / $quantity_started * 100;
+
+        $hr_rate = DB::table('HR_rates')->where('start', '<=', $pct_hr)->where('end','>=', $pct_hr)->first()->rate;
+
+        $hr_fee = $hr_rate * $birds_harvested;
+
+        $feeds_consumption = $farm->feeds_consumptions->sum('quantity');
+
+        $fcr = ($feeds_consumption * 50) / ($birds_harvested * $alw);
+
+        $fcr_rate = DB::table('FCR_rates')->where('start', '<=', $fcr)->where('end','>=', $fcr)->first()->rate;
+
+        $fcr_fee = $fcr_rate * $birds_harvested;
+
+        $fcri_rate = DB::table('FCRi_rates')->where('start', '<=', $fcr)->where('end','>=', $fcr)->first()->rate;
+
+        $fcri_fee = $fcri_rate * $birds_harvested;
+
+        return view('sales.compare', compact('farm', 'quantity_started','feeds_breakdown', 'birds_harvested', 'birds_weight','alw_fee','alw', 'pct_hr', 'fcr', 'fcr_fee', 'fcri_fee','hr_fee'));
     }
 
     /**

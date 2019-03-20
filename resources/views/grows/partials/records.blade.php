@@ -55,7 +55,7 @@
 						<td class="has-text-centered">
 							<a :href="'/sales/' + farm.id + '/create'">Create SM Liquidation</a>&nbsp;
 							<a :href="'/sales/' + farm.id + '/compare'">Compare</a>&nbsp;
-							<a :href="'/sales/' + farm.id + '/view_ops'">View 8Star Calculations</a>&nbsp;
+							<a :href="'/sales/' + farm.id + '/view_ops'">View 8Star</a>&nbsp;
 						</td>
 					</tr>
 				</tbody>

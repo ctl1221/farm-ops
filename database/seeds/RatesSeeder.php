@@ -971,7 +971,7 @@ class RatesSeeder extends Seeder
 
         DB::table('HR_rates')->insert([
             'start' => 98.51,
-            'end' => 100.00,
+            'end' => 200.00,
             'rate' => 3.50
         ]); 
     }

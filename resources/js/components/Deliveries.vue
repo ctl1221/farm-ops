@@ -67,7 +67,7 @@
                         <td>{{ x.delivery.kg_adjusted_net_weight | currencyFormat}}</td>
                         <td>{{ alw(x.delivery.kg_adjusted_net_weight, x.total_harvested) | weightFormat }}</td>
                         <td>{{ x.delivery.alw_rate | currencyFormat }}</td>
-                        <td>{{ (x.delivery.alw_rate * x.delivery.kg_adjusted_net_weight) | currencyFormat }}</td></td>
+                        <td>{{ (x.delivery.alw_rate * x.total_harvested * alw(x.delivery.kg_adjusted_net_weight, x.total_harvested)) | currencyFormat }}</td></td>
                     </template>
 
                     <template v-else>
@@ -235,7 +235,7 @@
             },
 
             alw: function (weight , count) {
-                return weight / count;
+                return (weight / count).toFixed(3);
             },
 
             createDelivery: function (index) {
@@ -325,8 +325,9 @@
                 let total = 0;
                 this.harvests.forEach(function(x, i) {
                     total += x.delivery ? 
-                                x.delivery.alw_rate * x.delivery.kg_adjusted_net_weight : 
-                                this.adjustedALWIncentive(i);
+                        x.delivery.alw_rate * x.total_harvested * 
+                        this.alw(x.delivery.kg_adjusted_net_weight, x.total_harvested) : 
+                        this.adjustedALWIncentive(i);
                 }, this);
 
                 return total;

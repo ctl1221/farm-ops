@@ -33,33 +33,33 @@
   			hr_rates: {!! $hr_rates !!},
   			bpi_rates: {!! $bpi_rates !!},
   			fcri_rates: {!! $fcri_rates !!},
-  			gross_birds_received:98892,
-  			birds_adjustments:100,
-  			birds_harvested:95459,
-  			gross_weight:190945.13,
-  			staging_adjustment:0,
-  			feed_in_crop:59.50,
-  			IBFP:3013,
-  			IBGP:1950,
-  			IBSC:900,
-  			ICBC:400,
-  			age:33.62,
-  			alw_fee:1007340.59,
+  			gross_birds_received:98910,
+  			birds_adjustment:100,
+  			birds_harvested:94945,
+  			gross_weight:180881.59,
+  			staging_adjustment:465.94,
+  			feed_in_crop:223.70,
+  			IBFP:1306,
+  			IBGP:2342,
+  			IBSC:1384,
+  			ICBC:856,
+  			age:32.21,
+  			alw_fee:961099.85,
   			class_a_fee:0.00,
   			growing_defectives_rate:0.00,
   			hauling_defectives_rate:0.00,
   			lpg_rate:0.50,
   			incentive_1_rate:0.00,
   			incentive_2_rate:0.00,
-  			power_subsidy:47729.50,
-  			vetmed_disinfectant_rebate:63479.50,
-  			dob_vaccination:75918.68,
-  			depletion:0.00,
+  			power_subsidy:0,
+  			vetmed_disinfectant_rebate:47472.50,
+  			dob_vaccination:62543.66,
+  			depletion:4065,
   			fly_charges_rate:0.00,
   		},
   		computed: {
   			net_birds_received: function(){
-  				return this.gross_birds_received - this.birds_adjustments;
+  				return this.gross_birds_received - this.birds_adjustment;
   			},
 
   			pct_hr: function(){
@@ -67,7 +67,7 @@
   			},
 
   			net_weight: function(){
-  				return this.gross_weight - this.staging_adjustment;
+  				return this.gross_weight + this.staging_adjustment;
   			},
 
   			total_feeds_bags: function(){
@@ -168,8 +168,40 @@
   					fcr: this.fcr,
   					alw: this.alw,
   					age: this.age,
+            gross_birds_received: this.gross_birds_received,
+            birds_adjustment: this.birds_adjustment,
+            net_birds_received: this.net_birds_received,
+            birds_harvested: this.birds_harvested,
+            gross_weight: this.gross_weight,
+            staging_adjustment: this.staging_adjustment,
+            net_weight: this.net_weight,
+            feed_in_crop: this.feed_in_crop,
+            IBFP: this.IBFP,
+            IBGP: this.IBGP,
+            IBSC: this.IBSC,
+            ICBC: this.ICBC,
+            bpi: this.bpi,
+            alw_fee: this.alw_fee,
+            fcr_rate: this.fcr_rate,
+            hr_rate: this.hr_rate,
+            bpi_rate: this.bpi_rate,
+            fcri_rate: this.fcri_rate,
+            class_a_fee: this.class_a_fee,
+            growing_defectives_rate: this.growing_defectives_rate,
+            hauling_defectives_rate: this.hauling_defectives_rate,
+            lpg_rate: this.lpg_rate,
+            incentive_1_rate: this.incentive_1_rate,
+            incentive_2_rate: this.incentive_2_rate,
+            power_subsidy: this.power_subsidy,
+            vetmed_disinfectant_rebate: this.vetmed_disinfectant_rebate,
+            total_growers_fee: this.total_growers_fee,
+            dob_vaccination: this.dob_vaccination,
+            depletion: this.depletion,
+            fly_charges_rate: this.fly_charges_rate,
+            total_chargeable: this.total_chargeable,
+            net_growers_fee: this.net_growers_fee,
   				}
-  				).then(response => window.location.href = '/grows/{{ $farm->grow->id }}#records');
+  				).then(response => window.location.href = '/grows/{{ $farm->grow->id }}#records').catch(errors => console.log(errors));
   			}
   		}
   	});

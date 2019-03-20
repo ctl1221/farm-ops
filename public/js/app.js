@@ -1972,7 +1972,7 @@ __webpack_require__.r(__webpack_exports__);
       return parseFloat(adj_net_weight) / parseInt(bird_count);
     },
     alw: function alw(weight, count) {
-      return weight / count;
+      return (weight / count).toFixed(3);
     },
     createDelivery: function createDelivery(index) {
       var _this2 = this;
@@ -2036,7 +2036,7 @@ __webpack_require__.r(__webpack_exports__);
     totalIncentive: function totalIncentive() {
       var total = 0;
       this.harvests.forEach(function (x, i) {
-        total += x.delivery ? x.delivery.alw_rate * x.delivery.kg_adjusted_net_weight : this.adjustedALWIncentive(i);
+        total += x.delivery ? x.delivery.alw_rate * x.total_harvested * this.alw(x.delivery.kg_adjusted_net_weight, x.total_harvested) : this.adjustedALWIncentive(i);
       }, this);
       return total;
     }
@@ -57040,7 +57040,11 @@ var render = function() {
                           _vm._s(
                             _vm._f("currencyFormat")(
                               x.delivery.alw_rate *
-                                x.delivery.kg_adjusted_net_weight
+                                x.total_harvested *
+                                _vm.alw(
+                                  x.delivery.kg_adjusted_net_weight,
+                                  x.total_harvested
+                                )
                             )
                           )
                         )
@@ -72792,8 +72796,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

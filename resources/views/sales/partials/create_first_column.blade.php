@@ -10,7 +10,7 @@
 	
 	<tr>
 		<td colspan="2" class="has-text-right">DOB/Bird Adjustment</td>
-		<td><input class="input is-small has-text-right" style="padding-right:2rem" type="number" v-model="birds_adjustments"></td>
+		<td><input class="input is-small has-text-right" style="padding-right:2rem" type="number" v-model="birds_adjustment"></td>
 	</tr>
 
 	<tr>	
