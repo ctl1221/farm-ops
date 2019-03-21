@@ -17,7 +17,7 @@ use App\Company;
 
 class APIController extends Controller
 {
-
+    
     public function getAllFeeds()
     {
         $feeds = Feed::all();
@@ -105,4 +105,5 @@ class APIController extends Controller
 
         return $employee_assignments;
     }
+
 }

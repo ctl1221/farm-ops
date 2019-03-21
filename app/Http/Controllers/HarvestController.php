@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\DB;
 
 class HarvestController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function per_farm(Farm $farm)
     {
         $d_total_incentive = 0;

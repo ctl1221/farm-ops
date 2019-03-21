@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\DB;
 class InvoiceController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create(Farm $farm)
     {
         $suppliers = Company::where('is_supplier', '=', true)->get();

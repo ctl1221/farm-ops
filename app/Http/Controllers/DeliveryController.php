@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 class DeliveryController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function per_farm(Farm $farm)
     {
 

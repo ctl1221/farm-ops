@@ -45,12 +45,8 @@
     <div class="navbar-end">
         <div class="navbar-item">
             <div class="buttons">
-                <a class="button is-primary">
-                    <strong>Sign up</strong>
-                </a>
-          
-                <a class="button is-light">
-                    Log in
+                <a class="button is-primary" @click="logout">
+                    <strong>Log Out</strong>
                 </a>
             </div>
         </div>
@@ -72,6 +68,10 @@
         },
 
         methods: {
+            logout: function() {
+                axios.post('/logout').then(response => window.location.href = "/grows" );
+            },
+
             hideOpsDropdown: _.throttle(function() {
                 this.ops_dropdown = false;
                 //console.log('throttling 2secs');

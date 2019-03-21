@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\DB;
 
 class GrowController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $grows = Grow::all();

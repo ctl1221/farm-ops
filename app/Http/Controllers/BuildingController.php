@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 class BuildingController extends Controller
 {
     
+   public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function updateBirdStarted(Request $request)
     {
         $current_farm = Farm::find($request->farm_id);

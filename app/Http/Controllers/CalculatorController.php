@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 class CalculatorController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function input_feeds()
     {
     	return view('calculators.feeds');

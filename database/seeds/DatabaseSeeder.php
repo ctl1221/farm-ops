@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TransactionsDailySeeder::class);
         $this->call(TransactionsHarvestSeeder::class);
         $this->call(RatesSeeder::class);
+        $this->call(UsersSeeder::class);
         
         //$this->call(TransactionsSeeder::class);
     }

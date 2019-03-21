@@ -3053,10 +3053,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3066,6 +3062,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    logout: function logout() {
+      axios.post('/logout').then(function (response) {
+        return window.location.href = "/grows";
+      });
+    },
     hideOpsDropdown: _.throttle(function () {
       this.ops_dropdown = false; //console.log('throttling 2secs');
     }, 100),
@@ -59042,7 +59043,20 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "navbar-end" }, [
+            _c("div", { staticClass: "navbar-item" }, [
+              _c("div", { staticClass: "buttons" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "button is-primary",
+                    on: { click: _vm.logout }
+                  },
+                  [_c("strong", [_vm._v("Log Out")])]
+                )
+              ])
+            ])
+          ])
         ]
       )
     ]
@@ -59061,24 +59075,6 @@ var staticRenderFns = [
           height: "28"
         }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "navbar-end" }, [
-      _c("div", { staticClass: "navbar-item" }, [
-        _c("div", { staticClass: "buttons" }, [
-          _c("a", { staticClass: "button is-primary" }, [
-            _c("strong", [_vm._v("Sign up")])
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "button is-light" }, [
-            _vm._v("\n                    Log in\n                ")
-          ])
-        ])
-      ])
     ])
   }
 ]

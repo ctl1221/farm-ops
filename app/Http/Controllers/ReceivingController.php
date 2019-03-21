@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\DB;
 class ReceivingController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function per_farm(Farm $farm)
     {
         //$feeds = Feed::all();

@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\DB;
 
 class DayController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function per_farm(Farm $farm)
     { 
         $days = Day::where('farm_id','=',$farm->id)->orderBy('day','desc')->get();
