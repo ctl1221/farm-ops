@@ -68,4 +68,16 @@ class Farm extends Model
         return $this->hasOne(Sales::class);
     }
 
+    public function days ()
+    {
+        return $this->hasMany(Day::class);
+    }
+
+    public function feeds_breakdown($feed_type)
+    {
+        $day_ids = $this->days->whereBetween('day',config('default.feeds_consumed_days_breakdown')[$feed_type])->pluck('id')->toArray();
+
+        return $this->feeds_consumptions->whereIn('day_id',$day_ids)->sum('quantity'); 
+    }
+
 }

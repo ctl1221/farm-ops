@@ -41,7 +41,7 @@ class APIController extends Controller
 
     public function getFarmsOfGrow(Grow $grow)
     {
-        $farms = Farm::where('grow_id',$grow->id)->with('buildings')->get();
+        $farms = Farm::where('grow_id',$grow->id)->with('buildings','sales')->get();
 
         return $farms;
     }

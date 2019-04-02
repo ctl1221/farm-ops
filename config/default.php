@@ -10,4 +10,5 @@ return [
     'material_types' => ['Feed','Medicine','Disinfectant'],	
     'delayed_plant_weighing_pct' => ['D' => 0.0056, 'N' => 0.0046],
     'delayed_plant_weighing_treshold' => ['D' => 1, 'N' => 2],
+    'feeds_consumed_days_breakdown' => ['ICBC' => [1, 12], 'IBSC' => [13, 20], 'IBGP' => [21, 26], 'IBFP' => [27, 50]],
 ];

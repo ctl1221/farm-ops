@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         Barryvdh\DomPDF\ServiceProvider::class,
-
+        Yajra\Acl\AclServiceProvider::class,
         /*
          * Application Service Providers...
          */

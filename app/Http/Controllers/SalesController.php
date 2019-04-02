@@ -91,14 +91,14 @@ class SalesController extends Controller
     public function compare(Farm $farm)
     {
 
-        $feeds_breakdown = DB::table('receiving_lines as first')
-            ->join('feeds as third','third.id','=','first.material_id' )
-            ->join('receivings as second','second.id','=','first.receiving_id' )
-            ->select(DB::raw('third.description, sum(quantity) as total'))
-            ->where('first.material_type','App\\Feed')
-            ->where('second.farm_id',$farm->id)
-            ->groupBy('third.description')->get();
-
+        // $feeds_breakdown = DB::table('receiving_lines as first')
+        //     ->join('feeds as third','third.id','=','first.material_id' )
+        //     ->join('receivings as second','second.id','=','first.receiving_id' )
+        //     ->select(DB::raw('third.description, sum(quantity) as total'))
+        //     ->where('first.material_type','App\\Feed')
+        //     ->where('second.farm_id',$farm->id)
+        //     ->groupBy('third.description')->get();
+        
         $quantity_started = $farm->buildings->reduce(function ($carry, $value){
             return $carry += $value->pivot->birds_started;
         });

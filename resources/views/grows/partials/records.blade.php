@@ -39,7 +39,10 @@
 
 					<th class="has-text-centered"><i class="fas fa-file-invoice-dollar"></i></th>
 
+					@canAtLeast(['sales_manager.ABC'])
 					<th class="has-text-centered"><i class="fas fa-money-check-alt"></i></th>
+					@endCanAtLeast
+
 				</thead>
 
 				<tbody>
@@ -52,11 +55,13 @@
 						<td class="has-text-centered"><a :href="'/deliveries/farms/' + farm.id">View</a></td>
 						<td class="has-text-centered"><a :href="'/receivings/farms/' + farm.id">View</a></td>
 						<td class="has-text-centered"><a :href="'/invoices/farms/' + farm.id">View</a></td>
+						@can('ABC')
 						<td class="has-text-centered">
-							<a :href="'/sales/' + farm.id + '/create'">Create SM Liquidation</a>&nbsp;
-							<a :href="'/sales/' + farm.id + '/compare'">Compare</a>&nbsp;
+							<a :href="'/sales/' + farm.id + '/create'" v-if="! farm.sales">Create SM Liquidation</a>&nbsp;
+							<a :href="'/sales/' + farm.id + '/compare'" v-if="farm.sales">Compare</a>&nbsp;
 							<a :href="'/sales/' + farm.id + '/view_ops'">View 8Star</a>&nbsp;
 						</td>
+						@endcan
 					</tr>
 				</tbody>
 			</table>
