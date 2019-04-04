@@ -39,8 +39,8 @@
 
 					<th class="has-text-centered"><i class="fas fa-file-invoice-dollar"></i></th>
 
-					@canAtLeast(['sales_manager.ABC'])
-					<th class="has-text-centered"><i class="fas fa-money-check-alt"></i></th>
+					@canAtLeast(['sales_record.view'])
+						<th class="has-text-centered"><i class="fas fa-money-check-alt"></i></th>
 					@endCanAtLeast
 
 				</thead>
@@ -55,13 +55,15 @@
 						<td class="has-text-centered"><a :href="'/deliveries/farms/' + farm.id">View</a></td>
 						<td class="has-text-centered"><a :href="'/receivings/farms/' + farm.id">View</a></td>
 						<td class="has-text-centered"><a :href="'/invoices/farms/' + farm.id">View</a></td>
-						@can('ABC')
+						@canAtLeast(['sales_record.view'])
 						<td class="has-text-centered">
+							@canAtLeast(['sales_record.create'])
 							<a :href="'/sales/' + farm.id + '/create'" v-if="! farm.sales">Create SM Liquidation</a>&nbsp;
+							@canAtLeast(['sales_record.create'])
 							<a :href="'/sales/' + farm.id + '/compare'" v-if="farm.sales">Compare</a>&nbsp;
 							<a :href="'/sales/' + farm.id + '/view_ops'">View 8Star</a>&nbsp;
 						</td>
-						@endcan
+						@endCanAtLeast
 					</tr>
 				</tbody>
 			</table>

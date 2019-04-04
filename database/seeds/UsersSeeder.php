@@ -1,16 +1,14 @@
 <?php
 
 use App\User;
+use App\Role;
+use App\Permission;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class UsersSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     public function run()
     {
         $user1 = User::create([
@@ -25,44 +23,37 @@ class UsersSeeder extends Seeder
             'password' => bcrypt('coops'),
         ]);
 
-        $ops = DB::table('roles')->insert([
-            'name' => 'Operations', 
-            'slug' => 'operations',
+        $admin = DB::table('roles')->insert([
+            'name' => 'Administrator', 
+            'slug' => 'admin',
         ]);
 
-        $sales_manager = DB::table('roles')->insert([
-            'name' => 'Sales Manager', 
-            'slug' => 'sales_manager',
+        $ops_encoder = Role::create([
+            'name' => 'Operations Encoder',
+            'slug' => 'ops_encoder',
         ]);
 
-        $sales_employee = DB::table('roles')->insert([
-            'name' => 'Sales Employee', 
-            'slug' => 'sales_employee',
+        $sales_encoder = Role::create([
+            'name' => 'Sales Encoder',
+            'slug' => 'sales_encoder',
         ]);
 
-        $management = DB::table('roles')->insert([
-            'name' => 'Management', 
-            'slug' => 'management',
+        $sales_record_view = Permission::create([
+            'name' => 'View Sales Records',
+            'slug' => 'sales_record.view',
         ]);
 
-        DB::table('role_user')->insert([
-            'role_id' => 2,
-            'user_id' => 1,
+        $sales_record_create = Permission::create([
+            'name' => 'Create Sales Records',
+            'slug' => 'sales_record.create',
         ]);
 
-        DB::table('role_user')->insert([
-            'role_id' => 1,
-            'user_id' => 2,
-        ]);
+        $sales_encoder->permissions()->attach($sales_record_view);
+        $sales_encoder->permissions()->attach($sales_record_create);
 
-        DB::table('permissions')->insert([
-            'name' => 'ABC',
-            'slug' => 'abc',
-        ]);
+        $user1->roles()->attach($sales_encoder);
+        $user2->roles()->attach($ops_encoder);
 
-        DB::table('permission_role')->insert([
-            'permission_id' => 1,
-            'role_id' => 2,
-        ]);
+        
     }
 }

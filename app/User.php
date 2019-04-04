@@ -11,6 +11,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     use HasRole;
+   // use AuthorizesPermissionResource;
 
     /**
      * The attributes that are mass assignable.
@@ -29,4 +30,5 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
 }
