@@ -15,11 +15,12 @@ class CreatePaySlipsTable extends Migration
     {
         Schema::create('pay_slips', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('payroll_id');
             $table->unsignedInteger('employee_id');
+            $table->date('date_bill');
+            $table->date('period_start');
+            $table->date('period_end');
             $table->double('amount');
             $table->string('reference');
-            $table->unsignedInteger('days_absent');
             $table->timestamps();
         });
     }

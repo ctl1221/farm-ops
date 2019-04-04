@@ -57,9 +57,9 @@
 						<td class="has-text-centered"><a :href="'/invoices/farms/' + farm.id">View</a></td>
 						@canAtLeast(['sales_record.view'])
 						<td class="has-text-centered">
-							@canAtLeast(['sales_record.create'])
+							{{-- @canAtLeast(['sales_record.create']) --}}
 							<a :href="'/sales/' + farm.id + '/create'" v-if="! farm.sales">Create SM Liquidation</a>&nbsp;
-							@canAtLeast(['sales_record.create'])
+							{{-- @canAtLeast(['sales_record.create']) --}}
 							<a :href="'/sales/' + farm.id + '/compare'" v-if="farm.sales">Compare</a>&nbsp;
 							<a :href="'/sales/' + farm.id + '/view_ops'">View 8Star</a>&nbsp;
 						</td>

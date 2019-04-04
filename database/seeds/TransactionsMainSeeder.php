@@ -17,7 +17,8 @@ class TransactionsMainSeeder extends Seeder
         //Grow
         $grow = Grow::create([
         	'cycle' => 'Grow 2018-07',
-        	'date_start' => '2018-10-23'
+        	'date_start' => '2018-10-23',
+            'date_end' => '2018-10-30',
         ]);
 
         //Farm A

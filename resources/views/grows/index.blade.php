@@ -31,36 +31,22 @@
 
 @section('content')
 
-	<div class="columns is-multiline">
-		@foreach($grows as $x)
-		<div class="column is-6-tablet is-4-desktop is-3-widescreen">
-           	<article class="box">
-	            <p class="title is-5 is-marginless" style="padding-bottom: 0.5rem">
-	                <a href="/grows/{{ $x->id }}">{{ $x->cycle }} : {{ $x->date_start }}</a>
-	            </p>
-
-                <div class="media" style="justify-content: center; align-items: center">
-            	    <div class="media-left">
-	                    <h1 class="subtitle is-1 has-background-primary" style="padding-left: 0.5rem; padding-right: 0.5rem; border-radius: 10px">75</h1>	
-				    </div>
-	                <div class="media-content">
-	                    <p class="subtitle is-6 is-marginless"> </p>
-	                    <div class="content is-small">
-	                      Sales: 
-	                      <br>
-	                      Cost:
-	                      <br>
-	                      <a href="user.html">Edit</a>
-	                      <span>·</span>
-	                      <a>Delete</a>
-	                    <p></p>
-	                  </div>
-	                </div>
-              	</div>
-          	</article>
-        </div>
-        @endforeach
-    </div>
+	<table class="table is-bordered is-striped">
+		<thead>
+			<th>Cycle</th>
+			<th>Start</th>
+			<th>End</th>
+			<th>Status</th>
+		</thead>
+			@foreach($grows as $grow)
+				<tr>
+					<td><a href="/grows/{{ $grow->id }}">{{ $grow->cycle }}</a></td>
+					<td>{{ $grow->date_start }}</td>
+					<td>{{ $grow->date_end }}</td>
+					<td>{{ $grow->is_complete ? 'Complete' : 'Open' }}</td>
+				</tr>
+			@endforeach
+	</table>
 
 @endsection
 

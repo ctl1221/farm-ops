@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Electricity;
 use App\Employee;
+use App\PaySlip;
+use App\UtilityBill;
+use Illuminate\Database\Seeder;
 
 class EmployeesSeeder extends Seeder
 {
@@ -81,5 +84,191 @@ class EmployeesSeeder extends Seeder
             'last_name' => 'Downey',
             'display_name' => 'Robert Downey',
         ]);
+
+        PaySlip::create([
+            'employee_id' => 1,
+            'date_bill' => '2018-11-01',
+            'period_start' => '2018-10-23',
+            'period_end' => '2018-10-31',
+            'amount' => 8888.88,
+            'reference' => '0150',
+        ]);
+
+        PaySlip::create([
+            'employee_id' => 2,
+            'date_bill' => '2018-11-02',
+            'period_start' => '2018-10-23',
+            'period_end' => '2018-10-31',
+            'amount' => 9998.88,
+            'reference' => '0151',
+        ]);
+
+        PaySlip::create([
+            'employee_id' => 3,
+            'date_bill' => '2018-11-02',
+            'period_start' => '2018-10-23',
+            'period_end' => '2018-10-31',
+            'amount' => 5555.44,
+            'reference' => '0152',
+        ]);
+
+
+        PaySlip::create([
+            'employee_id' => 4,
+            'date_bill' => '2018-11-03',
+            'period_start' => '2018-10-25',
+            'period_end' => '2018-10-31',
+            'amount' => 3333.44,
+            'reference' => '0153',
+        ]);
+
+        PaySlip::create([
+            'employee_id' => 5,
+            'date_bill' => '2018-11-04',
+            'period_start' => '2018-10-25',
+            'period_end' => '2018-10-31',
+            'amount' => 2225.55,
+            'reference' => '0154',
+        ]);
+
+        PaySlip::create([
+            'employee_id' => 7,
+            'date_bill' => '2018-11-04',
+            'period_start' => '2018-11-25',
+            'period_end' => '2018-11-30',
+            'amount' => 2225.55,
+            'reference' => '0154',
+        ]);
+
+        PaySlip::create([
+            'employee_id' => 8,
+            'date_bill' => '2018-11-04',
+            'period_start' => '2018-12-25',
+            'period_end' => '2018-12-30',
+            'amount' => 2225.55,
+            'reference' => '0154',
+        ]);
+
+        PaySlip::create([
+            'employee_id' => 9,
+            'date_bill' => '2018-11-04',
+            'period_start' => '2018-10-23',
+            'period_end' => '2018-10-30',
+            'amount' => 1000,
+            'reference' => '0154',
+        ]);
+
+        PaySlip::create([
+            'employee_id' => 7,
+            'date_bill' => '2018-11-04',
+            'period_start' => '2018-10-24',
+            'period_end' => '2018-10-25',
+            'amount' => 2000,
+            'reference' => '0154',
+        ]);
+
+        PaySlip::create([
+            'employee_id' => 1,
+            'date_bill' => '2018-11-04',
+            'period_start' => '2018-10-20',
+            'period_end' => '2018-10-25',
+            'amount' => 5000,
+            'reference' => '0154',
+        ]);
+
+        Electricity::create([
+            'kwh' => 5,
+        ]);
+
+        UtilityBill::create([
+            'period_start' => '2018-10-23',
+            'period_end' => '2018-10-31',
+            'amount' => 8888.88,
+            'supplier_id' => 1,
+            'utility_type' => 'App\\Electricity',
+            'utility_id' => 1,
+        ]);
+
+        UtilityBill::create([
+            'period_start' => '2018-10-23',
+            'period_end' => '2018-10-31',
+            'amount' => 9998.88,
+            'supplier_id' => 1,
+            'utility_type' => 'App\\Electricity',
+            'utility_id' => 1,
+        ]);
+
+        UtilityBill::create([
+            'period_start' => '2018-10-23',
+            'period_end' => '2018-10-31',
+            'amount' => 5555.44,
+            'supplier_id' => 1,
+            'utility_type' => 'App\\Electricity',
+            'utility_id' => 1,
+        ]);
+
+        UtilityBill::create([    
+            'period_start' => '2018-10-25',
+            'period_end' => '2018-10-31',
+            'amount' => 3333.44,
+            'supplier_id' => 1,
+            'utility_type' => 'App\\Electricity',
+            'utility_id' => 1,
+        ]);
+
+        UtilityBill::create([
+            'period_start' => '2018-10-25',
+            'period_end' => '2018-10-31',
+            'amount' => 2225.55,
+            'supplier_id' => 1,
+            'utility_type' => 'App\\Electricity',
+            'utility_id' => 1,
+        ]);
+
+        UtilityBill::create([
+            'period_start' => '2018-11-25',
+            'period_end' => '2018-11-30',
+            'amount' => 2225.55,
+            'supplier_id' => 1,
+            'utility_type' => 'App\\Electricity',
+            'utility_id' => 1,
+        ]);
+
+        UtilityBill::create([
+            'period_start' => '2018-12-25',
+            'period_end' => '2018-12-30',
+            'amount' => 2225.55,
+            'supplier_id' => 1,
+            'utility_type' => 'App\\Electricity',
+            'utility_id' => 1,
+        ]);
+
+        UtilityBill::create([
+            'period_start' => '2018-10-23',
+            'period_end' => '2018-10-30',
+            'amount' => 1000,
+            'supplier_id' => 1,
+            'utility_type' => 'App\\Electricity',
+            'utility_id' => 1,
+        ]);
+
+        UtilityBill::create([
+            'period_start' => '2018-10-24',
+            'period_end' => '2018-10-25',
+            'amount' => 2000,
+            'supplier_id' => 1,
+            'utility_type' => 'App\\Electricity',
+            'utility_id' => 1,
+        ]);
+
+        UtilityBill::create([
+            'period_start' => '2018-10-20',
+            'period_end' => '2018-10-25',
+            'amount' => 5000,
+            'supplier_id' => 1,
+            'utility_type' => 'App\\Electricity',
+            'utility_id' => 1,
+        ]);
+
     }
 }

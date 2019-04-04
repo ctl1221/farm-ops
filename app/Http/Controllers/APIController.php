@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use App\Material;
+use App\Company;
+use App\Day;
+use App\Farm;
+use App\Feed;
+use App\Grow;
+use App\Harvest;
 use App\InvoiceLine;
 use App\Loading;
-use App\Harvest;
-use App\Farm;
-use App\Grow;
-use App\Feed;
-use App\Day;
+use App\Material;
+use App\PaySlip;
 use App\Receiving;
-use App\Company;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class APIController extends Controller
 {
@@ -80,6 +81,13 @@ class APIController extends Controller
             ->get();
 
         return compact('harvests');
+    }
+
+    public function getAllPaySlips()
+    {
+        $payslips = PaySlip::with('employee')->orderBy('period_start','desc')->get();
+
+        return compact('payslips');
     }
 
     public function getEmployeeAssignmentsOfGrow(Grow $grow)

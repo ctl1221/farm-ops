@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\PaySlip;
-use App\Payroll;
 use App\Employee;
 use Illuminate\Http\Request;
 
@@ -17,41 +16,29 @@ class PaySlipController extends Controller
     
     public function index()
     {
-        //
+        $employees_list = Employee::all();
+
+        return view ('payslips.index', compact('employees_list'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function store(Request $request)
     {
-        $payroll = Payroll::find($request->payroll_id);
-
-        $employee = Employee::find($request->employee_id);
-        $amount = ($employee->job->daily_salary + $employee->job->daily_allowance) * ($payroll->n_days - $request->days_absent);
-
         PaySlip::create([
-            'payroll_id' => $request->payroll_id,
             'employee_id' => $request->employee_id,
-            'amount' => $amount,
+            'amount' => $request->amount,
             'reference' => $request->reference,
-            'days_absent' => $request->days_absent,
+            'date_bill' => $request->date_bill,
+            'period_start' => $request->period_start,
+            'period_end' => $request->period_end,
         ]);
 
-        return back();
+        return "Success";
     }
 
     /**

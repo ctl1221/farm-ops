@@ -82,8 +82,6 @@ Route::get('/weighings/farms/{farm}/buildings/{building}', 'WeighingController@p
 
 Route::post('/penWeighings/{penWeighing}', 'PenWeighingController@update');
 
-
-
 Route::get('/invoices/farms/{farm}', 'InvoiceController@per_farm');
 Route::get('/invoices/farms/{farm}/create', 'InvoiceController@create');
 Route::post('/invoices', 'InvoiceController@store');
@@ -110,7 +108,6 @@ Route::get('/', function()
 
 Route::resource('/utilityBills', 'UtilityBillController');
 
-Route::resource('/payrolls', 'PayrollController');
 Route::resource('/payslips', 'PaySlipController');
 
 Route::get('/feeds_input','CalculatorController@input_feeds');
@@ -119,6 +116,7 @@ Route::post('/feeds_calculate','CalculatorController@calculate_feeds');
 Route::get('/api/getAllFeeds','APIController@getAllFeeds');
 Route::get('/api/getAllMaterials','APIController@getAllMaterials');
 Route::get('/api/getAllDressingPlants','APIController@getAllDressingPlants');
+Route::get('/api/getAllPaySlips','APIController@getAllPaySlips');
 Route::get('/api/getFarmsOfGrow/{grow}','APIController@getFarmsOfGrow');
 Route::get('/api/getReceivingsOfFarm/{farm}','APIController@getReceivingsOfFarm');
 Route::get('/api/getHarvestsOfFarm/{farm}','APIController@getHarvestsOfFarm');
