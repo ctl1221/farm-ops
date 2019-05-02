@@ -35,15 +35,15 @@ class Grow extends Model
     	return $this->hasManyThrough(Invoice::class, Farm::class);
     }
 
-    public function getDateStartAttribute($date)
-    {
-        return Carbon::parse($date)->format('M d, Y');
-    }
+    // public function getDateStartAttribute($date)
+    // {
+    //     return Carbon::parse($date)->format('M d, Y');
+    // }
 
-    public function getDateEndAttribute($date)
-    {
-        return Carbon::parse($date)->format('M d, Y');
-    }
+    // public function getDateEndAttribute($date)
+    // {
+    //     return Carbon::parse($date)->format('M d, Y');
+    // }
 
     public function sum_of_medicine_expenses()
     {
@@ -83,7 +83,7 @@ class Grow extends Model
         $period_end = $this->date_end;
 
 
-        $sql = "(SELECT * FROM utility_bills WHERE period_end >= '". $period_start . "') AS A";
+        $sql = "(SELECT * FROM billings WHERE period_end >= '". $period_start . "') AS A";
         $table = DB::raw($sql);
 
         $test = DB::table($table)->where('period_start', '<=', $period_end)->get();

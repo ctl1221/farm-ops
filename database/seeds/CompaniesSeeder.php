@@ -19,6 +19,7 @@ class CompaniesSeeder extends Seeder
         Company::create([
         	'name' => 'Meralco',
         	'is_supplier' => true,
+            'is_biller' => true,
         ]);
 
         Company::create([

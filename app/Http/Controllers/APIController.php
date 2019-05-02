@@ -83,9 +83,12 @@ class APIController extends Controller
         return compact('harvests');
     }
 
-    public function getAllPaySlips()
+    public function getAllPaySlips(Request $request)
     {
-        $payslips = PaySlip::with('employee')->orderBy('period_start','desc')->get();
+        $payslips = PaySlip::with('employee')
+            ->whereRaw('YEAR(period_start) = ' . $request->year)
+            ->whereRaw('MONTH(period_start) = ' . $request->month)
+            ->orderBy('period_start','desc')->get();
 
         return compact('payslips');
     }

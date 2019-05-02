@@ -23,8 +23,8 @@
 
         <div class="navbar-dropdown" @mouseover="showOpsDropdown" @mouseout="hideOpsDropdown">
           <a class="navbar-item" href="/grows" >Grows</a>
-          <a class="navbar-item" href="/payrolls" >Payrolls</a>
-          <a class="navbar-item" href="/utilityBills" >Utility Bills</a>
+          <a class="navbar-item" href="/payslips" >Payslips</a>
+          <a class="navbar-item" href="/billings" >Utility Bills</a>
         </div>
 
       </div>

@@ -106,8 +106,7 @@ Route::get('/', function()
 	return $pdf->stream('test.pdf');
 });
 
-Route::resource('/utilityBills', 'UtilityBillController');
-
+Route::resource('/billings', 'BillingController');
 Route::resource('/payslips', 'PaySlipController');
 
 Route::get('/feeds_input','CalculatorController@input_feeds');

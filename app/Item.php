@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Electricity extends Model
+class Item extends Model
 {
-    protected $guarded = [];
+    //
 }

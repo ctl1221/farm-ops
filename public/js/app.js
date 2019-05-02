@@ -3053,6 +3053,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -58958,7 +58959,7 @@ var render = function() {
                       mouseout: _vm.hideOpsDropdown
                     }
                   },
-                  [_vm._v("\n                Operations\n            ")]
+                  [_vm._v("\n                    Operations\n                ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -58981,18 +58982,27 @@ var render = function() {
                       "a",
                       {
                         staticClass: "navbar-item",
-                        attrs: { href: "/payrolls" }
+                        attrs: { href: "/billings" }
                       },
-                      [_vm._v("Payrolls")]
+                      [_vm._v("Billings")]
                     ),
                     _vm._v(" "),
                     _c(
                       "a",
                       {
                         staticClass: "navbar-item",
-                        attrs: { href: "/utilityBills" }
+                        attrs: { href: "/expenses" }
                       },
-                      [_vm._v("Utility Bills")]
+                      [_vm._v("Expenses")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "navbar-item",
+                        attrs: { href: "/payslips" }
+                      },
+                      [_vm._v("Payslips")]
                     )
                   ]
                 )
@@ -59021,7 +59031,7 @@ var render = function() {
                       mouseout: _vm.hideAdmDropdown
                     }
                   },
-                  [_vm._v("\n              Administration\n            ")]
+                  [_vm._v("\n              Administration\n          ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -72792,8 +72802,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/laravel/Desktop/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/charleslicup/Desktop/Coding/farm-ops/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

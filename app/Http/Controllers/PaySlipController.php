@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\PaySlip;
 use App\Employee;
 use Illuminate\Http\Request;
@@ -14,11 +15,28 @@ class PaySlipController extends Controller
         $this->middleware('auth');
     }
     
-    public function index()
+    public function index(Request $request)
     {
+
+        $latest_date = Carbon::parse(Payslip::orderBy('period_start','desc')->first()->period_start);
+        $latest_year = $latest_date->year;
+        $latest_month = $latest_date->month;
+
+        if(!$request->year || !$request->month)
+
+        {
+            return redirect('/payslips?year=' . $latest_year . '&month=' . $latest_month);
+        }
+
+        else
+        {
+            $selected_year = $request->year;
+            $selected_month = $request->month;
+        }
+
         $employees_list = Employee::all();
 
-        return view ('payslips.index', compact('employees_list'));
+        return view ('payslips.index', compact('employees_list','latest_year','latest_month','selected_year','selected_month'));
     }
 
     public function create()
@@ -38,7 +56,7 @@ class PaySlipController extends Controller
             'period_end' => $request->period_end,
         ]);
 
-        return "Success";
+        return ['year' => Carbon::parse($request->period_start)->year, 'month' => Carbon::parse($request->period_start)->month];
     }
 
     /**
